@@ -1,5 +1,6 @@
 # 学习通作业/考试/待办列表 (Modified)
 ![Version](https://img.shields.io/badge/版本-1.7.0-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
 本脚本基于 [lcandy2/user.js](https://github.com/lcandy2/user.js/tree/main/websites/chaoxing.com/chaoxing-assignment) 开发，在原版基础上修复了部分显示问题，并增加了待办事项汇总和课程任务汇总功能。
