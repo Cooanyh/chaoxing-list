@@ -1511,6 +1511,22 @@
         }
 
         // 如果当前页面没有，则请求个人空间页面获取
+        const extractTextById = (html, id) => {
+          const idPattern = new RegExp(`id=["']?${id}["']?[^>]*>([^<]*)`, 'i');
+          const match = html.match(idPattern);
+          return match ? match[1].trim() : '';
+        };
+        const extractNumberById = (html, id) => {
+          const idText = extractTextById(html, id);
+          if (idText) {
+            const numeric = idText.match(/\d+(\.\d+)?/);
+            return numeric ? numeric[0] : '';
+          }
+          const loosePattern = new RegExp(`${id}[^\\d]*(\\d+(?:\\.\\d+)?)`, 'i');
+          const looseMatch = html.match(loosePattern);
+          return looseMatch ? looseMatch[1] : '';
+        };
+
         return new Promise((resolve) => {
           if (typeof GM_xmlhttpRequest !== 'undefined') {
             GM_xmlhttpRequest({
@@ -1765,30 +1781,40 @@
                 const testNumEl = studyDoc.querySelector('#testNum');
                 const publishTestNumEl = studyDoc.querySelector('#publishTestNum');
 
-                completedTasks = parseInt(completedEl?.textContent.trim() || '0', 10) || 0;
-                totalTasks = parseInt(totalEl?.textContent.trim() || '0', 10) || 0;
+                const completedText = completedEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobfinish');
+                const totalText = totalEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobPublish');
+                const percentText = percentEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobPer');
+                const rankText = rankEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobRank');
+                const pointText = pointEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'point');
+                const testNumText = testNumEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'testNum');
+                const publishTestNumText = publishTestNumEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'publishTestNum');
 
-                if (percentEl && percentEl.textContent.trim()) {
-                  const percentText = percentEl.textContent.trim();
+                completedTasks = parseInt(completedText || '0', 10) || 0;
+                totalTasks = parseInt(totalText || '0', 10) || 0;
+
+                if (percentText) {
                   completionRate = percentText.includes('%') ? percentText : `${percentText}%`;
                 } else if (totalTasks > 0) {
                   completionRate = `${Math.round((completedTasks / totalTasks) * 100)}%`;
                 }
 
-                if (rankEl && rankEl.textContent.trim()) {
-                  const rankValue = rankEl.textContent.trim();
-                  ranking = rankValue.includes('名') ? rankValue : `第${rankValue}名`;
+                if (rankText) {
+                  ranking = rankText.includes('名') ? rankText : `第${rankText}名`;
                 }
 
-                if (pointEl && pointEl.textContent.trim()) {
-                  const pointValue = pointEl.textContent.trim();
-                  courseScore = pointValue.includes('分') ? pointValue : `${pointValue}分`;
+                if (pointText) {
+                  courseScore = pointText.includes('分') ? pointText : `${pointText}分`;
                 }
 
-                if (testNumEl || publishTestNumEl) {
-                  const testNum = testNumEl?.textContent.trim() || '0';
-                  const publishTestNum = publishTestNumEl?.textContent.trim() || '0';
-                  chapterQuiz = `${testNum}/${publishTestNum}`;
+                if (testNumText || publishTestNumText) {
+                  chapterQuiz = `${testNumText || '0'}/${publishTestNumText || '0'}`;
                 }
               } catch (e) {
                 console.log('[学习记录]', course.courseName, '解析失败');
@@ -1876,6 +1902,9 @@
             courseProgressItems.value = results
               .filter(item => !item.shouldFilter) // 过滤掉标记为需要过滤的课程
               .sort((a, b) => {
+                const aHasTasks = a.totalTasks > 0;
+                const bHasTasks = b.totalTasks > 0;
+                if (aHasTasks !== bHasTasks) return aHasTasks ? -1 : 1;
                 if (a.isComplete && !b.isComplete) return 1;
                 if (!a.isComplete && b.isComplete) return -1;
                 return parseInt(a.completionRate) - parseInt(b.completionRate);
