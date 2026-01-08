@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.5.0
+// @version      2.6.2
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.2.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊。
 // @license      AGPL-3.0-or-later
@@ -1697,16 +1697,121 @@
                   const unfinishedElements = doc.querySelectorAll('.catalog_jindu.catalog_tishi120');
                   const unfinishedCount = unfinishedElements.length;
 
-                  resolve({
-                    ...course,
-                    totalTasks,
-                    completedTasks,
-                    completionRate,
-                    unfinishedTasks: [],
-                    unfinishedCount,
-                    studyDataUrl: courseEntryUrl,
-                    isComplete: completedTasks >= totalTasks,
-                    shouldFilter // 返回过滤标记
+                  // 获取学习记录详情（课程积分、章节测验、排名、视频观看等）
+                  const studyDataUrl = `https://stat2-ans.chaoxing.com/study-data/index?clazzid=${course.clazzId}&courseid=${course.courseId}&cpi=${course.cpi}&ut=s`;
+
+                  // 发起第二个请求获取学习记录详情
+                  GM_xmlhttpRequest({
+                    method: 'GET',
+                    url: studyDataUrl,
+                    timeout: 8000,
+                    onload: (studyResponse) => {
+                      let courseScore = '--';
+                      let chapterQuiz = '--';
+                      let ranking = '--';
+                      let videoWatched = '--';
+
+                      try {
+                        const studyParser = new DOMParser();
+                        const studyDoc = studyParser.parseFromString(studyResponse.responseText, 'text/html');
+
+                        // 解析学习记录页面数据
+                        // 查找综合成绩/课程积分
+                        const scoreEl = studyDoc.querySelector('.score-num, .total-score, [class*="score"]');
+                        if (scoreEl) {
+                          courseScore = scoreEl.textContent.trim() || '--';
+                        }
+
+                        // 查找视频观看时长
+                        const videoEl = studyDoc.querySelector('.video-time, .watch-time, [class*="video"] span');
+                        if (videoEl) {
+                          videoWatched = videoEl.textContent.trim() || '--';
+                        }
+
+                        // 尝试从页面文本中提取信息
+                        const pageText = studyResponse.responseText;
+
+                        // 提取排名信息
+                        const rankMatch = pageText.match(/[排名|班级排名|当前排名][：:]\s*(\d+)/);
+                        if (rankMatch) {
+                          ranking = '第' + rankMatch[1] + '名';
+                        }
+
+                        // 提取章节测验信息
+                        const quizMatch = pageText.match(/章节测验[：:]?\s*(\d+\.?\d*)\s*分?/);
+                        if (quizMatch) {
+                          chapterQuiz = quizMatch[1] + '分';
+                        }
+
+                        // 提取视频观看时长
+                        const videoMatch = pageText.match(/累计观看[：:]?\s*(\d+\.?\d*)\s*分钟/);
+                        if (videoMatch) {
+                          videoWatched = videoMatch[1] + '分钟';
+                        }
+
+                        // 提取课程积分
+                        const scoreMatch = pageText.match(/课程积分[：:]?\s*(\d+\.?\d*)/);
+                        if (scoreMatch) {
+                          courseScore = scoreMatch[1] + '分';
+                        }
+
+                        console.log('[学习记录]', course.courseName, '- 积分:', courseScore, '排名:', ranking, '视频:', videoWatched);
+                      } catch (e) {
+                        console.log('[学习记录]', course.courseName, '解析失败');
+                      }
+
+                      resolve({
+                        ...course,
+                        totalTasks,
+                        completedTasks,
+                        completionRate,
+                        unfinishedTasks: [],
+                        unfinishedCount,
+                        studyDataUrl: courseEntryUrl,
+                        isComplete: completedTasks >= totalTasks,
+                        shouldFilter,
+                        // 学习记录详情
+                        courseScore,
+                        chapterQuiz,
+                        ranking,
+                        videoWatched
+                      });
+                    },
+                    onerror: () => {
+                      // 学习记录请求失败，返回基础数据
+                      resolve({
+                        ...course,
+                        totalTasks,
+                        completedTasks,
+                        completionRate,
+                        unfinishedTasks: [],
+                        unfinishedCount,
+                        studyDataUrl: courseEntryUrl,
+                        isComplete: completedTasks >= totalTasks,
+                        shouldFilter,
+                        courseScore: '--',
+                        chapterQuiz: '--',
+                        ranking: '--',
+                        videoWatched: '--'
+                      });
+                    },
+                    ontimeout: () => {
+                      resolve({
+                        ...course,
+                        totalTasks,
+                        completedTasks,
+                        completionRate,
+                        unfinishedTasks: [],
+                        unfinishedCount,
+                        studyDataUrl: courseEntryUrl,
+                        isComplete: completedTasks >= totalTasks,
+                        shouldFilter,
+                        courseScore: '--',
+                        chapterQuiz: '--',
+                        ranking: '--',
+                        videoWatched: '--'
+                      });
+                    }
                   });
                 } catch (e) {
                   console.log('[课程进度]', course.courseName, '解析失败，使用默认值');
@@ -2512,26 +2617,98 @@
           .detail-list-item .status-info {
             min-width: 80px;
           }
-
-          /* 课程进度卡片样式 */
+          /* 课程进度卡片样式 - 占用2列 */
           .progress-card {
             min-height: 200px;
+            grid-column: span 2;
+          }
+          .progress-items-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 16px;
+            align-items: stretch;
           }
           .progress-item {
             display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f5f5f5;
+            align-items: flex-start;
+            padding: 14px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            position: relative;
+            min-height: 80px;
           }
           .progress-item:hover {
-            background: #fafafa;
-            margin: 0 -12px;
-            padding: 12px;
-            border-radius: 6px;
+            background: #f5f7fa;
+            border-color: #1890ff;
+            box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+            z-index: 10;
           }
           .progress-item:last-child { border-bottom: none; }
+          /* 悬浮提示样式 - 左侧显示（右边卡片使用左侧悬浮） */
+          .progress-tooltip {
+            display: none;
+            position: absolute;
+            left: calc(100% + 12px);
+            top: 0;
+            width: 240px;
+            padding: 14px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+            z-index: 1000;
+            font-size: 13px;
+          }
+          .progress-tooltip::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            border: 8px solid transparent;
+            border-right-color: #fff;
+          }
+          /* 右侧卡片（偶数项）悬浮提示显示在左侧 */
+          .progress-item:nth-child(even) .progress-tooltip {
+            left: auto;
+            right: calc(100% + 12px);
+          }
+          .progress-item:nth-child(even) .progress-tooltip::before {
+            left: auto;
+            right: -8px;
+            border-right-color: transparent;
+            border-left-color: #fff;
+          }
+          .progress-item:hover .progress-tooltip {
+            display: block;
+          }
+          .tooltip-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            color: #666;
+          }
+          .tooltip-row .label { color: #999; font-size: 12px; }
+          .tooltip-row .value { font-weight: 500; color: #333; }
+          .tooltip-row .value.highlight { color: #1890ff; }
+          .tooltip-row .value.success { color: #52c41a; }
+          .tooltip-row .value.warning { color: #faad14; }
+          .tooltip-loading {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+          }
           .progress-item-main {
             flex: 1;
             min-width: 0;
@@ -3035,38 +3212,64 @@
                     ])
                     : courseProgressItems.value.length === 0
                       ? vue.createVNode("div", { class: "empty-state" }, "暂无课程进度数据")
-                      : courseProgressItems.value.map(course => {
-                        const rate = parseInt(course.completionRate) || 0;
-                        const rateClass = rate >= 100 ? 'complete' : (rate >= 60 ? 'warning' : (rate >= 30 ? 'normal' : 'danger'));
-                        return vue.createVNode("div", {
-                          class: "progress-item",
-                          onClick: () => {
-                            // 使用获取到的详情页链接（包含 pEnc 签名）
-                            if (course.studyDataUrl) {
-                              window.open(course.studyDataUrl, '_blank');
+                      : vue.createVNode("div", { class: "progress-items-grid" },
+                        courseProgressItems.value.map(course => {
+                          const rate = parseInt(course.completionRate) || 0;
+                          const rateClass = rate >= 100 ? 'complete' : (rate >= 60 ? 'warning' : (rate >= 30 ? 'normal' : 'danger'));
+                          const remainingTasks = course.totalTasks - course.completedTasks;
+                          return vue.createVNode("div", {
+                            class: "progress-item",
+                            onClick: () => {
+                              if (course.studyDataUrl) {
+                                window.open(course.studyDataUrl, '_blank');
+                              }
                             }
-                          }
-                        }, [
-                          vue.createVNode("div", { class: "progress-item-main" }, [
-                            vue.createVNode("div", { class: "progress-item-title" }, course.courseName),
-                            vue.createVNode("div", { class: "progress-bar-wrapper" }, [
-                              vue.createVNode("div", { class: "progress-bar" }, [
-                                vue.createVNode("div", {
-                                  class: `progress-bar-fill ${rateClass}`,
-                                  style: `width: ${Math.min(rate, 100)}%;`
-                                })
+                          }, [
+                            vue.createVNode("div", { class: "progress-item-main" }, [
+                              vue.createVNode("div", { class: "progress-item-title" }, course.courseName),
+                              vue.createVNode("div", { class: "progress-bar-wrapper" }, [
+                                vue.createVNode("div", { class: "progress-bar" }, [
+                                  vue.createVNode("div", {
+                                    class: `progress-bar-fill ${rateClass}`,
+                                    style: `width: ${Math.min(rate, 100)}%;`
+                                  })
+                                ]),
+                                vue.createVNode("span", { class: `progress-rate ${rateClass}` }, course.completionRate)
                               ]),
-                              vue.createVNode("span", { class: `progress-rate ${rateClass}` }, course.completionRate)
+                              vue.createVNode("div", { class: "progress-tasks-count" },
+                                `${course.completedTasks}/${course.totalTasks} 任务点`
+                              )
                             ]),
-                            vue.createVNode("div", { class: "progress-tasks-count" },
-                              `${course.completedTasks}/${course.totalTasks} 任务点`
-                            ),
-                            course.unfinishedTasks.length > 0 ? vue.createVNode("div", { class: "progress-unfinished" },
-                              `未完成: ${course.unfinishedTasks.slice(0, 2).map(t => t.title.substring(0, 15)).join('、')}${course.unfinishedTasks.length > 2 ? '...' : ''}`
-                            ) : null
-                          ])
-                        ]);
-                      })
+                            // 悬浮提示
+                            vue.createVNode("div", { class: "progress-tooltip" }, [
+                              vue.createVNode("div", { class: "tooltip-title" }, course.courseName),
+                              vue.createVNode("div", { class: "tooltip-row" }, [
+                                vue.createVNode("span", { class: "label" }, "完成进度"),
+                                vue.createVNode("span", { class: `value ${rate >= 100 ? 'success' : (rate >= 60 ? 'warning' : 'highlight')}` }, course.completionRate)
+                              ]),
+                              vue.createVNode("div", { class: "tooltip-row" }, [
+                                vue.createVNode("span", { class: "label" }, "课程积分"),
+                                vue.createVNode("span", { class: "value" }, course.courseScore || "点击查看")
+                              ]),
+                              vue.createVNode("div", { class: "tooltip-row" }, [
+                                vue.createVNode("span", { class: "label" }, "章节测验"),
+                                vue.createVNode("span", { class: "value" }, course.chapterQuiz || "点击查看")
+                              ]),
+                              vue.createVNode("div", { class: "tooltip-row" }, [
+                                vue.createVNode("span", { class: "label" }, "当前排名"),
+                                vue.createVNode("span", { class: "value highlight" }, course.ranking || "点击查看")
+                              ]),
+                              vue.createVNode("div", { class: "tooltip-row" }, [
+                                vue.createVNode("span", { class: "label" }, "视频观看"),
+                                vue.createVNode("span", { class: "value" }, course.videoWatched || "点击查看")
+                              ]),
+                              vue.createVNode("div", {
+                                style: "margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #1890ff; text-align: center; cursor: pointer;"
+                              }, "📊 点击查看完整学习记录")
+                            ])
+                          ]);
+                        })
+                      )
                 ])
               ])
             ])

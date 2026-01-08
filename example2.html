@@ -1,570 +1,791 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <title>统计-在线学习</title>
-    <link href="https://mooc-res2.chaoxing.com/stat2/iconmoon/style.css?v=202512270047" type="text/css"
-        rel="stylesheet">
-    <link href="https://mooc-res2.chaoxing.com/stat2/style/common.css?v=202512270047" type="text/css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://mooc-res2.chaoxing.com/stat2/js/lib/layui-v2.5.4/layui/css/layui.css?v=202512270047">
-    <link href="https://mooc-res2.chaoxing.com/stat2/style/pop.css?v=202512270047" type="text/css" rel="stylesheet">
-    <link href="https://mooc-res2.chaoxing.com/stat2/style/style.css?v=202512270047" type="text/css" rel="stylesheet">
-    <link href="https://mooc-res2.chaoxing.com/stat2/style/task/taskCommon.css?v=202512270047" type="text/css"
-        rel="stylesheet">
-    <link href="https://mooc-res2.chaoxing.com/stat2/style/student/statistics/statistic.css?v=202512270047"
-        type="text/css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+        职业生涯规划与就业指导
+    </title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0527-1457" type="text/css" rel="stylesheet">
+    <link href="/mooc2-ans/style/style.css?v=2022-0216-1357" type="text/css" rel="stylesheet">
+    <link href="//mooc-res2.chaoxing.com/mooc2-ans/style/pop.css?v=2023-0608-1100" type="text/css" rel="stylesheet">
+    <link href="/mooc2-ans/css/course/coursenotices.css?v=2022-1115-1003" type="text/css" rel="stylesheet">
+    <link href="/mooc2-ans/css/course/learningCommitment.css?v=2025-1202-1003" type="text/css" rel="stylesheet">
+    <link href="/mooc2-ans/style/microCourseNav.css?v=2024-0529" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/mooc2-ans/js/ServerHost.js?2020-0923-1630"></script>
+
+    <style type="text/css">
+        a {
+            text-decoration: none;
+            ;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            overflow: hidden
+        }
+
+        .fixed-right-btm {
+            position: fixed;
+            right: 36px;
+            bottom: 94px;
+        }
+
+        #kf {
+            display: block;
+            padding-right: 0px;
+            height: 40px;
+            width: 40px;
+            background: #fff url(/mooc2-ans/images/courselist/kfIcon.png) no-repeat 8px center;
+            padding-left: 0px;
+            border-radius: 4px;
+            box-shadow: 0 1px 7px 0 rgba(198, 204, 217, 0.58);
+        }
+
+        .kfHover {
+            position: absolute;
+            right: 50px;
+            bottom: 0px;
+            width: 82px;
+            height: 40px;
+            background: rgba(24, 30, 51, 0.80);
+            border-radius: 4px;
+            margin-left: -28px;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: opacity 0.3s 1s, visibility 0s 0.3s;
+            transition: opacity 0.3s 1s, visibility 0s 0.3s;
+            transition: opacity 0.3s 1s, visibility 0s 0.3s;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+        }
+
+        .kfDiv:hover .kfHover {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            -webkit-transition: opacity 0.3s 1s, visibility 0.3s 1s;
+            transition: opacity 0.3s 1s, visibility 0.3s 1s;
+        }
+
+        .kfHover i {
+            display: block;
+            width: 0px;
+            height: 0px;
+            border: solid rgba(24, 30, 51, 0.80) 4px;
+            position: absolute;
+            right: -8px;
+            top: 16px;
+            bottom: auto;
+            border-color: rgba(24, 30, 51, 0.80) transparent transparent transparent;
+            transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+        }
+
+        .kfHover i.active {
+            display: block;
+            width: 0px;
+            height: 0px;
+            border: solid rgba(24, 30, 51, 0.80) 4px;
+            position: absolute;
+            left: 50%;
+            margin-left: -4px;
+            bottom: 40px;
+            top: auto;
+            border-color: transparent transparent rgba(24, 30, 51, 0.80) transparent;
+        }
+
+
+        .top-tips {
+            margin-top: -20px;
+            margin-left: 130px;
+            display: inline-block;
+            margin-bottom: 14px;
+            position: relative;
+            padding: 0 14px;
+            height: 34px;
+            background: #fdf6eb;
+            line-height: 34px;
+            border-radius: 21px;
+            font-size: 0;
+            z-index: 10;
+            max-width: calc(100% - 400px);
+        }
+
+        .top-tips .warn-img {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            background: url("/mooc2-ans/images/icon-40-fail.png") no-repeat center center;
+            background-size: contain;
+        }
+
+        .top-tips .warn-txt {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            font-size: 14px;
+            color: #a18a66;
+        }
+
+        .top-tips .top-close {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 14px;
+            color: #3A8BFF;
+        }
+
+        .top-tips .warn-txt {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            font-size: 14px;
+            color: #a18a66;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: calc(100% - 40px);
+        }
+
+        .nav-content ul li a {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            line-height: 20px;
+        }
+
+        .nav_content {
+            max-width: 95px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+        }
+
+        @media screen and (max-width: 1300px) {
+            .top-tips {
+                max-width: 800px
+            }
+
+            .top-tips .warn-txt {
+                max-width: 750px
+            }
+        }
+
+        .Header2 {
+            width: 100%;
+            height: 52px;
+            background: #FFFFFF;
+            box-shadow: 0 1px 12px 0 rgba(1, 39, 78, 0.12);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 4;
+            padding: 0 30px;
+            box-sizing: border-box;
+        }
+
+        /*.Logo2{height:40px;margin-top:6px;}*/
+        .Logo2 img {
+            height: 100%;
+            float: left
+        }
+
+        .Logo2 {
+            height: 40px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        /*.Logo2 span {padding-left: 4px;color: #131B26;font-size: 18px;letter-spacing: 1px;float:left;line-height: 40px;}*/
+
+
+        .xmicroHeader_handle {
+            padding-top: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .xmicroHeader_handle .xhandle {
+            margin-left: 15px;
+            height: 28px;
+            padding: 0 12px;
+            color: #3A8BFF;
+            font-size: 14px;
+            line-height: 26px;
+            text-decoration: none;
+            border: 1px solid #8CBDFF;
+            border-radius: 18px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+        }
+
+        .xmicroHeader_handle .xhandle.prev::before {
+            margin-right: 2.5px;
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: url(/mooc2-ans/images/icon-arrow-prev.png) no-repeat center/ 100% 100%;
+        }
+
+        .xmicroHeader_handle .xhandle.next::after {
+            margin-left: 2.5px;
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: url(/mooc2-ans/images/icon-arrow-next.png) no-repeat center/ 100% 100%;
+        }
+
+        .xwk_code {
+            position: fixed;
+            right: 36px;
+            bottom: 137px;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background: #FFF url(/mooc2-ans/images/icon-code-gray.png) no-repeat center/ 16px 16px;
+            box-shadow: 0 0 6px 0 #DDE3ED;
+            cursor: pointer;
+            z-index: 3
+        }
+
+        .xwk_code:hover {
+            background: #3A8BFF url(/mooc2-ans/images/icon-code-white.png) no-repeat center/ 16px 16px;
+        }
+
+        .xwk_code:hover .xwk_code_pop {
+            display: block;
+        }
+
+        .xwk_code_pop {
+            display: none;
+            position: absolute;
+            top: -25px;
+            right: calc(100% + 8px);
+            width: max-content;
+            padding: 8.9px 10px 7.85px;
+            text-align: center;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background: #FFF;
+            box-shadow: 0 0 6px 0 #DDE3ED;
+        }
+
+        .xwk_code_pop::before {
+            content: '';
+            display: block;
+            position: absolute;
+            right: -8px;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+        }
+
+        .xwk_code_pop .ximg {
+            width: 90px;
+            height: 90px;
+        }
+
+        .xwk_code_pop .xtext {
+            padding-top: 6.25px;
+            color: #474C59;
+            font-size: 12px;
+            line-height: 17px;
+            text-align: center;
+        }
+
+        /* 新增样式 */
+        .xpopTips {
+            position: fixed;
+            visibility: hidden;
+            opacity: 0;
+            max-width: 638px;
+            z-index: 999;
+            padding: 10px 16px;
+            line-height: 17px;
+            background: #181E33CC;
+            font-size: 12px;
+            color: #FFFFFF;
+            border-radius: 4px;
+            white-space: normal;
+            -webkit-transition: all .3s linear;
+            transition: all .3s linear;
+        }
+
+        .xpopTips::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 38px;
+            bottom: 100%;
+            border-width: 7px;
+            border-style: solid;
+            border-color: transparent transparent #181E33CC transparent;
+        }
+
+        .xpopTips.top::before {
+            top: 100%;
+            bottom: initial;
+            border-color: #181E33CC transparent transparent transparent;
+        }
+
+        .marktipBtn {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            box-sizing: border-box;
+            padding: 0 20px;
+            border: 1px solid #FBE59A;
+            border-radius: 4px;
+            background: #FEFBE8;
+            font-size: 14px
+        }
+
+        .marktipBtn span {
+            margin-left: 4px;
+            color: #F28C24;
+            cursor: pointer
+        }
+
+        .marktipBtn i {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: url(/mooc2-ans/images/markWarn.png) no-repeat;
+            background-size: 100%;
+            margin-right: 8px
+        }
+
+        .markPopup {
+            width: 599px;
+            height: 445px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 12px 0px #00255933;
+            position: fixed;
+            right: 147px;
+            top: 52px;
+            z-index: 10;
+            padding: 24px 30px;
+            box-sizing: border-box
+        }
+
+        .markPopup h3 {
+            height: 28px;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
+            background: url(/mooc2-ans/images/mark_icon.png) no-repeat left center;
+            background-size: 28px 28px;
+            padding-left: 40px
+        }
+
+        .markPopTips {
+            margin: 11px 0;
+            color: #8A8B99;
+            font-size: 14px;
+            line-height: 20px
+        }
+
+        .markPopTips span {
+            color: #3A8BFF;
+            cursor: pointer
+        }
+
+        .markCenBx {
+            width: 539px;
+            height: 260px;
+            margin: 0 auto;
+            margin-bottom: 11px
+        }
+
+        .markCenBx img {
+            width: 100%;
+            height: 100%
+        }
+
+        .knowBtn {
+            display: inline-block;
+            width: 92px;
+            height: 36px;
+            background: linear-gradient(322.22deg, #5A33FF -34.58%, #6CC7FF 132%);
+            box-shadow: 0px 2px 9px 0px #67A1FF80;
+            text-align: center;
+            line-height: 36px;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 100px;
+            cursor: pointer
+        }
+    </style>
 </head>
 
 <body>
-    <div class="subNav">
-        章节任务点</div>
-    <div class="page-container studentStatistic">
-        <div class="page-item top-info">
-            <div class="user-info">
-                <h2>在线学习预览</h2>
-                <p class="tDec">共 127 个课程学习资源，包括<span>85</span>个任务点<span>85</span>个已完成
-                </p>
-                <div class="list">
+    <input type="hidden" id="hideHead" value="0" />
+    <input type="hidden" id="openUpdateTip" value="false" />
+    <input type="hidden" id="updateTipHead" value="下载中心位置指引" />
+    <div class="box">
+        <script src='/head/passport/all-head-new.shtml?hideOldVersion=1 ' method="get" charset="utf-8"></script>
+
+
+
+        <input type="hidden" id="microCourseTopicOpenType" value="1" />
+        <input type="hidden" id="loadCourseNotice" value="0" />
+        <input type="hidden" id="notAgreeCommitment" value="false" />
+        <input type="hidden" id="notAgreeCourseCommitment" value="-1" />
+        <input type="hidden" id="courseid" value="218925834" />
+        <input type="hidden" id="clazzid" value="120926115" />
+        <input type="hidden" id="cpi" value="425976805" />
+        <input type="hidden" id="microTopicId" value="0" />
+        <input type="hidden" id="taskEngine" value="false" />
+        <input type="hidden" id="topicModelId" value="0" />
+        <input type="hidden" id="chapterId" value="0" />
+        <input type="hidden" id="showAiAssistantTea" value="true" />
+        <input type="hidden" id="showAIEnc" value="0d4b2735a413a2ca88540c0e57e27619" />
+
+        <div class="nav_side  ">
+            <input type="hidden" id="isChaoxingClient" value="false" />
+            <div class="sideCon" id="boxscrollleft">
+                <dl class="classDl">
+                    <dt>
+                        <a href="javascript:void(0);" onclick="$('#tpsubmit').submit();">
+                            <img width="100%" height="100%"
+                                src="http://p.ananas.chaoxing.com/star3/138_78c/5e29d0bebc8f7f4302373b5558b71c3d.png" />
+                            <span style="cursor: pointer;">课程门户<i class="left_join"></i></span>
+                        </a>
+                        <div class="wisdomBtn" style="display: none;"></div>
+                    </dt>
+
+
+                    <dd class="textHidden colorDeep" title="职业生涯规划与就业指导">
+                        职业生涯规划与就业指导
+                    </dd>
+                </dl>
+                <div class="nav-content   stuNavigationList">
+                    <input type="hidden" id="courseid" name="courseid" value="218925834" />
+                    <input type="hidden" id="courseBelongSchoolId" value="7950" />
+                    <input type="hidden" id="clazzid" name="clazzid" value="120926115" />
+                    <input type="hidden" id="cfid" name="cfid" value="7950" />
+                    <input type="hidden" id="bbsid" name="bbsid" value="32193cc9c5b6a98bdc013d6f6c095725" />
+                    <input type="hidden" id="cpi" name="cpi" value="425976805" />
+
+                    <input type="hidden" id="heardUt" name="heardUt" value="s" />
+                    <input type="hidden" id="fid" name="fid" value="7950" />
+                    <input type="hidden" id="openc" name="openc" value="5dc79c906cae684484fb64735af7d988" />
+                    <input type="hidden" id="enc" name="enc" value="eece258f4c1ab47f159508b57a2c4e3c" />
+                    <input type="hidden" id="oldenc" name="oldenc" value="594713561ad796b055ec74070331e6cd" />
+                    <input type="hidden" id="userId" name="userId" value="358345264">
+                    <input type="hidden" id="moocDomainName" name="moocDomainName" value="https://mooc1.chaoxing.com">
+                    <input type="hidden" id="courseApp" name="courseApp" value="0">
+                    <input type="hidden" id="workEnc" name="workEnc" value="16ebff28ba300353cc53f7e4bfb9cf18">
+                    <input type="hidden" id="examEnc" name="examEnc" value="283a7907560e41e814278a9d8ed53df1">
+                    <input type="hidden" id="v" name="v" value="0">
+                    <input type="hidden" id="t" name="t" value="1767875679814" />
+                    <input type="hidden" id="bbsUrlSwitch" name="bbsUrlSwitch" value="true" />
+                    <input type="hidden" id="learnSilverStartTime" name="learnSilverStartTime" value="" />
+                    <input type="hidden" id="learnSilverEndTime" name="learnSilverEndTime" value="" />
+
+                    <input type="hidden" id="courseEvaluateUrl" name="courseEvaluateUrl"
+                        value="https://mooc1.chaoxing.com/coursestar?courseId=218925834&clazzId=120926115&edit=false">
+                    <input type="hidden" id="v" name="v" value="0" />
+
                     <ul>
-                        <li>
-                            <div class="topC fs16 color181E33"><i class="icon-video"></i>视频</div>
-                            <div class="centerC">
-                                <span class="fl fs14 color646873">累计观看</span>
-                                <div class="fl min"><span>357.5</span>分钟</div>
-                                <div class="progress fl">
-                                    <div class="barBox">
-                                        <span style="width:100.0%;"></span>
-                                        <div class="bubble">累计观看视频 357.5分 超过全班 69% 的同学！
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="bottomC fs12">总时长 342 分钟</p>
+
+                        <li openType="0" dataname="ai_workbench" pageHeader="21" id="nav_122720" data="122720"
+                            needRedirect="0" shownewmark="0">
+                            <a href="javascript:void(0);" title="AI助教"
+                                data-url="https://mooc1.chaoxing.com/course-ans/ai/getStuAiWorkBench?courseId=218925834&clazzId=120926115&cpi=425976805&ut=s">
+                                <img class="custom-icon"
+                                    src="https://p.ananas.chaoxing.com/star3/origin/d9c08c99610e931b801d5f93278e52b1">
+                                <span class="tag_new">
+                                    <span class="nav_content">AI助教</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
                         </li>
 
+                        <li openType="0" dataname="hd" pageHeader="0" id="nav_6029" data="6029" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="任务"
+                                data-url="https://mobilelearn.chaoxing.com/page/active/stuActiveList">
+                                <i class="hd"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">任务</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
 
-                        <li>
-                            <div class="topC fs16 color181E33"><i class="icon-read"></i>阅读</div>
-                            <div class="centerC">
-                                <span class="fl fs14 color646873">累计阅读</span>
-                                <div class="fl min"><span>23.3</span>分钟</div>
-                                <div class="progress fl">
-                                    <div class="barBox">
-                                        <span style="width:38.333333333333336%;"></span>
-                                        <div class="bubble">累计阅读 23.3分 超过全班 59% 的同学！
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="bottomC fs12">要求时长 60 分钟 （阅读时长计算包含章节、资料中的文档、专题、期刊、超星电子书、笔记），数据次日更新</p>
+                        <li openType="0" dataname="zj" pageHeader="1" id="nav_6032" data="6032" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="章节" data-url="/mooc2-ans/mycourse/studentcourse">
+                                <i class="zj"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">章节</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="tl" pageHeader="2" id="nav_6033" data="6033" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="讨论"
+                                data-url="https://groupweb.chaoxing.com/course/topic/topicList">
+                                <i class="tl"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">讨论</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="zy" pageHeader="8" id="nav_6030" data="6030" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="作业"
+                                data-url="https://mooc1.chaoxing.com/mooc2/work/list">
+                                <i class="zy"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">作业</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="ks" pageHeader="9" id="nav_6031" data="6031" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="考试"
+                                data-url="https://mooc1.chaoxing.com/exam-ans/mooc2/exam/exam-list">
+                                <i class="ks"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">考试</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="zl" pageHeader="3" id="nav_6034" data="6034" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="资料" data-url="/mooc2-ans/coursedata/stu-datalist">
+                                <i class="zl"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">资料</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="ctj" pageHeader="4" id="nav_6035" data="6035" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="错题集" data-url="/mooc2-ans/wrongque/page">
+                                <i class="ctj"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">错题集</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="cj" pageHeader="6" class="curNav" id="nav_6036" data="6036"
+                            needRedirect="0" shownewmark="0">
+                            <a href="javascript:void(0);" title="学习记录"
+                                data-url="https://stat2-ans.chaoxing.com/study-data/index">
+                                <i class="cj"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">学习记录</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="1" dataname="zsd" pageHeader="12" id="nav_13442" data="13442" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="课程图谱"
+                                data-url="/topic-ans/knowgraph/index.html#/knowledgeMapTempPage">
+                                <i class="zsd"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">课程图谱</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li openType="0" dataname="zc" pageHeader="5" id="nav_0" data="0" needRedirect="0"
+                            shownewmark="0">
+                            <a href="javascript:void(0);" title="自测"
+                                data-url="https://mooc1.chaoxing.com/mooc2/exam/exam-list">
+                                <i class="zc"></i>
+                                <span class="tag_new">
+                                    <span class="nav_content">自测</span>
+                                    <b class="nvaNewMark" style="display: none;">NEW</b>
+                                </span>
+                            </a>
                         </li>
                     </ul>
-                    <div class="clear"></div>
+
+                </div>
+
+            </div>
+            <form id="tpsubmit" action="https://mooc1.chaoxing.com/course/218925834.html?clazzId=120926115"
+                target="_blank" method="post">
+            </form>
+        </div>
+        <div class="fixed-right-btm" style="z-index:3;">
+        </div>
+    </div>
+    <div class="maskDiv coursenoticepop" style="display:none;">
+        <!-- 课程须知弹窗 -->
+    </div>
+    <div class="markPopup" style="display: none">
+        <h3>下载中心位置指引</h3>
+        <p class="markPopTips">下载中心位于页面右下方，鼠标移至该区域即可展开。
+            请注意：AI 工作台界面不提供下载中心功能。</p>
+        <div class="markCenBx"><img style=" border-radius: 10px;"
+                src="https://p.ananas.chaoxing.com/star3/origin/faa14fdbf73bf240694b725603441578"></div>
+        <div>
+            <span class="fr knowBtn">知道了</span>
+            <p class="clear"></p>
+        </div>
+    </div>
+    <div class="maskDiv maskFadeOut" id="showCommitmentId" style="display:none">
+        <!-- 在线学习诚信承诺书弹窗 -->
+        <div class="popDiv course-pop" style="display: block;height: 480px;">
+            <div class="commitment-content-dialog">
+                <div style="height: 36px;"></div>
+                <div class="commitment-details" style="padding: 0 40px; height: 336px;overflow-y: auto;">
+                    <h2 tabindex="0" role="option">在线学习诚信承诺书</h2>
+                    <div class="dec">
+                        <p class="p-style1" style="text-indent: 2em;" tabindex="0" role="option">
+                            根据《教育部等五部门关于加强普通高等学校在线开放课程教学管理的若干意见》（教高〔2022〕1号，以下简称《意见》）要求，高校学生选修在线课程应签署在线学习诚信承诺书，遵守课程学习纪律和考试纪律。
+                        </p>
+                        <p class="p-style1" style="text-indent: 2em;" tabindex="0" role="option">
+                            我承诺：在个人学习过程中，遵守《意见》和学校相关管理规定，遵守课程学习纪律和考试纪律，诚信学习。不出借个人学习账号给他人使用；不进行通过非法软件或委托第三方提供的人工或技术服务等方式获取学习记录和考试成绩的“刷课”“替课”“刷考”“替考”行为；不以任何形式传播课程考试内容及答案。
+                        </p>
+                        <p class="p-style1" style="text-indent: 2em;" tabindex="0" role="option">
+                            我已知晓：根据《意见》要求，平台将对学生学习过程进行监控，运用人工智能、大数据等技术，依法依规对学生身份认证、讨论记录、学习数据实施监控，识别“刷课”“替课”“刷考”“替考”行为。并根据高校教学需求，对违规违纪学习行为予以记录并通报学生所在高校。违规违纪行为一经查实，学校可根据本校学生管理规定、学生纪律处分管理规定等，取消违规违纪学生课程成绩，视情节给予警告、严重警告、记过、留校察看、开除学籍等相应处分，并记入学生档案。对参与组织“刷课”“替课”“刷考”“替考”并构成违法行为的学生，由有关部门依法追究法律责任。
+                        </p>
+                        <p class="p-style3" tabindex="0" role="option">
+                            承诺人: <br>
+                            日期:
+                        </p>
+                    </div>
+                </div>
+                <div class="commitmentBom">
+                    <p class="commitSure">
+                        <span class="ksRadio">
+                            <input type="checkbox" class="agreeButton" id="learnCommit-bottom-div">
+                            <i></i>
+                        </span>
+                        <span>我已完整知晓并自愿遵守上述内容</span>
+                    </p>
+                    <a href="javascript:" class="commitBtn opa30 agreeStartDisable" tabindex="-1">开始学习</a>
+                    <a href="javascript:" class="commitBtn agreeStart" style="display:none">开始学习</a>
                 </div>
             </div>
         </div>
-        <div class="page-item item-task-list minHeight390">
-            <h2 class="colorDeep fs16 font-bold">任务点进度</h2>
-            <div class="nav-list " style="display: block">
-                <table class="ui-task-table" id="jobTable">
-                    <thead>
-                        <tr>
-                            <th style="width: 30%;">任务名</th>
-                            <th style="width: 20%;">类型</th>
-                            <th style="width: 20%;" class="status" onclick="statusFun(this)">
-                                <div class="opacity">任务点完成状态
-                                    <i class="icon-UpDown down"></i>
-                                </div>
-                                <div class="list">
-                                    <ul>
-                                        <li onclick="addActive(this,0)" class="active"><i></i>全部</li>
-                                        <li onclick="addActive(this,1)"><i></i>已完成</li>
-                                        <li onclick="addActive(this,2)"><i></i>未完成</li>
-                                    </ul>
-                                </div>
-                            </th>
-                            <th style="width: 15%;">完成时间</th>
-                            <th style="width: 15%;">操作</th>
-
-                        </tr>
-                    </thead>
-                </table>
-                <div class="pageDiv" id="timePage"></div>
-            </div>
-        </div>
     </div>
-    <input type="hidden" id="clazzId" value="126916985">
-    <input type="hidden" id="courseId" value="254650327">
-    <input type="hidden" id="cpi" value="425976805">
-    <input type="hidden" id="enc" value="ce56241b035048843dfa0b10ee383d63">
-    <input type="hidden" id="mooc1Domain" value="https://mooc1.chaoxing.com">
-    <input type="hidden" value="0" id="visitor" />
-    <input type="hidden" value="d82b864c6735dc9dcd043672431f227a" id="openc" />
-    <input type="hidden" id="enc-clazzId" value="126916985">
-    <input type="hidden" id="enc-courseId" value="254650327">
-    <input type="hidden" id="enc-cpi" value="425976805">
-    <input type="hidden" id="enc-ut" value="s">
-    <input type="hidden" id="enc-time" value="0">
-    <input type="hidden" id="enc-fr" value="">
-    <input type="hidden" id="enc-uid" value="">
-    <input type="hidden" id="enc-enc" value="">
-    <input type="hidden" id="enc-visitor" value="0">
-    <input type="hidden" id="encQueryString" value="">
-
-    <input type="hidden" id="pEnc" value="670ed12f06ef5e8d3ed793582859e942">
-
-    <input type="hidden" id="baseDataTab" value="">
-    <input type="hidden" id="classRoomReportTab" value="">
-    <input type="hidden" id="teachDataTab" value="">
-    <input type="hidden" id="scoreDataTab" value="">
-    <input type="hidden" id="studyMonitorTab" value="">
-    <input type="hidden" id="customWarnTab" value="">
-    <input type="hidden" id="customWarnUrl" value="">
-
-    <input type="hidden" id="contextPath" value="/stat2">
-    <input type="hidden" id="visitorAuth" value="0">
-    <input type="hidden" id="isMapCourse" value="0">
-    <input type="hidden" id="extView" value="0">
-    <input type="hidden" id="app" value="0">
-    <input type="hidden" id="v" value="">
-
-    <input type="hidden" id="mooc1Domain" value="https://mooc1.chaoxing.com">
-    <input type="hidden" id="mooc2Domain" value="https://mooc2-ans.chaoxing.com">
-    <input type="hidden" id="mooc2GrayDomain" value="https://mooc2-gray.chaoxing.com">
-    <input type="hidden" id="stat2Domain" value="https://stat2-ans.chaoxing.com">
-    <input type="hidden" id="mobileLearnDomain" value="https://mobilelearn.chaoxing.com">
-    <input type="hidden" id="groupWebDomain" value="https://groupweb.chaoxing.com">
-
-    <input type="hidden" id="pDomain" value="https://p.cldisk.com">
-    <input type="hidden" id="kDomain" value="https://k.chaoxing.com">
-    <input type="hidden" id="noteDomain" value="https://noteyd.chaoxing.com">
-
-    <input type="hidden" id="dataPath" value="//data.chaoxing.com">
-    <input type="hidden" id="zhiboPath" value="//zhibo.chaoxing.com">
-    <input type="hidden" id="appPath" value="//app.chaoxing.com">
-    <input type="hidden" id="astatsFanyaDomain" value="https://astats.fanya.chaoxing.com">
-    <input type="hidden" id="mobileWeightCourseDomain" value="https://widget-course.chaoxing.com">
-    <input type="hidden" id="szptDomain" value="https://szpt.fanya.chaoxing.com">
-    <input type="hidden" id="fycourseDomain" value="https://fycourse.fanya.chaoxing.com">
-
-    <input type="hidden" id="share1Domain" value="https://share1.chaoxing.com">
-
+    <script>
+    </script>
+    <script type="text/javascript" src="//mooc-res2.chaoxing.com/mooc2-ans/js/common/jquery.min.js"></script>
+    <script type="text/javascript" src="//mooc-res2.chaoxing.com/mooc2-ans/js/common/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/mooc2-ans/js/common.js?v=2023-0606-1826"></script>
+    <script type="text/javascript" src="/mooc2-ans/js/backtop.min.js?v=2023-0706-0942" language="javascript"></script>
+    <script type="text/javascript" src="/mooc2-ans/js/contentLoader.js?v=2025-0919-1507"></script>
+    <script type="text/javascript" src="/mooc2-ans/js/course-stu.js?v=2025-1203-1400"></script>
     <script type="text/javascript"
-        src="https://mooc-res2.chaoxing.com/stat2/js/jquery-3.6.0.min.js?v=202512270047"></script>
-    <script src="https://mooc-res2.chaoxing.com/stat2/js/statRequest.js?v=202512270047" type="text/javascript"
-        charset="utf-8"></script>
-    <script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/ServerHost.js?v=202512270047"></script>
-    <script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/ReadOnly.js?v=202512270047"></script>
+        src="//mooc-res2.chaoxing.com/mooc2-ans/js/common/poptoast.js?v=2023-0707-0033"></script>
+    <script type="text/javascript" src="/mooc2-ans/static/js/domain.js"></script>
     <script type="text/javascript">
-        I18N = {
-            "back": "返回",
-            "Unit_Score": "分",
-            "IdSort": "学号排序",
-            "ScoreToHigh": "成绩从低到高",
-            "ScoreToLow": "成绩从高到低",
-            "Submit": "提交",
-            "ExamTime": "考试时间",
-            "To": "至",
-            "AverageScore": "平均分",
-            "CompletionRate": "完成率",
-            "Unit_Person": "人",
-            "DayLearningTime": "日学习次数（次）",
-            "HourLearningTime": "小时学习次数（次）",
-            "LearningTimes": "学习次数",
-            "visit": "访问",
-            "LearningActivities": "学习活动数",
-            "OnlineLearningStudents": "上线学习学生",
-            "Attendance": "签到率",
-            "TheEnd": "已经到底啦",
-            "None": "无",
-            "Finished": "已完成",
-            "Unfunished": "未完成",
-            "BasicData": "基础数据",
-            "Basic_Unit_Minutes": "分钟",
-            "ClassReport": "课堂报告",
-            "LearningStatistics": "学情统计",
-            "StudentPerformance": "学生成绩",
-            "StudyMonitor": "学习监控",
-            "CourseSevenActive": "近七日课程活动数:",
-            "ThisWeek": "本周",
-            "LastWeek": "上周",
-            "TopicThisWeek": "近七日话题活跃度",
-            "No": "序号",
-            "name": "姓名",
-            "IDNumber": "学号/工号",
-            "VideoViewTime": "视频观看时长",
-            "GroupTask": "分组任务",
-            "ChapterTaskPoint": "章节任务点",
-            "chapterJob": "章节测验",
-            "WeightTipSuffix1": "按完成任务点的个数计分，全部完成得满分",
-            "ScoreJobType": "计算成绩的任务点类型：",
-            "ScoreChapterTest": "按所有章节测验类型任务点的平均分计分",
-            "ChapterQuiz": "章节测验",
-            "Homework": "作业",
-            "HomeworkTip": "按在线作业的平均分计分，所有作业按百分制分数进行计算",
-            "HomeworkDetailTip1": "已设置作业明细分配，按（按班级发放的作业成绩*权重占比＋按人发放的作业成绩)/(1＋按人发放的作业数量）或按班级发放的作业成绩*权重占比计分。所有作业按百分制分数进行计算",
-            "HomeworkDetailTip2": "按班级发放的作业明细分配：",
-            "cxClassRateTip1": "观看在线泛雅课堂、回放时长与课堂总时长比例达到",
-            "cxClassRateTip2": "%为满分",
-            "WeightingItem": "权重项",
-            "WeightingDescription": "权重描述",
-            "ExamTip": "按在线考试的平均分计分，所有考试按百分制分数进行计算",
-            "ExamTip1": "已设置考试明细分配，按（按班级发放的考试成绩*权重占比＋按人发放的考试成绩)/(1＋按人发放的考试数量）或按班级发放的考试成绩*权重占比计分。所有考试按百分制分数进行计算",
-            "ExamTip2": "按班级发放的考试明细分配：",
-            "GroupPbl": "分组任务（PBL）",
-            "GroupPblTip": "按分组任务（PBL）的平均分计分。星级评价不参与计算",
-            "GroupPblTip1": "已设置分组任务明细分配，按分组任务成绩*权重占比+PBL成绩计分。星级评价不参与计算",
-            "GroupPblTip2": "班级下分组任务明细分配：",
-            "Exam": "考试",
-            "sign": "签到",
-            "attendTip1": "按出勤率计分",
-            "attendTip2": "按出勤次数计分",
-            "SignDesNew": "按出勤率计分，出勤率等于(出勤次数/签到总数），出勤率低于",
-            "SignDes": "按签到次数计分，次数达到",
-            "SignDes1": "按出勤次数计分，出勤次数达到",
-            "SignDesNewZero": "%，签到权重成绩计为0分",
-            "SignFull": "次为满分",
-            "SignDesLower": "，低于或等于",
-            "SignZero": "次为0分",
-            "discountTip2": "1次已签（学生签到、教师代签）计为 1 次出勤",
-            "discountTip3": "1次异常（迟到、早退、过期签到）计为",
-            "discountTip4": "1次请假（事假、病假）计为",
-            "discountTip5": "1次缺勤（未签、教师设为缺勤） 0 次出勤",
-            "attend_public_1": "1次公假计为",
-            "attend_public_2": "次出勤",
-            "Bonus": "课程积分",
-            "BonusFull": "分为满分",
-            "ClassroomInteractionTip1": "参与课堂活动可以获得相应分数，积分达",
-            "ClassroomInteractionTip2": "计算成绩的课堂活动类型：",
-            "Discuss": "讨论",
-            "ChapterLearningTimes": "章节学习次数",
-            "ChapterLearningTimesTip": "次为满分",
-            "ReadAttachment": "阅读",
-            "ReadAttachmentTip": "按阅读课程章节、资料中阅读材料的时长计分，总时长达到",
-            "ReadAttachmentTip1": "分钟为满分",
-            "LiveAttachment": "直播",
-            "liveSetTip2": "观看章节中直播、直播回放时长与直播总时长比例达",
-            "liveSetTip2_1": "%为满分",
-            "liveSetTip3": "按章节中的直播、直播回放观看总时长计分，总时长达到",
-            "liveSetTip3_1": "分钟为满分",
-            "liveSetTip4": "观看进行中直播1分钟计为",
-            "liveSetTip5": "观看回放的直播1分钟计为",
-            "liveSetTip6": "按观看比例计分",
-            "liveSetTip7": "按观看时长计分",
-            "bbsTip1": "回复同一话题只计分一次",
-            "bbsTip2": "回复同一话题累计得分",
-            "LiveAttachment": "直播",
-            "Offline": "线下成绩",
-            "OfflineTip": "学生线下学习行为得分",
-            "OfflineTip1": "明细分配：",
-            "TotalScore": "综合成绩",
-            "Operation": "操作",
-            "View": "查看",
-            "Detail": "详情",
-            "MatchingState": "匹配状态",
-            "Normal": "正常",
-            "Abnormal": "异常",
-            "All": "全部",
-            "Total": "共",
-            "Unit_Person_Time": "人次",
-            "Unit_Total": "共",
-            "Unit_Times": "次",
-            "Unit_Time": "次",
-            "Unit_Minute": "单位（分钟）",
-            "Unit_Count": "个",
-            "Unit_Counts": "个",
-            "SelectAll": "全选",
-            "ActivityType": "活动类型",
-            "AllActivity": "全部活动",
-            "CancelSelect": "取消全选",
-            "ID": "学号",
-            "CourseActive": "课程活动数",
-            "ChapterLearning": "章节学习次数",
-            "GoTop": "返回顶部",
-            "WorkAttachment": "章节测验",
-            "NoData": "暂无数据",
-            "NonTaskPoint": "非任务点",
-            "TaskPoint": "任务点",
-            "SearchChapter": "搜索章节",
-            "Minutes": "分钟",
-            "Unit_Min": "分",
-            "Hours": "小时",
-            "SearchStudent": "搜索学生",
-            "lang": "zh",
-            "lang1": "zh-cn",
-            "ErrorTimes": "答错次数",
-            "unit_Ques": "道",
-            "判断题": "判断题",
-            "Answer": "答案",
-            "MoreThanThree": "3次以上",
-            "Submitted": "已提交",
-            "Ungraded": "待批阅",
-            "HighestBonus": "最高分",
-            "LowestBonus": "最低分",
-            "UnitPieces": "单位(份) ",
-            "UnitPonits": "单位(分) ",
-            "UnSubmitted": "未提交",
-            "ToRepeat": "待重做",
-            "HighestScore": "最高分",
-            "LowestScore": "最低分",
-            "Month": "个月 ",
-            "EveryWeek": "每周",
-            "EveryTwoWeeks": "每两周",
-            "EveryThreeWeeks": "每三周",
-            "EveryFourWeeks": "每四周",
-            "End": "结束",
-            "Export": "导出",
 
-            "TotalScoreP": "综合成绩(分)",
-            "TaskPointCompletionU": "任务点完成数(个)",
-            "ChapterQuizCompletionU": "章节测验完成数(个)",
-            "ChaperQuizScoreP": "章节测验分数(分)",
-            "HomeworkCompletionU": "作业完成数(份)",
-            "HomeworkScoreP": "作业分数(分)",
-            "TestScoreP": "考试分数(分)",
-            "CheckInTimesU": "签到次数(次)",
-            "CheckInScoreP": "签到分数(分)",
-            "ActivityParticipationU": "课堂活动参与次数(次)",
-            "ActivityBonusP": "课堂活动参与分数(分)",
-            "TopicNumberU": "讨论数(个)",
-            "DiscussionScoreP": "讨论分数(分)",
-            "ChapterLearningTimesU": "章节学习次数(次)",
-            "ChapterLearningScoreP": "章节学习次数(分)",
-            "GroupTaskPblScoreP": "分组任务(PBL)分数(分)",
-            "ReadingScoreP": "阅读分数(分)",
-            "LiveVideoViewingDurationT": "直播时长(分钟)",
-            "VideoViewingDurationT": "视频观看时长(分钟)",
+        if ("0" == "1") {
+            window.onload = function () {
+                // 无障碍点击菜单,读取已访问实现
+                $("#boxscrollleft .stuNavigationList ul li a").click(function () {
+                    var labelName = $(this).attr("aria-label");
+                    if (!labelName || labelName.indexOf("已访问") == -1) {
+                        $(this).attr("aria-label", "已访问");
+                    }
+                });
 
-            "Withdraw": "撤回",
-            "MyScore": "我的得分",
-            "NotViewed": "未查看",
-            "Viewed": "已查看",
-            "Completed": "已完成",
-            "RedoUnSubmitted": "重做未提交",
-            "Unissued": "未发放",
+                $("#boxscrollleft .stuNavigationList ul li a").keydown(function (event) {
+                    if (event.keyCode == 9 && !event.shiftKey) {
+                        if ($(this.parentElement).attr('dataname') === 'cj') {
+                            $("#boxscrollleft").focus();
+                        }
+                    }
+                })
 
-            "Tip": "提示",
-            "Sure": "确定",
-            "Cancel": "取消",
-            "SureWithdrawed": "确定要撤回发放的证书?",
-            "WithdrawalSuccessful": "撤回成功",
-            "WithdrawalFail": "撤回失败",
 
-            "MyScoreWeight": "我的成绩（各权重百分制得分）",
-            "AverageScoreWeight": "平均成绩（各权重百分制得分）",
-
-            "AppraisalContents": "考核内容",
-            "Weight": "所占权重",
-            "MyPoint": "我的成绩",
-            "AveragePoint": "平均成绩",
-
-            "Student": "学生",
-            "StudentCard": "学生名片",
-            "StudentScore": "学生成绩",
-            "ScoreDis": "分数",
-            "SubmittedTime": "提交时间",
-            "FinishedTime": "完成时间",
-            "Unit_Number": "个数(个)",
-
-            "AlertCriteriaEmptyHint": "筛选条件不能为空",
-            "AlertStudentEmptyHint": "请选择学生",
-            "Remind": "提醒",
-            "ClearRecords": "标为正常",
-            "EnterChapter": "进入章节",
-            "EnterCourse": "进入课程",
-            "WatchVideo": "观看视频",
-            "SnapOnePhoto": "抓拍照片1张",
-            "MatchAnomaly": "匹配异常：匹配度",
-            "MatchNormal": "匹配正常：匹配度",
-            "Complete": "完成",
-            "TypeTaskPoint": "类型任务点",
-
-            "MonitorBehavior": "系统检测到你在本课程",
-            "MonitorNotice": "存在异常学习行为，可能影响本课成绩，请及时改正异常学习行为。若有问题，请联系本课教师。",
-            "Saved": "已保存",
-            "IussueSucceed": "发放成功",
-            "UnitPerson": "单位（人）",
-
-            "AverageCompleteWeightRate": "平均完成率",
-            "AverageMasteryRate": "平均掌握率",
-            "HighesMasteryRate": "最高掌握率",
-            "LowestMasteryRate": "最低掌握率",
-            "MasteryRate": "掌握率",
-            "NotYetRelatedLearningTask": "未关联学习资源",
-            "BlowSixtyPer": "59%以下",
-
-            "MyAccuracyRate": "我的正确率",
-            "AverageAccuracyRate": "平均正确率",
-            "Awarded": "老师加分",
-            "Vote": "投票",
-            "Select": "选人",
-            "QuickAnswer": "抢答",
-            "Discussion": "主题讨论",
-            "InClassQuiz": "随堂练习",
-            "Proportion": "占比",
-            "Questionnaire": "问卷",
-            "Rate": "评分",
-
-            "LiveDuration": "直播时长",
-            "LiveViewTime": "直播观看时长",
-            "LivePlaybackTime": "直播回看时长",
-            "ToStart": "未开始",
-            "NumberOfLiveViewers": "直播观看人数",
-            "NumberOfPlaybackViewers": "直播回看人数",
-            "ChaoxingClassAttachment": "泛雅课堂",
-            "VideoTest": "互动测验",
-            "VideoTestTip": "按章节视频中插入的所有互动测验题目正确率计分，全部回答正确为满分",
-            "practicalTasks": "AI实践",
-            "practicalTaskTip": "按AI实践达标任务数/AI实践任务总数*100计分",
-            "TopicAttachment": "讨论",
-            "discussionssettip4": "发表一个话题累计",
-            "discussionssettip5": "回复一个话题累计",
-            "discussionssettip6": "（同一话题下多次回复不重复得分），获得一个赞累计",
-            "discussionssettip7": "获得一个赞累计",
-            "discussionssettip8": "最高分100分",
-            "Advancedsetting": "高级设置：",
-            "OnlineClassroom": "泛雅课堂",
-            "OnlineClassroomTip1": "观看在线泛雅课堂、回放时长达到",
-            "OnlineClassroomTip2": "分钟为满分",
-            "OnlineClassroomTip3": "观看进行中课堂1分钟计为",
-            "OnlineClassroomTip4": "观看回放的课堂1分钟计为",
-
-            "QuestionStem": "题干",
-            "questionTypes": "题型",
-            "AccuracyRate": "正确率",
-            "Operation": "操作",
-            "Add": "添加",
-            "StudentIdOrJobId": "学号/工号",
-            "Status": "状态",
-            "BlowSixty": "60%以下",
-            "Upload": "上传",
-            "AttendanceRate": "到课率",
-            "Activities": "活动数",
-            "Notification": "通知",
-            "test": "测验",
-            "CompletedNum": "已完成/应完成",
-            "Signature": "已签/应签",
-            "Basic_Unit_Times": "次",
-            "ClassroomActivity": "课堂活动发放",
-            "lLevel": "60分以下",
-            "NoScore": "未获得分数",
-            "Men": "门",
-            "Basic_Unit_Person": "人",
-            "CourseSevenPv": "近七日课程pv值:",
-            "CoursePvValue": "课程pv值",
-
-            "ScoreMarkDescription": "1.成绩标记说明:",
-            "ScoreGradesMarkBule": "被手动修改过的成绩将被标记为蓝色",
-            "ScoreExplanationGrrade": "2.修改成绩提示说明:",
-            "ScoreEditDesc": "<br>综合成绩默认显示自动计算得出的分值，您可手动修改此分值。<br>若您改了成绩之后又需要恢复成自动计算的分值可手动清空成绩输入框，<br>清空后点击框外，此时成绩将恢复为自动计算的分值。",
-            "QuestionsNum": "题目数量",
-            "Question": "题",
-
-            "SelfTestJoinPersonCount": "已参与自测人数",
-            "SelfTestCount": "自测次数",
-            "SelfTestQuesCount": "题目数量",
-            "SelfTestAvgCount": "平均自测次数",
-            "SelfTestAvgQuesCount": "平均答题数量",
-            "SelfTestObjQuesAvgRightPercent": "客观题平均得分率",
-            "SelfTestNoScore": "未参与自测",
-            "SelfTestCompletedQuestionCount": "完成题目数",
-            "SelfTestObjQuesRightPercent": "客观题得分率",
-
-            "VideoAttachment": "视频",
-            "SoundAttachment": "音频",
-            "WatchingDuration": "学生观看时长",
-            "Scores": "分",
-            "KnowledgeRelationCount": "已关联资源知识点数",
-            "KnowledgeRateDist": "知识点掌握率分布",
-            "Top5KnowledgePoint": "知识点掌握率TOP5",
-
-            "KnowledgePointClassification": "知识点分类",
-            "KnowledgeMasteryRate": "知识点掌握率",
-            "KnowledgeDimension": "知识点认知维度",
-            "KnowledgeCompletionRate": "知识点完成率",
-            "NumberOfLearningMaterials": "学习资料数",
-            "KnowledgePointLevel": "知识点层级",
-            "relatedKnowledgePoints": "关联知识点：",
-            "preKnowledgePoints": "前置知识点：",
-            "postKnowledgePoints": "后置知识点：",
-            "label": "标签：",
-            "navigationView": "导航模式",
-            "basicMode": "基础模式",
-            "knowledgePoints": "知识点",
-            "NoData1": "无数据",
-
-            "ClassStudentMasteryAnalysis": "班级学生掌握率分布",
-            "Top5Mastery": "学生掌握率TOP5",
-
-            "commonQuestion1": "班级哪些学生频繁缺勤。",
-            "commonQuestion2": "识别出在课堂上表现活跃和沉默的学生。",
-            "commonQuestion3": "找出消极学习学生。",
-            "commonQuestion4": "找出作业成绩波动较大的学生。",
-            "commonQuestion5": "生成班级学生分层画像。",
-            "commonQuestion6": "最近一次作业谁没有交。",
-            "commonQuestion7": "我还有哪些作业没批。",
-            "commonQuestion8": "我需要重点关注哪些学生。",
-            "commonQuestion9": "帮我分析知识点掌握情况。",
-            "commonQuestion10": "哪些学生在学习上遇到了困难。",
-            "commonQuestion11": "个人学习情况数据。",
-            "commonQuestion12": "查看学生个人画像",
-            "commonQuestion24": "查看学习进度落后学生",
-            "commonQuestion25": "近期任务完成情况分析",
-            "commonQuestion26": "生成班级AI周报",
-            "PleaseSelect": "请选择",
-            "ContextCleared": "已清除上下文",
-            "ParticipationRate": "参与率",
-            "TotalKnowledgeResources": "知识点资源总数",
-            "TotalTeachingResources": "教学资源总数",
-            "TotalExpansionResources": "拓展资源总数",
-            "AllGroup": "全部分组",
-            "DurationLearningMinutes": "在线时长（分钟）",
-            "DurationOfOnlineLearning": "在线学习时长",
-            "NumberOfLearningActivities": "累计学习活动次数",
-            "OnlineLearning": "累计学习天数",
-            "OnlineLearningDuration": "累计学习时长",
-            "ByMonthNumberOfLearningActivities": "学习活动次数",
-            "ByMonthOnlineLearning": "学习天数",
-            "ByMonthOnlineLearningDuration": "学习时长",
-            "StudyTask": "学习任务",
-            "WeightStudyModel1": "按对应课程任务的完成率计分，完成率达到100%获得满分",
-            "WeightStudyModel2": "按全部课程任务的完成率平均值计分，平均完成率达到100%获得满分",
-            "OK": "确认",
-            "nextStep": "下一步",
-            "PleaseSelectSpecializedData": "请选择要分析的专项数据",
-            "全部": "全部",
-            "试卷掌握率分布": "试卷掌握率分布",
-            "是": "是",
-            "否": "否",
-            "KnowledgePoint": "知识点",
-            "vote": "投票",
-            "survey": "问卷",
-            "discussion": "主题讨论",
-            "selection": "选人",
-            "rate": "评分",
-            "groupTask": "分组任务",
-            "quickAnswer": "抢答",
-            "inclassQuiz": "随堂练习",
+                // 无障碍 聚焦点击过的菜单选项
+                window.addEventListener("message", function (event) {
+                    let data = event.data;
+                    if (!data) return;
+                    var msgJson = JSON.parse(event.data);
+                    if (msgJson.type === "nav_stu_top_focus") {
+                        $("#boxscrollleft .stuNavigationList ul li.curNav a").focus();
+                    }
+                });
+            };
         }
+
+
+        function toOveralScore() {
+            var url = 'https://stat2-ans.chaoxing.com' + "/stat2/overall-score/stu-score?courseid=" + "218925834" + "&cpi=" + "425976805" + "&clazzid=" + "120926115" + "&ut=s";
+            window.open(url);
+        }
+        popTips(".Logo2 span");
+        function popTips(userName) {
+            $(userName).map(function () {
+                if (this.offsetWidth < this.scrollWidth) {
+                    $(this).append('<div class="xpopTips">' + $(this).text() + '</div>')
+                } else if (this.offsetHeight < this.scrollHeight) {
+                    $(this).append('<div class="xpopTips">' + $(this).text() + '</div>')
+                }
+            })
+            $(userName).on('mouseenter', function () {
+                const thisTips = $(this).find('.xpopTips'),
+                    divH = thisTips.innerHeight(),
+                    docHei = $(document).height(),
+                    rect = this.getBoundingClientRect()
+
+                thisTips.css({ left: rect.left })
+                if (rect.bottom + divH + 10 >= docHei) {
+                    thisTips.css({ top: rect.top - divH - 10 })
+                    thisTips.addClass('top')
+                } else {
+                    thisTips.css({ top: rect.bottom + 10 })
+                    thisTips.removeClass('top')
+                }
+
+                $(this).find('.xpopTips').show()
+                $(this).find('.xpopTips').css({ visibility: 'visible', opacity: '1' })
+            })
+            $(userName).on('mouseleave', function () {
+                $(this).find('.xpopTips').hide()
+                $(this).find('.xpopTips').css({ visibility: 'hidden', opacity: '0' })
+            })
+            $(document).on('scroll', function () {
+                $(this).find('.xpopTips').hide()
+            })
+        }
+        function closeWindow() {
+            window.opener = null;
+            window.open('', '_self');
+            window.close();
+        }
+    </script>
+    <script type="text/javascript">
     </script>
 </body>
 
 </html>
-<script type="text/javascript"
-    src="https://mooc-res2.chaoxing.com/stat2/js/jquery-3.6.0.min.js?v=202512270047"></script>
-<script type="text/javascript"
-    src="https://mooc-res2.chaoxing.com/stat2/js/jquery.nicescroll.min.js?v=202512270047"></script>
-<script src="https://mooc-res2.chaoxing.com/stat2/js/lib/layui-v2.5.4/layui/layui.js?v=202512270047"></script>
-<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/common/pop.js?v=202512270047"></script>
-<script type="text/javascript"
-    src="https://mooc-res2.chaoxing.com/stat2/js/common/poplayout.js?v=202512270047"></script>
-<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/common/select.js?v=202512270047"></script>
-<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/lib/echarts.min.js?v=202512270047"></script>
-<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/common/common.js?v=202512270047"></script>
-<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/xlPaging.js?v=202512270047"></script>
-<script type="text/javascript"
-    src="https://mooc-res2.chaoxing.com/stat2/js/student/statistic/task.js?v=202512270047"></script>
