@@ -1511,6 +1511,69 @@
         }
 
         // 如果当前页面没有，则请求个人空间页面获取
+        const extractTextById = (html, id) => {
+          const idPattern = new RegExp(`id=["']?${id}["']?[^>]*>([^<]*)`, 'i');
+          const match = html.match(idPattern);
+          return match ? match[1].trim() : '';
+        };
+        const extractNumberById = (html, id) => {
+          const idText = extractTextById(html, id);
+          if (idText) {
+            const numeric = idText.match(/\d+(\.\d+)?/);
+            return numeric ? numeric[0] : '';
+          }
+          const loosePattern = new RegExp(`${id}[^\\d]*(\\d+(?:\\.\\d+)?)`, 'i');
+          const looseMatch = html.match(loosePattern);
+          return looseMatch ? looseMatch[1] : '';
+        };
+        const extractPairNearLabel = (html, label) => {
+          const pairPattern = new RegExp(`${label}[^\\d]{0,50}(\\d+)\\s*\\/\\s*(\\d+)`, 'i');
+          const match = html.match(pairPattern);
+          return match ? { first: match[1], second: match[2] } : null;
+        };
+        const extractNumberNearLabel = (html, label) => {
+          const numberPattern = new RegExp(`${label}[^\\d]{0,50}(\\d+(?:\\.\\d+)?)`, 'i');
+          const match = html.match(numberPattern);
+          return match ? match[1] : '';
+        };
+        const getSiblingText = (element, selector) => {
+          const parent = element?.closest('li') || element?.parentElement;
+          if (!parent) return '';
+          const target = parent.querySelector(selector);
+          return target?.textContent.trim() || '';
+        };
+        const extractTaskPairFromDom = (doc) => {
+          const label = Array.from(doc.querySelectorAll('p')).find((el) => el.textContent.includes('完成进度'));
+          if (!label) return null;
+          const text = getSiblingText(label, 'h2');
+          const match = text.match(/(\d+)\s*\/\s*(\d+)/);
+          return match ? { first: match[1], second: match[2] } : null;
+        };
+        const extractRankFromDom = (doc) => {
+          const label = Array.from(doc.querySelectorAll('p')).find((el) => el.textContent.includes('当前排名'));
+          if (!label) return '';
+          const text = getSiblingText(label, 'h2');
+          const match = text.match(/(\d+)/);
+          return match ? match[1] : '';
+        };
+        const extractPointFromDom = (doc) => {
+          const title = Array.from(doc.querySelectorAll('h2')).find((el) => el.textContent.includes('课程积分'));
+          if (!title) return '';
+          const card = title.closest('.whiteBg') || title.parentElement;
+          const value = card?.querySelector('.strong, #point');
+          return value?.textContent.trim() || '';
+        };
+        const extractQuizPairFromDom = (doc) => {
+          const label = Array.from(doc.querySelectorAll('.statistics-bar-list .left-label'))
+            .find((el) => el.textContent.includes('章节测验'));
+          if (!label) return null;
+          const item = label.closest('li');
+          const rightRate = item?.querySelector('.right-rate');
+          const text = rightRate?.textContent.trim() || '';
+          const match = text.match(/(\d+)\s*\/\s*(\d+)/);
+          return match ? { first: match[1], second: match[2] } : null;
+        };
+
         return new Promise((resolve) => {
           if (typeof GM_xmlhttpRequest !== 'undefined') {
             GM_xmlhttpRequest({
@@ -1639,232 +1702,249 @@
         });
       };
 
-      // 获取课程进度 - 使用正确的课程页面入口
+      // 获取课程进度 - 从学习记录页面抓取任务点和排名等信息
       const getCourseProgress = async (course) => {
-        // 使用学习记录页面入口，pageHeader=6 对应"学习记录"标签页
+        const studyDataUrl = `https://stat2-ans.chaoxing.com/study-data/index?clazzid=${course.clazzId}&courseid=${course.courseId}&cpi=${course.cpi}&ut=s`;
         const courseEntryUrl = `https://mooc1.chaoxing.com/visit/stucoursemiddle?ismooc2=1&courseid=${course.courseId}&clazzid=${course.clazzId}&pageHeader=6`;
 
-        // 尝试从章节页面获取完成率
-        return new Promise((resolve) => {
-          // 尝试访问不带 enc 的章节页面（可能返回重定向或错误，但我们先尝试）
+        const getProgressFromChapter = () => new Promise((resolve) => {
           const chapterUrl = `https://mooc2-ans.chaoxing.com/mooc2-ans/mycourse/studentcourse?clazzid=${course.clazzId}&courseid=${course.courseId}&cpi=${course.cpi}`;
-
-          if (typeof GM_xmlhttpRequest !== 'undefined') {
-            GM_xmlhttpRequest({
-              method: 'GET',
-              url: chapterUrl,
-              timeout: 10000,
-              onload: (response) => {
-                try {
-                  const parser = new DOMParser();
-                  const doc = parser.parseFromString(response.responseText, 'text/html');
-
-                  // 查找 "已完成任务点: <span>99</span>/100" 格式
-                  const headEl = doc.querySelector('.chapter_head h2.xs_head_name');
-                  let completedTasks = 0;
-                  let totalTasks = 100;
-                  let completionRate = '点击查看';
-                  let shouldFilter = false;
-
-                  // 检查是否已结课 - 同时检查多种选择器
-                  const warnTxt = doc.querySelector('.top-tips .warn-txt') || doc.querySelector('.warn-txt');
-                  if (warnTxt && warnTxt.textContent.includes('本课程已结课')) {
-                    shouldFilter = true;
-                    console.log('[课程进度] 过滤已结课课程:', course.courseName);
-                  }
-
-                  if (headEl) {
-                    const text = headEl.textContent || '';
-                    // 匹配 "99/100" 格式或 "<span>99</span>/100" 中的数字
-                    // 使用更宽松的匹配：查找"已完成任务点"后面的数字格式
-                    const match = text.match(/(\d+)\s*\/\s*(\d+)/);
-                    if (match) {
-                      completedTasks = parseInt(match[1]) || 0;
-                      totalTasks = parseInt(match[2]) || 0;
-
-                      // 过滤无任务点的课程 (0/0 或任何 totalTasks=0 的情况)
-                      if (totalTasks === 0) {
-                        shouldFilter = true;
-                        console.log('[课程进度] 过滤无任务点课程:', course.courseName, `(${completedTasks}/${totalTasks})`);
-                      }
-
-                      completionRate = totalTasks > 0 ? Math.round(completedTasks / totalTasks * 100) + '%' : '0%';
-                      console.log('[课程进度]', course.courseName, '完成率:', completionRate, `(${completedTasks}/${totalTasks})`);
-                    }
-                  }
-
-                  // 计算未完成任务数量（class="catalog_jindu catalog_tishi120"）
-                  const unfinishedElements = doc.querySelectorAll('.catalog_jindu.catalog_tishi120');
-                  const unfinishedCount = unfinishedElements.length;
-
-                  // 获取学习记录详情（课程积分、章节测验、排名、视频观看等）
-                  const studyDataUrl = `https://stat2-ans.chaoxing.com/study-data/index?clazzid=${course.clazzId}&courseid=${course.courseId}&cpi=${course.cpi}&ut=s`;
-
-                  // 发起第二个请求获取学习记录详情
-                  GM_xmlhttpRequest({
-                    method: 'GET',
-                    url: studyDataUrl,
-                    timeout: 8000,
-                    onload: (studyResponse) => {
-                      let courseScore = '--';
-                      let chapterQuiz = '--';
-                      let ranking = '--';
-                      let videoWatched = '--';
-
-                      try {
-                        const studyParser = new DOMParser();
-                        const studyDoc = studyParser.parseFromString(studyResponse.responseText, 'text/html');
-
-                        // 解析学习记录页面数据
-                        // 查找综合成绩/课程积分
-                        const scoreEl = studyDoc.querySelector('.score-num, .total-score, [class*="score"]');
-                        if (scoreEl) {
-                          courseScore = scoreEl.textContent.trim() || '--';
-                        }
-
-                        // 查找视频观看时长
-                        const videoEl = studyDoc.querySelector('.video-time, .watch-time, [class*="video"] span');
-                        if (videoEl) {
-                          videoWatched = videoEl.textContent.trim() || '--';
-                        }
-
-                        // 尝试从页面文本中提取信息
-                        const pageText = studyResponse.responseText;
-
-                        // 提取排名信息
-                        const rankMatch = pageText.match(/[排名|班级排名|当前排名][：:]\s*(\d+)/);
-                        if (rankMatch) {
-                          ranking = '第' + rankMatch[1] + '名';
-                        }
-
-                        // 提取章节测验信息
-                        const quizMatch = pageText.match(/章节测验[：:]?\s*(\d+\.?\d*)\s*分?/);
-                        if (quizMatch) {
-                          chapterQuiz = quizMatch[1] + '分';
-                        }
-
-                        // 提取视频观看时长
-                        const videoMatch = pageText.match(/累计观看[：:]?\s*(\d+\.?\d*)\s*分钟/);
-                        if (videoMatch) {
-                          videoWatched = videoMatch[1] + '分钟';
-                        }
-
-                        // 提取课程积分
-                        const scoreMatch = pageText.match(/课程积分[：:]?\s*(\d+\.?\d*)/);
-                        if (scoreMatch) {
-                          courseScore = scoreMatch[1] + '分';
-                        }
-
-                        console.log('[学习记录]', course.courseName, '- 积分:', courseScore, '排名:', ranking, '视频:', videoWatched);
-                      } catch (e) {
-                        console.log('[学习记录]', course.courseName, '解析失败');
-                      }
-
-                      resolve({
-                        ...course,
-                        totalTasks,
-                        completedTasks,
-                        completionRate,
-                        unfinishedTasks: [],
-                        unfinishedCount,
-                        studyDataUrl: courseEntryUrl,
-                        isComplete: completedTasks >= totalTasks,
-                        shouldFilter,
-                        // 学习记录详情
-                        courseScore,
-                        chapterQuiz,
-                        ranking,
-                        videoWatched
-                      });
-                    },
-                    onerror: () => {
-                      // 学习记录请求失败，返回基础数据
-                      resolve({
-                        ...course,
-                        totalTasks,
-                        completedTasks,
-                        completionRate,
-                        unfinishedTasks: [],
-                        unfinishedCount,
-                        studyDataUrl: courseEntryUrl,
-                        isComplete: completedTasks >= totalTasks,
-                        shouldFilter,
-                        courseScore: '--',
-                        chapterQuiz: '--',
-                        ranking: '--',
-                        videoWatched: '--'
-                      });
-                    },
-                    ontimeout: () => {
-                      resolve({
-                        ...course,
-                        totalTasks,
-                        completedTasks,
-                        completionRate,
-                        unfinishedTasks: [],
-                        unfinishedCount,
-                        studyDataUrl: courseEntryUrl,
-                        isComplete: completedTasks >= totalTasks,
-                        shouldFilter,
-                        courseScore: '--',
-                        chapterQuiz: '--',
-                        ranking: '--',
-                        videoWatched: '--'
-                      });
-                    }
-                  });
-                } catch (e) {
-                  console.log('[课程进度]', course.courseName, '解析失败，使用默认值');
-                  resolve({
-                    ...course,
-                    totalTasks: 100,
-                    completedTasks: 0,
-                    completionRate: '点击查看',
-                    unfinishedTasks: [],
-                    unfinishedCount: 0,
-                    studyDataUrl: courseEntryUrl,
-                    isComplete: false
-                  });
-                }
-              },
-              onerror: () => {
-                // 请求失败，使用默认值
-                resolve({
-                  ...course,
-                  totalTasks: 100,
-                  completedTasks: 0,
-                  completionRate: '点击查看',
-                  unfinishedTasks: [],
-                  unfinishedCount: 0,
-                  studyDataUrl: courseEntryUrl,
-                  isComplete: false
-                });
-              },
-              ontimeout: () => {
-                resolve({
-                  ...course,
-                  totalTasks: 100,
-                  completedTasks: 0,
-                  completionRate: '点击查看',
-                  unfinishedTasks: [],
-                  unfinishedCount: 0,
-                  studyDataUrl: courseEntryUrl,
-                  isComplete: false
-                });
-              }
+          if (typeof GM_xmlhttpRequest === 'undefined') {
+            resolve({
+              totalTasks: 0,
+              completedTasks: 0,
+              completionRate: '点击查看',
+              shouldFilter: false
             });
-          } else {
+            return;
+          }
+
+          GM_xmlhttpRequest({
+            method: 'GET',
+            url: chapterUrl,
+            timeout: 10000,
+            onload: (response) => {
+              let completedTasks = 0;
+              let totalTasks = 0;
+              let completionRate = '点击查看';
+              let shouldFilter = false;
+
+              try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response.responseText, 'text/html');
+                const warnTxt = doc.querySelector('.top-tips .warn-txt') || doc.querySelector('.warn-txt');
+                if (warnTxt && warnTxt.textContent.includes('本课程已结课')) {
+                  shouldFilter = true;
+                  console.log('[课程进度] 过滤已结课课程:', course.courseName);
+                }
+
+                const headEl = doc.querySelector('.chapter_head h2.xs_head_name');
+                if (headEl) {
+                  const text = headEl.textContent || '';
+                  const match = text.match(/(\d+)\s*\/\s*(\d+)/);
+                  if (match) {
+                    completedTasks = parseInt(match[1], 10) || 0;
+                    totalTasks = parseInt(match[2], 10) || 0;
+                    completionRate = totalTasks > 0 ? `${Math.round((completedTasks / totalTasks) * 100)}%` : '0%';
+                  }
+                }
+
+                if (response.responseText.includes('暂无任务点') || response.responseText.includes('没有任务点')) {
+                  shouldFilter = true;
+                  console.log('[课程进度] 过滤无任务点课程:', course.courseName);
+                }
+              } catch (e) {
+                console.log('[课程进度]', course.courseName, '章节解析失败');
+              }
+
+              resolve({
+                totalTasks,
+                completedTasks,
+                completionRate,
+                shouldFilter
+              });
+            },
+            onerror: () => resolve({
+              totalTasks: 0,
+              completedTasks: 0,
+              completionRate: '点击查看',
+              shouldFilter: false
+            }),
+            ontimeout: () => resolve({
+              totalTasks: 0,
+              completedTasks: 0,
+              completionRate: '点击查看',
+              shouldFilter: false
+            })
+          });
+        });
+
+        return new Promise((resolve) => {
+          if (typeof GM_xmlhttpRequest === 'undefined') {
             resolve({
               ...course,
-              totalTasks: 100,
+              totalTasks: 0,
               completedTasks: 0,
               completionRate: '点击查看',
               unfinishedTasks: [],
               unfinishedCount: 0,
-              studyDataUrl: courseEntryUrl,
-              isComplete: false
+              studyDataUrl,
+              isComplete: false,
+              shouldFilter: false,
+              courseScore: '--',
+              chapterQuiz: '--',
+              ranking: '--'
             });
+            return;
           }
+
+          GM_xmlhttpRequest({
+            method: 'GET',
+            url: studyDataUrl,
+            timeout: 10000,
+            onload: async (studyResponse) => {
+              let completedTasks = 0;
+              let totalTasks = 0;
+              let completionRate = '点击查看';
+              let shouldFilter = false;
+              let courseScore = '--';
+              let chapterQuiz = '--';
+              let ranking = '--';
+
+              try {
+                const parser = new DOMParser();
+                const studyDoc = parser.parseFromString(studyResponse.responseText, 'text/html');
+
+                if (studyResponse.responseText.includes('本课程已结课')) {
+                  shouldFilter = true;
+                  console.log('[课程进度] 过滤已结课课程:', course.courseName);
+                }
+
+                const completedEl = studyDoc.querySelector('#jobfinish');
+                const totalEl = studyDoc.querySelector('#jobPublish');
+                const percentEl = studyDoc.querySelector('#jobPer');
+                const rankEl = studyDoc.querySelector('#jobRank');
+                const pointEl = studyDoc.querySelector('#point');
+                const testNumEl = studyDoc.querySelector('#testNum');
+                const publishTestNumEl = studyDoc.querySelector('#publishTestNum');
+
+                const progressPair = extractPairNearLabel(studyResponse.responseText, '完成进度');
+                const progressPairFromDom = extractTaskPairFromDom(studyDoc);
+                const completedText = completedEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobfinish')
+                  || progressPairFromDom?.first
+                  || progressPair?.first;
+                const totalText = totalEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobPublish')
+                  || progressPairFromDom?.second
+                  || progressPair?.second;
+                const percentText = percentEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobPer');
+                const rankText = rankEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'jobRank')
+                  || extractRankFromDom(studyDoc)
+                  || extractNumberNearLabel(studyResponse.responseText, '当前排名')
+                  || extractNumberNearLabel(studyResponse.responseText, '班级排名');
+                const pointText = pointEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'point')
+                  || extractPointFromDom(studyDoc)
+                  || extractNumberNearLabel(studyResponse.responseText, '课程积分');
+                const testNumText = testNumEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'testNum');
+                const publishTestNumText = publishTestNumEl?.textContent.trim()
+                  || extractNumberById(studyResponse.responseText, 'publishTestNum');
+                const quizPair = extractPairNearLabel(studyResponse.responseText, '章节测验');
+                const quizPairFromDom = extractQuizPairFromDom(studyDoc);
+                const normalizedTestNumText = testNumText || quizPairFromDom?.first || quizPair?.first;
+                const normalizedPublishTestNumText = publishTestNumText || quizPairFromDom?.second || quizPair?.second;
+
+                completedTasks = parseInt(completedText || '0', 10) || 0;
+                totalTasks = parseInt(totalText || '0', 10) || 0;
+
+                if (percentText) {
+                  completionRate = percentText.includes('%') ? percentText : `${percentText}%`;
+                } else if (totalTasks > 0) {
+                  completionRate = `${Math.round((completedTasks / totalTasks) * 100)}%`;
+                }
+
+                if (rankText) {
+                  ranking = rankText.includes('名') ? rankText : `第${rankText}名`;
+                }
+
+                if (pointText) {
+                  courseScore = pointText.includes('分') ? pointText : `${pointText}分`;
+                }
+
+                if (normalizedTestNumText || normalizedPublishTestNumText) {
+                  chapterQuiz = `${normalizedTestNumText || '0'}/${normalizedPublishTestNumText || '0'}`;
+                }
+              } catch (e) {
+                console.log('[学习记录]', course.courseName, '解析失败');
+              }
+
+              const missingStudyData = totalTasks === 0 && completedTasks === 0 && ranking === '--' && courseScore === '--';
+              if (missingStudyData) {
+                const chapterProgress = await getProgressFromChapter();
+                totalTasks = chapterProgress.totalTasks;
+                completedTasks = chapterProgress.completedTasks;
+                completionRate = chapterProgress.completionRate;
+                shouldFilter = shouldFilter || chapterProgress.shouldFilter;
+              }
+
+              console.log('[学习记录]', course.courseName, '任务点:', `${completedTasks}/${totalTasks}`, '排名:', ranking, '积分:', courseScore);
+
+              const unfinishedCount = Math.max(totalTasks - completedTasks, 0);
+
+              resolve({
+                ...course,
+                totalTasks,
+                completedTasks,
+                completionRate,
+                unfinishedTasks: [],
+                unfinishedCount,
+                studyDataUrl: courseEntryUrl,
+                isComplete: totalTasks > 0 && completedTasks >= totalTasks,
+                shouldFilter,
+                courseScore,
+                chapterQuiz,
+                ranking
+              });
+            },
+            onerror: async () => {
+              const chapterProgress = await getProgressFromChapter();
+              resolve({
+                ...course,
+                totalTasks: chapterProgress.totalTasks,
+                completedTasks: chapterProgress.completedTasks,
+                completionRate: chapterProgress.completionRate,
+                unfinishedTasks: [],
+                unfinishedCount: Math.max(chapterProgress.totalTasks - chapterProgress.completedTasks, 0),
+                studyDataUrl: courseEntryUrl,
+                isComplete: chapterProgress.totalTasks > 0 && chapterProgress.completedTasks >= chapterProgress.totalTasks,
+                shouldFilter: chapterProgress.shouldFilter,
+                courseScore: '--',
+                chapterQuiz: '--',
+                ranking: '--'
+              });
+            },
+            ontimeout: async () => {
+              const chapterProgress = await getProgressFromChapter();
+              resolve({
+                ...course,
+                totalTasks: chapterProgress.totalTasks,
+                completedTasks: chapterProgress.completedTasks,
+                completionRate: chapterProgress.completionRate,
+                unfinishedTasks: [],
+                unfinishedCount: Math.max(chapterProgress.totalTasks - chapterProgress.completedTasks, 0),
+                studyDataUrl: courseEntryUrl,
+                isComplete: chapterProgress.totalTasks > 0 && chapterProgress.completedTasks >= chapterProgress.totalTasks,
+                shouldFilter: chapterProgress.shouldFilter,
+                courseScore: '--',
+                chapterQuiz: '--',
+                ranking: '--'
+              });
+            }
+          });
         });
       };
 
@@ -1884,6 +1964,9 @@
             courseProgressItems.value = results
               .filter(item => !item.shouldFilter) // 过滤掉标记为需要过滤的课程
               .sort((a, b) => {
+                const aHasTasks = a.totalTasks > 0;
+                const bHasTasks = b.totalTasks > 0;
+                if (aHasTasks !== bHasTasks) return aHasTasks ? -1 : 1;
                 if (a.isComplete && !b.isComplete) return 1;
                 if (!a.isComplete && b.isComplete) return -1;
                 return parseInt(a.completionRate) - parseInt(b.completionRate);
@@ -2627,6 +2710,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px 16px;
             align-items: stretch;
+            grid-auto-rows: 1fr;
           }
           .progress-item {
             display: flex;
@@ -2653,6 +2737,7 @@
             left: calc(100% + 12px);
             top: 0;
             width: 240px;
+            max-width: calc(100vw - 32px);
             padding: 14px;
             background: #fff;
             border-radius: 8px;
@@ -2681,6 +2766,41 @@
           }
           .progress-item:hover .progress-tooltip {
             display: block;
+          }
+          @media (max-width: 960px) {
+            .progress-items-grid {
+              grid-template-columns: 1fr;
+            }
+          }
+          @media (max-width: 720px) {
+            .progress-card .card-body {
+              overflow-x: hidden;
+            }
+            .progress-tooltip {
+              left: 50%;
+              right: auto;
+              top: calc(100% + 8px);
+              transform: translateX(-50%);
+              width: min(280px, calc(100vw - 32px));
+            }
+            .progress-tooltip::before {
+              left: 50%;
+              top: -8px;
+              right: auto;
+              transform: translateX(-50%);
+              border-right-color: transparent;
+              border-left-color: transparent;
+              border-bottom-color: #fff;
+            }
+            .progress-item:nth-child(even) .progress-tooltip {
+              left: 50%;
+              right: auto;
+            }
+            .progress-item:nth-child(even) .progress-tooltip::before {
+              left: 50%;
+              right: auto;
+              border-left-color: transparent;
+            }
           }
           .tooltip-title {
             font-size: 14px;
@@ -3258,10 +3378,6 @@
                               vue.createVNode("div", { class: "tooltip-row" }, [
                                 vue.createVNode("span", { class: "label" }, "当前排名"),
                                 vue.createVNode("span", { class: "value highlight" }, course.ranking || "点击查看")
-                              ]),
-                              vue.createVNode("div", { class: "tooltip-row" }, [
-                                vue.createVNode("span", { class: "label" }, "视频观看"),
-                                vue.createVNode("span", { class: "value" }, course.videoWatched || "点击查看")
                               ]),
                               vue.createVNode("div", {
                                 style: "margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #1890ff; text-align: center; cursor: pointer;"
