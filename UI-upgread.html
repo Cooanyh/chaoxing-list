@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coren的学习空间 - 仪表盘</title>
+    <style>
+        /* --- 全局重置 --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f7fa;
+            /* 稍微调整了一下底色，更柔和 */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            /* 因为去掉了导航栏，给body加点内边距 */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- 主体内容区域 --- */
+        .main-content {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- 顶部欢迎与提醒区域 (新修改) --- */
+        .dashboard-header {
+            margin-bottom: 24px;
+            background: #fff;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            /* 改为垂直排列，让提醒条像原来的样子放在下面或独立 */
+            gap: 16px;
+        }
+
+        .welcome-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-text {
+            font-size: 22px;
+            font-weight: 600;
+            color: #262626;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .date-info {
+            font-size: 14px;
+            color: #8c8c8c;
+        }
+
+        /* 新版紧急提醒样式 
+           特点：长条形、低对比度、类似系统通知
+        */
+        .urgent-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff1f0;
+            /* 极淡的红色背景 */
+            border: 1px solid #ffccc7;
+            /* 淡红色边框 */
+            padding: 10px 16px;
+            border-radius: 6px;
+            color: #5c0011;
+            /* 深红色文字，阅读舒适 */
+            font-size: 14px;
+            width: 100%;
+            /* 长条 */
+            transition: all 0.2s;
+        }
+
+        .urgent-strip:hover {
+            background-color: #ffccc7;
+            cursor: pointer;
+        }
+
+        .urgent-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .urgent-icon {
+            font-size: 16px;
+        }
+
+        .urgent-count {
+            font-weight: bold;
+            color: #cf1322;
+        }
+
+        .urgent-action {
+            font-size: 13px;
+            color: #8c8c8c;
+        }
+
+        /* --- 仪表盘网格布局 --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* --- 卡片通用样式 --- */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            /* 圆角稍微加大一点 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            /* 阴影更柔和 */
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: none;
+            /* 去掉边框，纯靠阴影和背景 */
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* 标题栏 */
+        .card-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+        }
+
+        /* 装饰性的小圆点代替原来的长条 */
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .card-more {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .card-more:hover {
+            color: #1890ff;
+        }
+
+        /* --- 列表区域 --- */
+        .card-body {
+            padding: 0 12px;
+            min-height: 300px;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 12px;
+            border-bottom: 1px dashed #f0f0f0;
+            cursor: pointer;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item:hover {
+            background-color: #fafafa;
+            border-radius: 6px;
+        }
+
+        /* 左侧内容 */
+        .item-main {
+            flex: 1;
+            margin-right: 12px;
+            min-width: 0;
+        }
+
+        .task-title {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 500;
+        }
+
+        .task-meta {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+            gap: 8px;
+        }
+
+        .course-tag {
+            background: #f7f7f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* 右侧状态 */
+        .item-status {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* 状态胶囊 - 稍微压扁一点，更精致 */
+        .badge {
+            font-size: 12px;
+            padding: 1px 8px;
+            border-radius: 10px;
+            font-weight: normal;
+            display: inline-block;
+        }
+
+        /* 颜色定义 - 降低了饱和度 */
+        .status-urgent {
+            background: #fff1f0;
+            color: #cf1322;
+            border: 1px solid #ffa39e;
+        }
+
+        .status-warning {
+            background: #fffbe6;
+            color: #d48806;
+            border: 1px solid #ffe58f;
+        }
+
+        .status-normal {
+            background: #e6f7ff;
+            color: #096dd9;
+            border: 1px solid #91d5ff;
+        }
+
+        .status-done {
+            background: #f6ffed;
+            color: #389e0d;
+            border: 1px solid #b7eb8f;
+        }
+
+        .status-gray {
+            background: #f5f5f5;
+            color: #8c8c8c;
+            border: 1px solid #d9d9d9;
+        }
+
+        /* 考试特殊样式 */
+        .exam-time {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            color: #434343;
+        }
+
+        .exam-loc {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .welcome-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .dashboard-header {
+                padding: 15px;
+            }
+
+            .card-header {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-content">
+        <!-- 头部区域：整合在白色背景块中 -->
+        <div class="dashboard-header">
+            <div class="welcome-row">
+                <div class="welcome-text">👋 下午好，Coren</div>
+                <div class="date-info">2026年1月7日 · 星期三</div>
+            </div>
+
+            <!-- 长条形紧急提醒 (New) -->
+            <div class="urgent-strip">
+                <div class="urgent-left">
+                    <span class="urgent-icon">🔔</span>
+                    <span>你还有 <span class="urgent-count">3</span> 个高优先级任务待处理：Java程序设计测验等...</span>
+                </div>
+                <div class="urgent-action">去处理 ></div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- 1. 待办任务 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="indicator-dot" style="background: #1890ff;"></div>
+                        待办任务
+                    </div>
+                    <a href="#" class="card-more">查看全部</a>
+                </div>
+                <div class="card-body">
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">第三章：循环结构测验</div>
+                            <div class="task-meta">
+                                <span class="course-tag">Java程序设计</span>
+                            </div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-urgent">今晚截止</span>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">观看 5.1 二叉树的定义</div>
+                            <div class="task-meta">
+                                <span class="course-tag">数据结构</span>
+                            </div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-warning">明天</span>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">Unit 4 单词打卡</div>
+                            <div class="task-meta">
+                                <span class="course-tag">大学英语(IV)</span>
+                            </div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-normal">进行中</span>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">讨论区回帖：谈谈你的看法</div>
+                            <div class="task-meta">
+                                <span class="course-tag">毛概</span>
+                            </div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-gray">未开始</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 近期作业 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="indicator-dot" style="background: #faad14;"></div>
+                        全部作业
+                    </div>
+                    <a href="#" class="card-more">更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">实验报告一：线性表</div>
+                            <div class="task-meta">10-24 12:00 截止</div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-done">已提交</span>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">课后翻译练习 Unit 3</div>
+                            <div class="task-meta">10-22 截止</div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-warning">未交</span>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">形势与政策论文</div>
+                            <div class="task-meta">11-01 截止</div>
+                        </div>
+                        <div class="item-status">
+                            <span class="badge status-normal">待批改</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 考试安排 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="indicator-dot" style="background: #f5222d;"></div>
+                        近期考试
+                    </div>
+                    <a href="#" class="card-more">更多</a>
+                </div>
+                <div class="card-body">
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">计算机网络期中考试</div>
+                            <div class="task-meta">主教 302</div>
+                        </div>
+                        <div class="item-status">
+                            <div class="exam-time" style="color: #ff4d4f;">11-15</div>
+                            <div class="exam-loc">14:00</div>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="item-main">
+                            <div class="task-title">操作系统随堂测</div>
+                            <div class="task-meta">线上考试</div>
+                        </div>
+                        <div class="item-status">
+                            <div class="exam-time">11-18</div>
+                            <div class="exam-loc">10:00</div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; padding: 20px 0; color: #bfbfbf;">
+                        🎉 暂无更多考试
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

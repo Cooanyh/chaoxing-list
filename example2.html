@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>统计-在线学习</title>
+    <link href="https://mooc-res2.chaoxing.com/stat2/iconmoon/style.css?v=202512270047" type="text/css"
+        rel="stylesheet">
+    <link href="https://mooc-res2.chaoxing.com/stat2/style/common.css?v=202512270047" type="text/css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://mooc-res2.chaoxing.com/stat2/js/lib/layui-v2.5.4/layui/css/layui.css?v=202512270047">
+    <link href="https://mooc-res2.chaoxing.com/stat2/style/pop.css?v=202512270047" type="text/css" rel="stylesheet">
+    <link href="https://mooc-res2.chaoxing.com/stat2/style/style.css?v=202512270047" type="text/css" rel="stylesheet">
+    <link href="https://mooc-res2.chaoxing.com/stat2/style/task/taskCommon.css?v=202512270047" type="text/css"
+        rel="stylesheet">
+    <link href="https://mooc-res2.chaoxing.com/stat2/style/student/statistics/statistic.css?v=202512270047"
+        type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="subNav">
+        章节任务点</div>
+    <div class="page-container studentStatistic">
+        <div class="page-item top-info">
+            <div class="user-info">
+                <h2>在线学习预览</h2>
+                <p class="tDec">共 127 个课程学习资源，包括<span>85</span>个任务点<span>85</span>个已完成
+                </p>
+                <div class="list">
+                    <ul>
+                        <li>
+                            <div class="topC fs16 color181E33"><i class="icon-video"></i>视频</div>
+                            <div class="centerC">
+                                <span class="fl fs14 color646873">累计观看</span>
+                                <div class="fl min"><span>357.5</span>分钟</div>
+                                <div class="progress fl">
+                                    <div class="barBox">
+                                        <span style="width:100.0%;"></span>
+                                        <div class="bubble">累计观看视频 357.5分 超过全班 69% 的同学！
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <p class="bottomC fs12">总时长 342 分钟</p>
+                        </li>
+
+
+                        <li>
+                            <div class="topC fs16 color181E33"><i class="icon-read"></i>阅读</div>
+                            <div class="centerC">
+                                <span class="fl fs14 color646873">累计阅读</span>
+                                <div class="fl min"><span>23.3</span>分钟</div>
+                                <div class="progress fl">
+                                    <div class="barBox">
+                                        <span style="width:38.333333333333336%;"></span>
+                                        <div class="bubble">累计阅读 23.3分 超过全班 59% 的同学！
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <p class="bottomC fs12">要求时长 60 分钟 （阅读时长计算包含章节、资料中的文档、专题、期刊、超星电子书、笔记），数据次日更新</p>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-item item-task-list minHeight390">
+            <h2 class="colorDeep fs16 font-bold">任务点进度</h2>
+            <div class="nav-list " style="display: block">
+                <table class="ui-task-table" id="jobTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">任务名</th>
+                            <th style="width: 20%;">类型</th>
+                            <th style="width: 20%;" class="status" onclick="statusFun(this)">
+                                <div class="opacity">任务点完成状态
+                                    <i class="icon-UpDown down"></i>
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        <li onclick="addActive(this,0)" class="active"><i></i>全部</li>
+                                        <li onclick="addActive(this,1)"><i></i>已完成</li>
+                                        <li onclick="addActive(this,2)"><i></i>未完成</li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <th style="width: 15%;">完成时间</th>
+                            <th style="width: 15%;">操作</th>
+
+                        </tr>
+                    </thead>
+                </table>
+                <div class="pageDiv" id="timePage"></div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="clazzId" value="126916985">
+    <input type="hidden" id="courseId" value="254650327">
+    <input type="hidden" id="cpi" value="425976805">
+    <input type="hidden" id="enc" value="ce56241b035048843dfa0b10ee383d63">
+    <input type="hidden" id="mooc1Domain" value="https://mooc1.chaoxing.com">
+    <input type="hidden" value="0" id="visitor" />
+    <input type="hidden" value="d82b864c6735dc9dcd043672431f227a" id="openc" />
+    <input type="hidden" id="enc-clazzId" value="126916985">
+    <input type="hidden" id="enc-courseId" value="254650327">
+    <input type="hidden" id="enc-cpi" value="425976805">
+    <input type="hidden" id="enc-ut" value="s">
+    <input type="hidden" id="enc-time" value="0">
+    <input type="hidden" id="enc-fr" value="">
+    <input type="hidden" id="enc-uid" value="">
+    <input type="hidden" id="enc-enc" value="">
+    <input type="hidden" id="enc-visitor" value="0">
+    <input type="hidden" id="encQueryString" value="">
+
+    <input type="hidden" id="pEnc" value="670ed12f06ef5e8d3ed793582859e942">
+
+    <input type="hidden" id="baseDataTab" value="">
+    <input type="hidden" id="classRoomReportTab" value="">
+    <input type="hidden" id="teachDataTab" value="">
+    <input type="hidden" id="scoreDataTab" value="">
+    <input type="hidden" id="studyMonitorTab" value="">
+    <input type="hidden" id="customWarnTab" value="">
+    <input type="hidden" id="customWarnUrl" value="">
+
+    <input type="hidden" id="contextPath" value="/stat2">
+    <input type="hidden" id="visitorAuth" value="0">
+    <input type="hidden" id="isMapCourse" value="0">
+    <input type="hidden" id="extView" value="0">
+    <input type="hidden" id="app" value="0">
+    <input type="hidden" id="v" value="">
+
+    <input type="hidden" id="mooc1Domain" value="https://mooc1.chaoxing.com">
+    <input type="hidden" id="mooc2Domain" value="https://mooc2-ans.chaoxing.com">
+    <input type="hidden" id="mooc2GrayDomain" value="https://mooc2-gray.chaoxing.com">
+    <input type="hidden" id="stat2Domain" value="https://stat2-ans.chaoxing.com">
+    <input type="hidden" id="mobileLearnDomain" value="https://mobilelearn.chaoxing.com">
+    <input type="hidden" id="groupWebDomain" value="https://groupweb.chaoxing.com">
+
+    <input type="hidden" id="pDomain" value="https://p.cldisk.com">
+    <input type="hidden" id="kDomain" value="https://k.chaoxing.com">
+    <input type="hidden" id="noteDomain" value="https://noteyd.chaoxing.com">
+
+    <input type="hidden" id="dataPath" value="//data.chaoxing.com">
+    <input type="hidden" id="zhiboPath" value="//zhibo.chaoxing.com">
+    <input type="hidden" id="appPath" value="//app.chaoxing.com">
+    <input type="hidden" id="astatsFanyaDomain" value="https://astats.fanya.chaoxing.com">
+    <input type="hidden" id="mobileWeightCourseDomain" value="https://widget-course.chaoxing.com">
+    <input type="hidden" id="szptDomain" value="https://szpt.fanya.chaoxing.com">
+    <input type="hidden" id="fycourseDomain" value="https://fycourse.fanya.chaoxing.com">
+
+    <input type="hidden" id="share1Domain" value="https://share1.chaoxing.com">
+
+    <script type="text/javascript"
+        src="https://mooc-res2.chaoxing.com/stat2/js/jquery-3.6.0.min.js?v=202512270047"></script>
+    <script src="https://mooc-res2.chaoxing.com/stat2/js/statRequest.js?v=202512270047" type="text/javascript"
+        charset="utf-8"></script>
+    <script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/ServerHost.js?v=202512270047"></script>
+    <script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/ReadOnly.js?v=202512270047"></script>
+    <script type="text/javascript">
+        I18N = {
+            "back": "返回",
+            "Unit_Score": "分",
+            "IdSort": "学号排序",
+            "ScoreToHigh": "成绩从低到高",
+            "ScoreToLow": "成绩从高到低",
+            "Submit": "提交",
+            "ExamTime": "考试时间",
+            "To": "至",
+            "AverageScore": "平均分",
+            "CompletionRate": "完成率",
+            "Unit_Person": "人",
+            "DayLearningTime": "日学习次数（次）",
+            "HourLearningTime": "小时学习次数（次）",
+            "LearningTimes": "学习次数",
+            "visit": "访问",
+            "LearningActivities": "学习活动数",
+            "OnlineLearningStudents": "上线学习学生",
+            "Attendance": "签到率",
+            "TheEnd": "已经到底啦",
+            "None": "无",
+            "Finished": "已完成",
+            "Unfunished": "未完成",
+            "BasicData": "基础数据",
+            "Basic_Unit_Minutes": "分钟",
+            "ClassReport": "课堂报告",
+            "LearningStatistics": "学情统计",
+            "StudentPerformance": "学生成绩",
+            "StudyMonitor": "学习监控",
+            "CourseSevenActive": "近七日课程活动数:",
+            "ThisWeek": "本周",
+            "LastWeek": "上周",
+            "TopicThisWeek": "近七日话题活跃度",
+            "No": "序号",
+            "name": "姓名",
+            "IDNumber": "学号/工号",
+            "VideoViewTime": "视频观看时长",
+            "GroupTask": "分组任务",
+            "ChapterTaskPoint": "章节任务点",
+            "chapterJob": "章节测验",
+            "WeightTipSuffix1": "按完成任务点的个数计分，全部完成得满分",
+            "ScoreJobType": "计算成绩的任务点类型：",
+            "ScoreChapterTest": "按所有章节测验类型任务点的平均分计分",
+            "ChapterQuiz": "章节测验",
+            "Homework": "作业",
+            "HomeworkTip": "按在线作业的平均分计分，所有作业按百分制分数进行计算",
+            "HomeworkDetailTip1": "已设置作业明细分配，按（按班级发放的作业成绩*权重占比＋按人发放的作业成绩)/(1＋按人发放的作业数量）或按班级发放的作业成绩*权重占比计分。所有作业按百分制分数进行计算",
+            "HomeworkDetailTip2": "按班级发放的作业明细分配：",
+            "cxClassRateTip1": "观看在线泛雅课堂、回放时长与课堂总时长比例达到",
+            "cxClassRateTip2": "%为满分",
+            "WeightingItem": "权重项",
+            "WeightingDescription": "权重描述",
+            "ExamTip": "按在线考试的平均分计分，所有考试按百分制分数进行计算",
+            "ExamTip1": "已设置考试明细分配，按（按班级发放的考试成绩*权重占比＋按人发放的考试成绩)/(1＋按人发放的考试数量）或按班级发放的考试成绩*权重占比计分。所有考试按百分制分数进行计算",
+            "ExamTip2": "按班级发放的考试明细分配：",
+            "GroupPbl": "分组任务（PBL）",
+            "GroupPblTip": "按分组任务（PBL）的平均分计分。星级评价不参与计算",
+            "GroupPblTip1": "已设置分组任务明细分配，按分组任务成绩*权重占比+PBL成绩计分。星级评价不参与计算",
+            "GroupPblTip2": "班级下分组任务明细分配：",
+            "Exam": "考试",
+            "sign": "签到",
+            "attendTip1": "按出勤率计分",
+            "attendTip2": "按出勤次数计分",
+            "SignDesNew": "按出勤率计分，出勤率等于(出勤次数/签到总数），出勤率低于",
+            "SignDes": "按签到次数计分，次数达到",
+            "SignDes1": "按出勤次数计分，出勤次数达到",
+            "SignDesNewZero": "%，签到权重成绩计为0分",
+            "SignFull": "次为满分",
+            "SignDesLower": "，低于或等于",
+            "SignZero": "次为0分",
+            "discountTip2": "1次已签（学生签到、教师代签）计为 1 次出勤",
+            "discountTip3": "1次异常（迟到、早退、过期签到）计为",
+            "discountTip4": "1次请假（事假、病假）计为",
+            "discountTip5": "1次缺勤（未签、教师设为缺勤） 0 次出勤",
+            "attend_public_1": "1次公假计为",
+            "attend_public_2": "次出勤",
+            "Bonus": "课程积分",
+            "BonusFull": "分为满分",
+            "ClassroomInteractionTip1": "参与课堂活动可以获得相应分数，积分达",
+            "ClassroomInteractionTip2": "计算成绩的课堂活动类型：",
+            "Discuss": "讨论",
+            "ChapterLearningTimes": "章节学习次数",
+            "ChapterLearningTimesTip": "次为满分",
+            "ReadAttachment": "阅读",
+            "ReadAttachmentTip": "按阅读课程章节、资料中阅读材料的时长计分，总时长达到",
+            "ReadAttachmentTip1": "分钟为满分",
+            "LiveAttachment": "直播",
+            "liveSetTip2": "观看章节中直播、直播回放时长与直播总时长比例达",
+            "liveSetTip2_1": "%为满分",
+            "liveSetTip3": "按章节中的直播、直播回放观看总时长计分，总时长达到",
+            "liveSetTip3_1": "分钟为满分",
+            "liveSetTip4": "观看进行中直播1分钟计为",
+            "liveSetTip5": "观看回放的直播1分钟计为",
+            "liveSetTip6": "按观看比例计分",
+            "liveSetTip7": "按观看时长计分",
+            "bbsTip1": "回复同一话题只计分一次",
+            "bbsTip2": "回复同一话题累计得分",
+            "LiveAttachment": "直播",
+            "Offline": "线下成绩",
+            "OfflineTip": "学生线下学习行为得分",
+            "OfflineTip1": "明细分配：",
+            "TotalScore": "综合成绩",
+            "Operation": "操作",
+            "View": "查看",
+            "Detail": "详情",
+            "MatchingState": "匹配状态",
+            "Normal": "正常",
+            "Abnormal": "异常",
+            "All": "全部",
+            "Total": "共",
+            "Unit_Person_Time": "人次",
+            "Unit_Total": "共",
+            "Unit_Times": "次",
+            "Unit_Time": "次",
+            "Unit_Minute": "单位（分钟）",
+            "Unit_Count": "个",
+            "Unit_Counts": "个",
+            "SelectAll": "全选",
+            "ActivityType": "活动类型",
+            "AllActivity": "全部活动",
+            "CancelSelect": "取消全选",
+            "ID": "学号",
+            "CourseActive": "课程活动数",
+            "ChapterLearning": "章节学习次数",
+            "GoTop": "返回顶部",
+            "WorkAttachment": "章节测验",
+            "NoData": "暂无数据",
+            "NonTaskPoint": "非任务点",
+            "TaskPoint": "任务点",
+            "SearchChapter": "搜索章节",
+            "Minutes": "分钟",
+            "Unit_Min": "分",
+            "Hours": "小时",
+            "SearchStudent": "搜索学生",
+            "lang": "zh",
+            "lang1": "zh-cn",
+            "ErrorTimes": "答错次数",
+            "unit_Ques": "道",
+            "判断题": "判断题",
+            "Answer": "答案",
+            "MoreThanThree": "3次以上",
+            "Submitted": "已提交",
+            "Ungraded": "待批阅",
+            "HighestBonus": "最高分",
+            "LowestBonus": "最低分",
+            "UnitPieces": "单位(份) ",
+            "UnitPonits": "单位(分) ",
+            "UnSubmitted": "未提交",
+            "ToRepeat": "待重做",
+            "HighestScore": "最高分",
+            "LowestScore": "最低分",
+            "Month": "个月 ",
+            "EveryWeek": "每周",
+            "EveryTwoWeeks": "每两周",
+            "EveryThreeWeeks": "每三周",
+            "EveryFourWeeks": "每四周",
+            "End": "结束",
+            "Export": "导出",
+
+            "TotalScoreP": "综合成绩(分)",
+            "TaskPointCompletionU": "任务点完成数(个)",
+            "ChapterQuizCompletionU": "章节测验完成数(个)",
+            "ChaperQuizScoreP": "章节测验分数(分)",
+            "HomeworkCompletionU": "作业完成数(份)",
+            "HomeworkScoreP": "作业分数(分)",
+            "TestScoreP": "考试分数(分)",
+            "CheckInTimesU": "签到次数(次)",
+            "CheckInScoreP": "签到分数(分)",
+            "ActivityParticipationU": "课堂活动参与次数(次)",
+            "ActivityBonusP": "课堂活动参与分数(分)",
+            "TopicNumberU": "讨论数(个)",
+            "DiscussionScoreP": "讨论分数(分)",
+            "ChapterLearningTimesU": "章节学习次数(次)",
+            "ChapterLearningScoreP": "章节学习次数(分)",
+            "GroupTaskPblScoreP": "分组任务(PBL)分数(分)",
+            "ReadingScoreP": "阅读分数(分)",
+            "LiveVideoViewingDurationT": "直播时长(分钟)",
+            "VideoViewingDurationT": "视频观看时长(分钟)",
+
+            "Withdraw": "撤回",
+            "MyScore": "我的得分",
+            "NotViewed": "未查看",
+            "Viewed": "已查看",
+            "Completed": "已完成",
+            "RedoUnSubmitted": "重做未提交",
+            "Unissued": "未发放",
+
+            "Tip": "提示",
+            "Sure": "确定",
+            "Cancel": "取消",
+            "SureWithdrawed": "确定要撤回发放的证书?",
+            "WithdrawalSuccessful": "撤回成功",
+            "WithdrawalFail": "撤回失败",
+
+            "MyScoreWeight": "我的成绩（各权重百分制得分）",
+            "AverageScoreWeight": "平均成绩（各权重百分制得分）",
+
+            "AppraisalContents": "考核内容",
+            "Weight": "所占权重",
+            "MyPoint": "我的成绩",
+            "AveragePoint": "平均成绩",
+
+            "Student": "学生",
+            "StudentCard": "学生名片",
+            "StudentScore": "学生成绩",
+            "ScoreDis": "分数",
+            "SubmittedTime": "提交时间",
+            "FinishedTime": "完成时间",
+            "Unit_Number": "个数(个)",
+
+            "AlertCriteriaEmptyHint": "筛选条件不能为空",
+            "AlertStudentEmptyHint": "请选择学生",
+            "Remind": "提醒",
+            "ClearRecords": "标为正常",
+            "EnterChapter": "进入章节",
+            "EnterCourse": "进入课程",
+            "WatchVideo": "观看视频",
+            "SnapOnePhoto": "抓拍照片1张",
+            "MatchAnomaly": "匹配异常：匹配度",
+            "MatchNormal": "匹配正常：匹配度",
+            "Complete": "完成",
+            "TypeTaskPoint": "类型任务点",
+
+            "MonitorBehavior": "系统检测到你在本课程",
+            "MonitorNotice": "存在异常学习行为，可能影响本课成绩，请及时改正异常学习行为。若有问题，请联系本课教师。",
+            "Saved": "已保存",
+            "IussueSucceed": "发放成功",
+            "UnitPerson": "单位（人）",
+
+            "AverageCompleteWeightRate": "平均完成率",
+            "AverageMasteryRate": "平均掌握率",
+            "HighesMasteryRate": "最高掌握率",
+            "LowestMasteryRate": "最低掌握率",
+            "MasteryRate": "掌握率",
+            "NotYetRelatedLearningTask": "未关联学习资源",
+            "BlowSixtyPer": "59%以下",
+
+            "MyAccuracyRate": "我的正确率",
+            "AverageAccuracyRate": "平均正确率",
+            "Awarded": "老师加分",
+            "Vote": "投票",
+            "Select": "选人",
+            "QuickAnswer": "抢答",
+            "Discussion": "主题讨论",
+            "InClassQuiz": "随堂练习",
+            "Proportion": "占比",
+            "Questionnaire": "问卷",
+            "Rate": "评分",
+
+            "LiveDuration": "直播时长",
+            "LiveViewTime": "直播观看时长",
+            "LivePlaybackTime": "直播回看时长",
+            "ToStart": "未开始",
+            "NumberOfLiveViewers": "直播观看人数",
+            "NumberOfPlaybackViewers": "直播回看人数",
+            "ChaoxingClassAttachment": "泛雅课堂",
+            "VideoTest": "互动测验",
+            "VideoTestTip": "按章节视频中插入的所有互动测验题目正确率计分，全部回答正确为满分",
+            "practicalTasks": "AI实践",
+            "practicalTaskTip": "按AI实践达标任务数/AI实践任务总数*100计分",
+            "TopicAttachment": "讨论",
+            "discussionssettip4": "发表一个话题累计",
+            "discussionssettip5": "回复一个话题累计",
+            "discussionssettip6": "（同一话题下多次回复不重复得分），获得一个赞累计",
+            "discussionssettip7": "获得一个赞累计",
+            "discussionssettip8": "最高分100分",
+            "Advancedsetting": "高级设置：",
+            "OnlineClassroom": "泛雅课堂",
+            "OnlineClassroomTip1": "观看在线泛雅课堂、回放时长达到",
+            "OnlineClassroomTip2": "分钟为满分",
+            "OnlineClassroomTip3": "观看进行中课堂1分钟计为",
+            "OnlineClassroomTip4": "观看回放的课堂1分钟计为",
+
+            "QuestionStem": "题干",
+            "questionTypes": "题型",
+            "AccuracyRate": "正确率",
+            "Operation": "操作",
+            "Add": "添加",
+            "StudentIdOrJobId": "学号/工号",
+            "Status": "状态",
+            "BlowSixty": "60%以下",
+            "Upload": "上传",
+            "AttendanceRate": "到课率",
+            "Activities": "活动数",
+            "Notification": "通知",
+            "test": "测验",
+            "CompletedNum": "已完成/应完成",
+            "Signature": "已签/应签",
+            "Basic_Unit_Times": "次",
+            "ClassroomActivity": "课堂活动发放",
+            "lLevel": "60分以下",
+            "NoScore": "未获得分数",
+            "Men": "门",
+            "Basic_Unit_Person": "人",
+            "CourseSevenPv": "近七日课程pv值:",
+            "CoursePvValue": "课程pv值",
+
+            "ScoreMarkDescription": "1.成绩标记说明:",
+            "ScoreGradesMarkBule": "被手动修改过的成绩将被标记为蓝色",
+            "ScoreExplanationGrrade": "2.修改成绩提示说明:",
+            "ScoreEditDesc": "<br>综合成绩默认显示自动计算得出的分值，您可手动修改此分值。<br>若您改了成绩之后又需要恢复成自动计算的分值可手动清空成绩输入框，<br>清空后点击框外，此时成绩将恢复为自动计算的分值。",
+            "QuestionsNum": "题目数量",
+            "Question": "题",
+
+            "SelfTestJoinPersonCount": "已参与自测人数",
+            "SelfTestCount": "自测次数",
+            "SelfTestQuesCount": "题目数量",
+            "SelfTestAvgCount": "平均自测次数",
+            "SelfTestAvgQuesCount": "平均答题数量",
+            "SelfTestObjQuesAvgRightPercent": "客观题平均得分率",
+            "SelfTestNoScore": "未参与自测",
+            "SelfTestCompletedQuestionCount": "完成题目数",
+            "SelfTestObjQuesRightPercent": "客观题得分率",
+
+            "VideoAttachment": "视频",
+            "SoundAttachment": "音频",
+            "WatchingDuration": "学生观看时长",
+            "Scores": "分",
+            "KnowledgeRelationCount": "已关联资源知识点数",
+            "KnowledgeRateDist": "知识点掌握率分布",
+            "Top5KnowledgePoint": "知识点掌握率TOP5",
+
+            "KnowledgePointClassification": "知识点分类",
+            "KnowledgeMasteryRate": "知识点掌握率",
+            "KnowledgeDimension": "知识点认知维度",
+            "KnowledgeCompletionRate": "知识点完成率",
+            "NumberOfLearningMaterials": "学习资料数",
+            "KnowledgePointLevel": "知识点层级",
+            "relatedKnowledgePoints": "关联知识点：",
+            "preKnowledgePoints": "前置知识点：",
+            "postKnowledgePoints": "后置知识点：",
+            "label": "标签：",
+            "navigationView": "导航模式",
+            "basicMode": "基础模式",
+            "knowledgePoints": "知识点",
+            "NoData1": "无数据",
+
+            "ClassStudentMasteryAnalysis": "班级学生掌握率分布",
+            "Top5Mastery": "学生掌握率TOP5",
+
+            "commonQuestion1": "班级哪些学生频繁缺勤。",
+            "commonQuestion2": "识别出在课堂上表现活跃和沉默的学生。",
+            "commonQuestion3": "找出消极学习学生。",
+            "commonQuestion4": "找出作业成绩波动较大的学生。",
+            "commonQuestion5": "生成班级学生分层画像。",
+            "commonQuestion6": "最近一次作业谁没有交。",
+            "commonQuestion7": "我还有哪些作业没批。",
+            "commonQuestion8": "我需要重点关注哪些学生。",
+            "commonQuestion9": "帮我分析知识点掌握情况。",
+            "commonQuestion10": "哪些学生在学习上遇到了困难。",
+            "commonQuestion11": "个人学习情况数据。",
+            "commonQuestion12": "查看学生个人画像",
+            "commonQuestion24": "查看学习进度落后学生",
+            "commonQuestion25": "近期任务完成情况分析",
+            "commonQuestion26": "生成班级AI周报",
+            "PleaseSelect": "请选择",
+            "ContextCleared": "已清除上下文",
+            "ParticipationRate": "参与率",
+            "TotalKnowledgeResources": "知识点资源总数",
+            "TotalTeachingResources": "教学资源总数",
+            "TotalExpansionResources": "拓展资源总数",
+            "AllGroup": "全部分组",
+            "DurationLearningMinutes": "在线时长（分钟）",
+            "DurationOfOnlineLearning": "在线学习时长",
+            "NumberOfLearningActivities": "累计学习活动次数",
+            "OnlineLearning": "累计学习天数",
+            "OnlineLearningDuration": "累计学习时长",
+            "ByMonthNumberOfLearningActivities": "学习活动次数",
+            "ByMonthOnlineLearning": "学习天数",
+            "ByMonthOnlineLearningDuration": "学习时长",
+            "StudyTask": "学习任务",
+            "WeightStudyModel1": "按对应课程任务的完成率计分，完成率达到100%获得满分",
+            "WeightStudyModel2": "按全部课程任务的完成率平均值计分，平均完成率达到100%获得满分",
+            "OK": "确认",
+            "nextStep": "下一步",
+            "PleaseSelectSpecializedData": "请选择要分析的专项数据",
+            "全部": "全部",
+            "试卷掌握率分布": "试卷掌握率分布",
+            "是": "是",
+            "否": "否",
+            "KnowledgePoint": "知识点",
+            "vote": "投票",
+            "survey": "问卷",
+            "discussion": "主题讨论",
+            "selection": "选人",
+            "rate": "评分",
+            "groupTask": "分组任务",
+            "quickAnswer": "抢答",
+            "inclassQuiz": "随堂练习",
+        }
+    </script>
+</body>
+
+</html>
+<script type="text/javascript"
+    src="https://mooc-res2.chaoxing.com/stat2/js/jquery-3.6.0.min.js?v=202512270047"></script>
+<script type="text/javascript"
+    src="https://mooc-res2.chaoxing.com/stat2/js/jquery.nicescroll.min.js?v=202512270047"></script>
+<script src="https://mooc-res2.chaoxing.com/stat2/js/lib/layui-v2.5.4/layui/layui.js?v=202512270047"></script>
+<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/common/pop.js?v=202512270047"></script>
+<script type="text/javascript"
+    src="https://mooc-res2.chaoxing.com/stat2/js/common/poplayout.js?v=202512270047"></script>
+<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/common/select.js?v=202512270047"></script>
+<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/lib/echarts.min.js?v=202512270047"></script>
+<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/common/common.js?v=202512270047"></script>
+<script type="text/javascript" src="https://mooc-res2.chaoxing.com/stat2/js/xlPaging.js?v=202512270047"></script>
+<script type="text/javascript"
+    src="https://mooc-res2.chaoxing.com/stat2/js/student/statistic/task.js?v=202512270047"></script>
