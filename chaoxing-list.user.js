@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.8
+// @version      2.4.9
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.2.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊。
 // @license      AGPL-3.0-or-later
@@ -1602,10 +1602,10 @@
         });
       };
 
-      // 获取课程进度 - 使用 mooc1 入口 URL（浏览器打开时自动重定向获取 enc）
+      // 获取课程进度 - 使用正确的课程页面入口
       const getCourseProgress = async (course) => {
-        // mooc1 的课程入口，使用 interaction 接口，这是标准的重定向入口
-        const courseEntryUrl = `https://mooc1.chaoxing.com/visit/interaction?clazzId=${course.clazzId}&courseId=${course.courseId}&cpi=${course.cpi}`;
+        // 使用标准的课程页面入口（与课程任务卡片一致）
+        const courseEntryUrl = `https://mooc1.chaoxing.com/visit/stucoursemiddle?ismooc2=1&courseid=${course.courseId}&clazzid=${course.clazzId}`;
 
         // 尝试从章节页面获取完成率
         return new Promise((resolve) => {
