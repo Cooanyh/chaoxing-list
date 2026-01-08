@@ -1536,6 +1536,43 @@
           const match = html.match(numberPattern);
           return match ? match[1] : '';
         };
+        const getSiblingText = (element, selector) => {
+          const parent = element?.closest('li') || element?.parentElement;
+          if (!parent) return '';
+          const target = parent.querySelector(selector);
+          return target?.textContent.trim() || '';
+        };
+        const extractTaskPairFromDom = (doc) => {
+          const label = Array.from(doc.querySelectorAll('p')).find((el) => el.textContent.includes('完成进度'));
+          if (!label) return null;
+          const text = getSiblingText(label, 'h2');
+          const match = text.match(/(\d+)\s*\/\s*(\d+)/);
+          return match ? { first: match[1], second: match[2] } : null;
+        };
+        const extractRankFromDom = (doc) => {
+          const label = Array.from(doc.querySelectorAll('p')).find((el) => el.textContent.includes('当前排名'));
+          if (!label) return '';
+          const text = getSiblingText(label, 'h2');
+          const match = text.match(/(\d+)/);
+          return match ? match[1] : '';
+        };
+        const extractPointFromDom = (doc) => {
+          const title = Array.from(doc.querySelectorAll('h2')).find((el) => el.textContent.includes('课程积分'));
+          if (!title) return '';
+          const card = title.closest('.whiteBg') || title.parentElement;
+          const value = card?.querySelector('.strong, #point');
+          return value?.textContent.trim() || '';
+        };
+        const extractQuizPairFromDom = (doc) => {
+          const label = Array.from(doc.querySelectorAll('.statistics-bar-list .left-label'))
+            .find((el) => el.textContent.includes('章节测验'));
+          if (!label) return null;
+          const item = label.closest('li');
+          const rightRate = item?.querySelector('.right-rate');
+          const text = rightRate?.textContent.trim() || '';
+          const match = text.match(/(\d+)\s*\/\s*(\d+)/);
+          return match ? { first: match[1], second: match[2] } : null;
+        };
 
         return new Promise((resolve) => {
           if (typeof GM_xmlhttpRequest !== 'undefined') {
@@ -1792,28 +1829,34 @@
                 const publishTestNumEl = studyDoc.querySelector('#publishTestNum');
 
                 const progressPair = extractPairNearLabel(studyResponse.responseText, '完成进度');
+                const progressPairFromDom = extractTaskPairFromDom(studyDoc);
                 const completedText = completedEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'jobfinish')
+                  || progressPairFromDom?.first
                   || progressPair?.first;
                 const totalText = totalEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'jobPublish')
+                  || progressPairFromDom?.second
                   || progressPair?.second;
                 const percentText = percentEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'jobPer');
                 const rankText = rankEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'jobRank')
+                  || extractRankFromDom(studyDoc)
                   || extractNumberNearLabel(studyResponse.responseText, '当前排名')
                   || extractNumberNearLabel(studyResponse.responseText, '班级排名');
                 const pointText = pointEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'point')
+                  || extractPointFromDom(studyDoc)
                   || extractNumberNearLabel(studyResponse.responseText, '课程积分');
                 const testNumText = testNumEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'testNum');
                 const publishTestNumText = publishTestNumEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'publishTestNum');
                 const quizPair = extractPairNearLabel(studyResponse.responseText, '章节测验');
-                const normalizedTestNumText = testNumText || quizPair?.first;
-                const normalizedPublishTestNumText = publishTestNumText || quizPair?.second;
+                const quizPairFromDom = extractQuizPairFromDom(studyDoc);
+                const normalizedTestNumText = testNumText || quizPairFromDom?.first || quizPair?.first;
+                const normalizedPublishTestNumText = publishTestNumText || quizPairFromDom?.second || quizPair?.second;
 
                 completedTasks = parseInt(completedText || '0', 10) || 0;
                 totalTasks = parseInt(totalText || '0', 10) || 0;
