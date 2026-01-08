@@ -1526,6 +1526,16 @@
           const looseMatch = html.match(loosePattern);
           return looseMatch ? looseMatch[1] : '';
         };
+        const extractPairNearLabel = (html, label) => {
+          const pairPattern = new RegExp(`${label}[^\\d]{0,50}(\\d+)\\s*\\/\\s*(\\d+)`, 'i');
+          const match = html.match(pairPattern);
+          return match ? { first: match[1], second: match[2] } : null;
+        };
+        const extractNumberNearLabel = (html, label) => {
+          const numberPattern = new RegExp(`${label}[^\\d]{0,50}(\\d+(?:\\.\\d+)?)`, 'i');
+          const match = html.match(numberPattern);
+          return match ? match[1] : '';
+        };
 
         return new Promise((resolve) => {
           if (typeof GM_xmlhttpRequest !== 'undefined') {
@@ -1781,20 +1791,29 @@
                 const testNumEl = studyDoc.querySelector('#testNum');
                 const publishTestNumEl = studyDoc.querySelector('#publishTestNum');
 
+                const progressPair = extractPairNearLabel(studyResponse.responseText, '完成进度');
                 const completedText = completedEl?.textContent.trim()
-                  || extractNumberById(studyResponse.responseText, 'jobfinish');
+                  || extractNumberById(studyResponse.responseText, 'jobfinish')
+                  || progressPair?.first;
                 const totalText = totalEl?.textContent.trim()
-                  || extractNumberById(studyResponse.responseText, 'jobPublish');
+                  || extractNumberById(studyResponse.responseText, 'jobPublish')
+                  || progressPair?.second;
                 const percentText = percentEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'jobPer');
                 const rankText = rankEl?.textContent.trim()
-                  || extractNumberById(studyResponse.responseText, 'jobRank');
+                  || extractNumberById(studyResponse.responseText, 'jobRank')
+                  || extractNumberNearLabel(studyResponse.responseText, '当前排名')
+                  || extractNumberNearLabel(studyResponse.responseText, '班级排名');
                 const pointText = pointEl?.textContent.trim()
-                  || extractNumberById(studyResponse.responseText, 'point');
+                  || extractNumberById(studyResponse.responseText, 'point')
+                  || extractNumberNearLabel(studyResponse.responseText, '课程积分');
                 const testNumText = testNumEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'testNum');
                 const publishTestNumText = publishTestNumEl?.textContent.trim()
                   || extractNumberById(studyResponse.responseText, 'publishTestNum');
+                const quizPair = extractPairNearLabel(studyResponse.responseText, '章节测验');
+                const normalizedTestNumText = testNumText || quizPair?.first;
+                const normalizedPublishTestNumText = publishTestNumText || quizPair?.second;
 
                 completedTasks = parseInt(completedText || '0', 10) || 0;
                 totalTasks = parseInt(totalText || '0', 10) || 0;
@@ -1813,8 +1832,8 @@
                   courseScore = pointText.includes('分') ? pointText : `${pointText}分`;
                 }
 
-                if (testNumText || publishTestNumText) {
-                  chapterQuiz = `${testNumText || '0'}/${publishTestNumText || '0'}`;
+                if (normalizedTestNumText || normalizedPublishTestNumText) {
+                  chapterQuiz = `${normalizedTestNumText || '0'}/${normalizedPublishTestNumText || '0'}`;
                 }
               } catch (e) {
                 console.log('[学习记录]', course.courseName, '解析失败');
