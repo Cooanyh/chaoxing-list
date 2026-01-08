@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.9
+// @version      2.5.0
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.2.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊。
 // @license      AGPL-3.0-or-later
@@ -29,6 +29,7 @@
 // @connect      stat2-ans.chaoxing.com
 // @connect      mooc2-ans.chaoxing.com
 // @connect      mooc1.chaoxing.com
+// @connect      i.chaoxing.com
 // @match        *://mooc2-ans.chaoxing.com/*
 // @run-at       document-end
 // ==/UserScript==
@@ -1497,15 +1498,46 @@
   const _sfc_dashboard = /* @__PURE__ */ vue.defineComponent({
     __name: "dashboard",
     setup(__props) {
-      // 辅助函数：获取用户姓名
-      const getUserName = () => {
-        // i.chaoxing.com/base 页面
+      // 辅助函数：获取用户姓名（先显示默认值，再异步获取真实姓名）
+      const fetchUserName = async () => {
+        // 先尝试从当前页面获取
         const userNameEl = document.querySelector('.user-name');
-        if (userNameEl) return userNameEl.textContent.trim();
-        // i.mooc.chaoxing.com/space/index 页面
+        if (userNameEl && userNameEl.textContent.trim()) {
+          return userNameEl.textContent.trim();
+        }
         const personalNameEl = document.querySelector('.personalName');
-        if (personalNameEl) return personalNameEl.textContent.trim();
-        return '同学';
+        if (personalNameEl && personalNameEl.textContent.trim()) {
+          return personalNameEl.textContent.trim();
+        }
+
+        // 如果当前页面没有，则请求个人空间页面获取
+        return new Promise((resolve) => {
+          if (typeof GM_xmlhttpRequest !== 'undefined') {
+            GM_xmlhttpRequest({
+              method: 'GET',
+              url: 'https://i.chaoxing.com/base',
+              timeout: 5000,
+              onload: (response) => {
+                try {
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(response.responseText, 'text/html');
+                  const nameEl = doc.querySelector('.user-name') || doc.querySelector('.personalName');
+                  if (nameEl && nameEl.textContent.trim()) {
+                    resolve(nameEl.textContent.trim());
+                  } else {
+                    resolve('同学');
+                  }
+                } catch (e) {
+                  resolve('同学');
+                }
+              },
+              onerror: () => resolve('同学'),
+              ontimeout: () => resolve('同学')
+            });
+          } else {
+            resolve('同学');
+          }
+        });
       };
 
       // 辅助函数：获取时间问候语
@@ -1526,9 +1558,14 @@
       };
 
       // 数据状态
-      const userName = vue.ref(getUserName());
+      const userName = vue.ref('同学'); // 先显示默认值
       const greeting = vue.ref(getGreeting());
       const dateInfo = vue.ref(getFormattedDate());
+
+      // 异步获取用户名
+      fetchUserName().then(name => {
+        userName.value = name;
+      });
 
       const loading = vue.ref({
         todo: true,
@@ -1604,8 +1641,8 @@
 
       // 获取课程进度 - 使用正确的课程页面入口
       const getCourseProgress = async (course) => {
-        // 使用标准的课程页面入口（与课程任务卡片一致）
-        const courseEntryUrl = `https://mooc1.chaoxing.com/visit/stucoursemiddle?ismooc2=1&courseid=${course.courseId}&clazzid=${course.clazzId}`;
+        // 使用学习记录页面入口，pageHeader=6 对应"学习记录"标签页
+        const courseEntryUrl = `https://mooc1.chaoxing.com/visit/stucoursemiddle?ismooc2=1&courseid=${course.courseId}&clazzid=${course.clazzId}&pageHeader=6`;
 
         // 尝试从章节页面获取完成率
         return new Promise((resolve) => {
@@ -3108,56 +3145,7 @@
     }, 500);
   }
 
-  // 课程章节页面自动导航逻辑
-  if (urlDetect === "course_chapter") {
-    console.log('[脚本] 检测到课程章节页面，准备自动导航...');
-
-    const autoNavigate = () => {
-      // 1. 确保在"章节"标签页
-      const chapterTab = document.querySelector('li[dataname="zj"]');
-      if (chapterTab && !chapterTab.classList.contains('curNav')) {
-        console.log('[自动导航] 切换到章节标签页');
-        chapterTab.click();
-        // 点击后等待内容加载，然后继续查找未完成任务
-        setTimeout(autoNavigate, 1000);
-        return;
-      }
-
-      // 2. 查找第一个未完成的任务点
-      // 查找包含 catalog_tishi120 类的元素 (未完成标志)
-      const uncompletedIcon = document.querySelector('.catalog_jindu.catalog_tishi120');
-
-      if (uncompletedIcon) {
-        console.log('[自动导航] 发现未完成任务点');
-        // 尝试找到可点击的容器 (通常是父级 h3 或 h3 下的 a 标签，或者整个 li)
-        // 结构通常是: <li> <div class="file-name"> <h3> <a href="..."> ... <span class="catalog_jindu ..."></span> </a> </h3> </div> </li>
-        // 或者点击 h3 元素
-
-        const clickableItem = uncompletedIcon.closest('h3') || uncompletedIcon.closest('a') || uncompletedIcon.closest('li');
-
-        if (clickableItem) {
-          // 找到包含任务名称的元素用于日志
-          const taskName = clickableItem.querySelector('.resourcename') || clickableItem;
-          console.log('[自动导航] 点击跳转到任务:', taskName.innerText ? taskName.innerText.trim() : '未知任务');
-
-          clickableItem.click();
-
-          // 如果是链接，可能需要直接 click clickItem.querySelector('a')
-          const link = clickableItem.querySelector('a');
-          if (link) {
-            link.click();
-          }
-        } else {
-          console.warn('[自动导航] 未找到可点击的任务容器');
-        }
-      } else {
-        console.log('[自动导航] 未发现未完成任务，恭喜！');
-      }
-    };
-
-    // 等待页面加载完成后执行
-    // 使用 requestAnimationFrame 或 setTimeout 确保 DOM 渲染
-    setTimeout(autoNavigate, 1500);
-  }
+  // 课程章节页面：不再自动导航到任务点（v2.5.0 移除此功能）
+  // 用户点击课程进度卡片后会直接打开学习记录页面
 
 })(Vuetify, Vue);
