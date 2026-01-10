@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-1.7.0-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.0.0-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -16,6 +16,9 @@
 
 与原版相比，本修改版主要包含以下更新：
 
+* **UI 全新升级**：
+    * 带来更现代化的设计风格。
+    * 提供 **学习仪表盘**，一站式概览作业、考试及课程进度。
 * **新增“待办任务”聚合页**：
     * 自动汇总所有状态为“未提交”的作业和“未完成/未过期”的考试和“进行中”的课程任务。
     * 按截止时间排序，提供直观的“立即去办”跳转按钮。
@@ -29,12 +32,12 @@
     * 新增对学习通个人空间首页 (`i.chaoxing.com`) 的支持，在侧边栏或顶部菜单中注入入口。
 
 ## 使用示例
-<img src="https://scriptcat.org/api/v2/resource/image/DeBhf5S4WWTpEuBq" width="600" />
-<img src="https://scriptcat.org/api/v2/resource/image/tVeiU3SNcNIJ0pPF" width="600" />
-<img src="https://scriptcat.org/api/v2/resource/image/A3tOshZqIusfvjDb" width="600" />
+<img src="https://scriptcat.org/api/v2/resource/image/CJar7GQA4h0iuPQh" width="600" />
+<img src="https://scriptcat.org/api/v2/resource/image/ljjGzJdbJzVuZCjk" width="600" />
+<img src="https://scriptcat.org/api/v2/resource/image/Hfz6p09FAGd23m8F" width="600" />
 
 > 说明
- **作业/考试列表图片请参考原作者示例**
+ 作业/考试列表参考学习于原作者
 
 ## 🛠️ 使用方法
 
@@ -48,6 +51,11 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.0.0 
+* 🎨 UI 重构：使用 Vuetify 进行全面重构，界面更加美观现代化。
+* 📊 仪表盘：新增学习仪表盘功能，集成作业、考试、课程进度。
+* ⚡ 性能优化：优化数据获取逻辑，支持并发请求。
 
 ### v1.7.0
 * 新增：课程任务汇总显示
