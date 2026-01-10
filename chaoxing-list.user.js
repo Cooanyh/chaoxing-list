@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.6.4
+// @version      2.0.0
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.0.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊。
 // @license      AGPL-3.0-or-later
@@ -3118,7 +3118,7 @@
                         ])
                       ]),
                       vue.createVNode("div", { class: "item-time-status" }, [
-                        // 状态信息区（时间+状态）
+                        // 状态信息区
                         vue.createVNode("div", { class: "status-info" }, [
                           // 剩余时间显示
                           (item.leftTime || item.timeLeft || item.info) ? vue.createVNode("span", {
@@ -3129,7 +3129,7 @@
                             class: `badge ${getItemBadgeClass(type, item)}`
                           }, getItemStatus(type, item))
                         ]),
-                        // 查看按钮（独立在右侧）
+                        // 查看按钮
                         vue.createVNode("button", {
                           class: "view-btn",
                           onClick: (e) => { e.stopPropagation(); window.open(getItemLink(type, item), '_blank'); }
@@ -3441,7 +3441,7 @@
 
 
   const appendApp = () => {
-    // 这里的 aliases 和 md 现在能正确引用到了
+
     const vuetify$1 = vuetify.createVuetify({
       icons: {
         defaultSet: "md",
@@ -3508,7 +3508,6 @@
     }, 500);
   }
 
-  // 课程章节页面：不再自动导航到任务点（v2.5.0 移除此功能）
-  // 用户点击课程进度卡片后会直接打开学习记录页面
+
 
 })(Vuetify, Vue);
