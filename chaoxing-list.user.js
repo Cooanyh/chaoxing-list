@@ -1,18 +1,19 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.1.0
+// @version      2.3.2
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
-// @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.0.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊；7. v2.1.0 修复进度卡片宽屏等宽布局（消除横向滚动条）、新增课程信息忽略功能（二次确认、多选、localStorage 持久化存储、已忽略面板及撤销）。
+// @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.0.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊；7. v2.1.0 修复进度卡片宽屏等宽布局（消除横向滚动条）、新增课程信息忽略功能（二次确认、多选、localStorage 持久化存储、已忽略面板及撤销）；8. v2.2.0 优化忽略功能，实现各板块已忽略内容隔离显示，并为课程进度板块增加忽略功能；9. v2.3.0 优化忽略按钮 UI，按钮常显并微调位置，重构课程进度布局使按钮与任务点对齐；10. v2.3.2 修复元数据错误导致的脚本不加载问题。
 // @license      AGPL-3.0-or-later
 // @copyright    lcandy2 All Rights Reserved
 // @copyright    2025, Coren (Modified based on original work)
-// @source       https://github.com/lcandy2/user.js/tree/main/websites/chaoxing.com/chaoxing-assignment
-// @match        *://mooc1-api.chaoxing.com/work/stu-work*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=chaoxing.com
+// @source       https://github.com/Cooanyh/chaoxing-list
 // @match        *://i.chaoxing.com/*
-// @match        *://i.chaoxing.com/base*
 // @match        *://i.mooc.chaoxing.com/space/index*
 // @match        *://i.mooc.chaoxing.com/settings*
+// @match        *://mooc2-ans.chaoxing.com/*
+// @match        *://mooc1-api.chaoxing.com/work/stu-work*
 // @match        *://mooc1-api.chaoxing.com/exam-ans/exam/phone/examcode*
 // @match        *://mooc1.chaoxing.com/exam-ans/exam/test/examcode/examlist*
 // @require      https://registry.npmmirror.com/vue/3.4.27/files/dist/vue.global.prod.js
@@ -30,7 +31,6 @@
 // @connect      mooc2-ans.chaoxing.com
 // @connect      mooc1.chaoxing.com
 // @connect      i.chaoxing.com
-// @match        *://mooc2-ans.chaoxing.com/*
 // @run-at       document-end
 // ==/UserScript==
 
@@ -95,63 +95,69 @@
     localStorage.setItem(IGNORE_STORAGE_KEY, JSON.stringify(items));
   };
 
-  // 生成唯一标识
-  const getItemKey = (item) => {
-    const type = item.type || item.activeType || 'unknown';
+  // 生成唯一标识（包含板块前缀，防止不同板块同名项冲突）
+  const getItemKey = (item, sectionType) => {
+    const sec = sectionType || item._sectionType || 'unknown';
     const id = item.courseId || item.examId || item.workId || item.activeId || '';
     const title = item.title || item.courseName || '';
-    return `${type}_${id}_${title}`;
+    return `${sec}__${id}__${title}`;
   };
 
-  const isItemIgnored = (item) => {
+  const isItemIgnored = (item, sectionType) => {
     const ignored = getIgnoredItems();
-    return !!ignored[getItemKey(item)];
+    return !!ignored[getItemKey(item, sectionType)];
   };
 
-  const ignoreItem = (item) => {
+  const ignoreItem = (item, sectionType) => {
     const ignored = getIgnoredItems();
-    ignored[getItemKey(item)] = {
+    const sec = sectionType || item._sectionType || 'unknown';
+    ignored[getItemKey(item, sectionType)] = {
       title: item.title || item.courseName || '',
       type: item.type || '',
       course: item.course || item.courseName || '',
+      sectionType: sec,
       ignoredAt: Date.now()
     };
     saveIgnoredItems(ignored);
   };
 
-  const unignoreItem = (item) => {
+  const unignoreItem = (item, sectionType) => {
     const ignored = getIgnoredItems();
-    delete ignored[getItemKey(item)];
+    delete ignored[getItemKey(item, sectionType)];
     saveIgnoredItems(ignored);
   };
 
-  const ignoreItems = (items) => {
+  const ignoreItems = (items, sectionType) => {
     const ignored = getIgnoredItems();
     items.forEach(item => {
-      ignored[getItemKey(item)] = {
+      const sec = sectionType || item._sectionType || 'unknown';
+      ignored[getItemKey(item, sectionType)] = {
         title: item.title || item.courseName || '',
         type: item.type || '',
         course: item.course || item.courseName || '',
+        sectionType: sec,
         ignoredAt: Date.now()
       };
     });
     saveIgnoredItems(ignored);
   };
 
-  const unignoreItems = (items) => {
+  const unignoreItems = (items, sectionType) => {
     const ignored = getIgnoredItems();
     items.forEach(item => {
-      delete ignored[getItemKey(item)];
+      delete ignored[getItemKey(item, sectionType)];
     });
     saveIgnoredItems(ignored);
   };
 
-  // 获取某类型的所有已忽略项（用于已忽略面板展示）
-  const getIgnoredItemsByType = (type) => {
+  // 获取某板块的所有已忽略项（按 sectionType 过滤）
+  const getIgnoredItemsBySection = (sectionType) => {
     const ignored = getIgnoredItems();
     const result = [];
     for (const [key, val] of Object.entries(ignored)) {
-      result.push({ ...val, _key: key });
+      if ((val.sectionType || 'unknown') === sectionType) {
+        result.push({ ...val, _key: key });
+      }
     }
     return result;
   };
@@ -2125,7 +2131,7 @@
       const ignoredVersion = vue.ref(0); // 递增触发响应式更新
       const showIgnoreConfirm = vue.ref(false); // 显示确认弹窗
       const ignoreConfirmItems = vue.ref([]); // 待确认忽略的项
-      const ignoreConfirmCallback = vue.ref(null); // 确认后的回调
+      const ignoreConfirmSection = vue.ref('unknown'); // 待确认忽略的板块类型
 
       const selectMode = vue.ref(false); // 多选模式
       const selectedForIgnore = vue.ref(new Set()); // 多选忽略的 key 集合
@@ -2134,18 +2140,20 @@
       const showIgnoredPanel = vue.ref(false); // 显示已忽略面板
       const selectedForRestore = vue.ref(new Set()); // 多选恢复的 key 集合
 
-      // 执行忽略（弹出确认）
-      const requestIgnore = (items) => {
+      // 执行忽略（弹出确认）- 需要传入 sectionType
+      const requestIgnore = (items, sectionType) => {
         ignoreConfirmItems.value = Array.isArray(items) ? items : [items];
+        ignoreConfirmSection.value = sectionType || 'unknown';
         showIgnoreConfirm.value = true;
       };
 
       // 确认忽略
       const confirmIgnore = () => {
-        ignoreItems(ignoreConfirmItems.value);
+        ignoreItems(ignoreConfirmItems.value, ignoreConfirmSection.value);
         ignoredVersion.value++;
         showIgnoreConfirm.value = false;
         ignoreConfirmItems.value = [];
+        ignoreConfirmSection.value = 'unknown';
         // 退出多选模式
         selectMode.value = false;
         selectedForIgnore.value = new Set();
@@ -2156,6 +2164,7 @@
       const cancelIgnore = () => {
         showIgnoreConfirm.value = false;
         ignoreConfirmItems.value = [];
+        ignoreConfirmSection.value = 'unknown';
       };
 
       // 切换多选
@@ -2167,9 +2176,9 @@
         }
       };
 
-      // 多选操作
-      const toggleSelectItem = (item) => {
-        const key = getItemKey(item);
+      // 多选操作（传入 sectionType 使 key 包含板块前缀）
+      const toggleSelectItem = (item, sectionType) => {
+        const key = getItemKey(item, sectionType);
         const newSet = new Set(selectedForIgnore.value);
         const newMap = new Map(selectedItemsMap.value);
         if (newSet.has(key)) {
@@ -2187,7 +2196,7 @@
       const batchIgnoreSelected = () => {
         const items = Array.from(selectedItemsMap.value.values());
         if (items.length > 0) {
-          requestIgnore(items);
+          requestIgnore(items, ignoreConfirmSection.value || currentView.value);
         }
       };
 
@@ -2213,33 +2222,51 @@
         ignoredVersion.value++;
       };
 
-      // 过滤已忽略项的计算属性
+      // 过滤已忽略项的计算属性（传入对应板块的 sectionType）
       const filteredTodoItems = vue.computed(() => {
         ignoredVersion.value; // 触发依赖
-        return todoItems.value.filter(item => !isItemIgnored(item));
+        return todoItems.value.filter(item => !isItemIgnored(item, 'todo'));
       });
       const filteredHomeworkItems = vue.computed(() => {
         ignoredVersion.value;
-        return homeworkItems.value.filter(item => !isItemIgnored(item));
+        return homeworkItems.value.filter(item => !isItemIgnored(item, 'homework'));
       });
       const filteredExamItems = vue.computed(() => {
         ignoredVersion.value;
-        return examItems.value.filter(item => !isItemIgnored(item));
+        return examItems.value.filter(item => !isItemIgnored(item, 'exam'));
       });
       const filteredActivitiesItems = vue.computed(() => {
         ignoredVersion.value;
-        return activitiesItems.value.filter(item => !isItemIgnored(item));
+        return activitiesItems.value.filter(item => !isItemIgnored(item, 'activities'));
       });
       const filteredCourseProgressItems = vue.computed(() => {
         ignoredVersion.value;
-        return courseProgressItems.value.filter(item => !isItemIgnored(item));
+        return courseProgressItems.value.filter(item => !isItemIgnored(item, 'progress'));
       });
 
-      // 获取已忽略项数量
-      const ignoredCount = vue.computed(() => {
+      // 各板块已忽略数量
+      const getSectionIgnoredCount = (sectionType) => {
         ignoredVersion.value;
-        return Object.keys(getIgnoredItems()).length;
-      });
+        return getIgnoredItemsBySection(sectionType).length;
+      };
+
+      // 课程进度板块的已忽略面板状态
+      const showProgressIgnoredPanel = vue.ref(false);
+      const progressIgnoredForRestore = vue.ref(new Set());
+
+      const toggleProgressRestoreItem = (key) => {
+        const newSet = new Set(progressIgnoredForRestore.value);
+        if (newSet.has(key)) newSet.delete(key);
+        else newSet.add(key);
+        progressIgnoredForRestore.value = newSet;
+      };
+
+      const batchProgressRestore = () => {
+        unignoreByKeys(Array.from(progressIgnoredForRestore.value));
+        progressIgnoredForRestore.value = new Set();
+        ignoredVersion.value++;
+      };
+
 
       // 排序选项
       const sortOptions = [
@@ -3144,6 +3171,28 @@
             color: #bbb;
             margin-left: auto;
           }
+          /* 进度卡片右侧信息栏 */
+          .progress-item-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            gap: 2px;
+            min-width: 80px;
+            flex-shrink: 0;
+          }
+          .progress-item-info .progress-rate {
+            margin-bottom: 0;
+            line-height: 1.2;
+          }
+          .progress-item-info .progress-tasks-count {
+            margin-top: 0;
+            line-height: 1.2;
+          }
+          .progress-item-info .ignore-btn {
+            margin-top: 4px;
+            margin-right: -4px;
+          }
           .refresh-btn {
             padding: 4px 8px;
             background: transparent;
@@ -3179,7 +3228,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
+            opacity: 0.6; /* 默认可见但半透明，减少视觉干扰 */
+            margin-right: -4px; /* 进一步靠边 */
             transition: opacity 0.2s;
             padding: 3px 7px;
             border: 1px solid #ffadd2;
@@ -3194,6 +3244,8 @@
           }
           .list-item:hover .ignore-btn,
           .detail-list-item:hover .ignore-btn { opacity: 1; }
+          .progress-item .ignore-btn { opacity: 0.6; }
+          .progress-item:hover .ignore-btn { opacity: 1; }
           .ignore-btn:hover {
             background: #ffadd2;
             color: #9e1068;
@@ -3490,7 +3542,8 @@
           const isLoading = getViewLoading(type);
           const title = getViewTitle(type);
           const dotColors = { todo: '#1890ff', homework: '#faad14', exam: '#f5222d', activities: '#52c41a' };
-          const allIgnored = getIgnoredItemsByType(type);
+          // 使用 getIgnoredItemsBySection 精确按板块过滤
+          const allIgnored = getIgnoredItemsBySection(type);
           const ignoredCountNow = allIgnored.length;
 
           // 渲染已忽略面板内容
@@ -3605,7 +3658,7 @@
                 : sortedItems.length === 0
                   ? vue.createVNode("div", { class: "empty-state" }, "暂无数据")
                   : sortedItems.map(item => {
-                      const itemKey = getItemKey(item);
+                      const itemKey = getItemKey(item, type);
                       const isChecked = selectMode.value && selectedForIgnore.value.has(itemKey);
                       return vue.createVNode("div", {
                         class: "detail-list-item",
@@ -3614,7 +3667,7 @@
                         // 多选复选框
                         selectMode.value ? vue.createVNode("div", {
                           class: `select-checkbox ${isChecked ? 'checked' : ''}`,
-                          onClick: (e) => { e.stopPropagation(); toggleSelectItem(item); }
+                          onClick: (e) => { e.stopPropagation(); toggleSelectItem(item, type); }
                         }, isChecked ? "✓" : "") : null,
                         vue.createVNode("div", { class: "detail-item-main" }, [
                           vue.createVNode("div", { class: "detail-item-title" }, item.title),
@@ -3641,7 +3694,7 @@
                           // 忽略按钮（非多选模式下才显示）
                           !selectMode.value ? vue.createVNode("button", {
                             class: "ignore-btn",
-                            onClick: (e) => { e.stopPropagation(); requestIgnore(item); }
+                            onClick: (e) => { e.stopPropagation(); requestIgnore(item, type); }
                           }, "🚫 忽略") : null
                         ])
                       ]);
@@ -3652,7 +3705,7 @@
                   vue.createVNode("span", {}, `已选 ${selectedForIgnore.value.size} 项`),
                   vue.createVNode("button", {
                     class: "batch-ignore-btn",
-                    onClick: batchIgnoreSelected
+                    onClick: () => { ignoreConfirmSection.value = type; batchIgnoreSelected(); }
                   }, `忽略所选(${selectedForIgnore.value.size})`)
                 ]) : null
             ])
@@ -3760,7 +3813,7 @@
                             }, item.type || '待办'),
                             vue.createVNode("button", {
                               class: "ignore-btn",
-                              onClick: (e) => { e.stopPropagation(); requestIgnore(item); }
+                              onClick: (e) => { e.stopPropagation(); requestIgnore(item, 'todo'); }
                             }, "🚫")
                           ])
                         ])
@@ -3806,7 +3859,7 @@
                             }, item.uncommitted ? "待提交" : "已提交"),
                             vue.createVNode("button", {
                               class: "ignore-btn",
-                              onClick: (e) => { e.stopPropagation(); requestIgnore(item); }
+                              onClick: (e) => { e.stopPropagation(); requestIgnore(item, 'homework'); }
                             }, "🚫")
                           ])
                         ])
@@ -3852,7 +3905,7 @@
                             }, item.finished ? "已完成" : (item.expired ? "已过期" : "进行中")),
                             vue.createVNode("button", {
                               class: "ignore-btn",
-                              onClick: (e) => { e.stopPropagation(); requestIgnore(item); }
+                              onClick: (e) => { e.stopPropagation(); requestIgnore(item, 'exam'); }
                             }, "🚫")
                           ])
                         ])
@@ -3901,7 +3954,7 @@
                             }, item.status || (item.finished ? "已完成" : "进行中")),
                             vue.createVNode("button", {
                               class: "ignore-btn",
-                              onClick: (e) => { e.stopPropagation(); requestIgnore(item); }
+                              onClick: (e) => { e.stopPropagation(); requestIgnore(item, 'activities'); }
                             }, "🚫")
                           ])
                         ])
@@ -3918,6 +3971,15 @@
                   ]),
                   vue.createVNode("div", { style: "display: flex; align-items: center; gap: 8px;" }, [
                     progressLastUpdate.value ? vue.createVNode("span", { class: "progress-last-update" }, `更新于 ${progressLastUpdate.value}`) : null,
+                    // 已忽略按钮
+                    vue.createVNode("button", {
+                      class: "ignored-panel-btn",
+                      onClick: () => { showProgressIgnoredPanel.value = !showProgressIgnoredPanel.value; progressIgnoredForRestore.value = new Set(); }
+                    }, (() => {
+                      ignoredVersion.value;
+                      const cnt = getIgnoredItemsBySection('progress').length;
+                      return `🚫 已忽略(${cnt})`;
+                    })()),
                     vue.createVNode("button", {
                       class: "refresh-btn",
                       onClick: () => loadAllCourseProgress()
@@ -3925,67 +3987,117 @@
                   ])
                 ]),
                 vue.createVNode("div", { class: "card-body" }, [
-                  loadingProgress.value
-                    ? vue.createVNode("div", { class: "loading-state" }, [
-                      vue.createVNode("div", { class: "loading-spinner" }),
-                      vue.createVNode("div", { class: "loading-text" }, "正在获取课程进度...")
-                    ])
-                    : filteredCourseProgressItems.value.length === 0
-                      ? vue.createVNode("div", { class: "empty-state" }, "暂无课程进度数据")
-                      : vue.createVNode("div", { class: "progress-items-grid" },
-                        filteredCourseProgressItems.value.map(course => {
-                          const rate = parseInt(course.completionRate) || 0;
-                          const rateClass = rate >= 100 ? 'complete' : (rate >= 60 ? 'warning' : (rate >= 30 ? 'normal' : 'danger'));
-                          const remainingTasks = course.totalTasks - course.completedTasks;
-                          return vue.createVNode("div", {
-                            class: "progress-item",
-                            onClick: () => {
-                              if (course.studyDataUrl) {
-                                window.open(course.studyDataUrl, '_blank');
+                  // 已忽略面板
+                  showProgressIgnoredPanel.value
+                    ? vue.createVNode("div", {}, [
+                        vue.createVNode("div", { style: "display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;" }, [
+                          vue.createVNode("span", { style: "font-size:13px;color:#722ed1;font-weight:500;" }, "🚫 课程进度 · 已忽略内容"),
+                          vue.createVNode("div", { style: "display:flex;gap:8px;" }, [
+                            progressIgnoredForRestore.value.size > 0
+                              ? vue.createVNode("button", { class: "batch-restore-btn", onClick: batchProgressRestore },
+                                  `恢复所选(${progressIgnoredForRestore.value.size})`)
+                              : null,
+                            vue.createVNode("button", {
+                              class: "ignored-panel-btn",
+                              onClick: () => { showProgressIgnoredPanel.value = false; progressIgnoredForRestore.value = new Set(); }
+                            }, "← 返回")
+                          ])
+                        ]),
+                        (() => {
+                          ignoredVersion.value;
+                          const progressIgnored = getIgnoredItemsBySection('progress');
+                          if (progressIgnored.length === 0) {
+                            return vue.createVNode("div", { class: "empty-state" }, "暂无已忽略的课程进度");
+                          }
+                          return vue.createVNode("div", { style: "display:flex;flex-direction:column;gap:8px;" },
+                            progressIgnored.map(ig => {
+                              const isChecked = progressIgnoredForRestore.value.has(ig._key);
+                              return vue.createVNode("div", {
+                                class: "detail-list-item",
+                                style: isChecked ? "background:#e6f7ff;" : ""
+                              }, [
+                                vue.createVNode("div", {
+                                  class: `select-checkbox ${isChecked ? 'checked' : ''}`,
+                                  onClick: (e) => { e.stopPropagation(); toggleProgressRestoreItem(ig._key); }
+                                }, isChecked ? "✓" : ""),
+                                vue.createVNode("div", { class: "detail-item-main" }, [
+                                  vue.createVNode("div", { class: "detail-item-title" }, ig.title),
+                                  vue.createVNode("span", { class: "ignored-date" }, `忽略于：${new Date(ig.ignoredAt).toLocaleDateString()}`)
+                                ]),
+                                vue.createVNode("button", {
+                                  class: "restore-single-btn",
+                                  onClick: (e) => { e.stopPropagation(); restoreSingle(ig._key); }
+                                }, "撤销忽略")
+                              ]);
+                            })
+                          );
+                        })()
+                      ])
+                    // 正常进度列表
+                    : loadingProgress.value
+                      ? vue.createVNode("div", { class: "loading-state" }, [
+                        vue.createVNode("div", { class: "loading-spinner" }),
+                        vue.createVNode("div", { class: "loading-text" }, "正在获取课程进度...")
+                      ])
+                      : filteredCourseProgressItems.value.length === 0
+                        ? vue.createVNode("div", { class: "empty-state" }, "暂无课程进度数据")
+                        : vue.createVNode("div", { class: "progress-items-grid" },
+                          filteredCourseProgressItems.value.map(course => {
+                            const rate = parseInt(course.completionRate) || 0;
+                            const rateClass = rate >= 100 ? 'complete' : (rate >= 60 ? 'warning' : (rate >= 30 ? 'normal' : 'danger'));
+                            return vue.createVNode("div", {
+                              class: "progress-item",
+                              onClick: () => {
+                                if (course.studyDataUrl) {
+                                  window.open(course.studyDataUrl, '_blank');
+                                }
                               }
-                            }
-                          }, [
-                            vue.createVNode("div", { class: "progress-item-main" }, [
-                              vue.createVNode("div", { class: "progress-item-title" }, course.courseName),
-                              vue.createVNode("div", { class: "progress-bar-wrapper" }, [
+                            }, [
+                              vue.createVNode("div", { class: "progress-item-main" }, [
+                                vue.createVNode("div", { class: "progress-item-title" }, course.courseName),
                                 vue.createVNode("div", { class: "progress-bar" }, [
                                   vue.createVNode("div", {
                                     class: `progress-bar-fill ${rateClass}`,
                                     style: `width: ${Math.min(rate, 100)}%;`
                                   })
+                                ])
+                              ]),
+                              vue.createVNode("div", { class: "progress-item-info" }, [
+                                vue.createVNode("span", { class: `progress-rate ${rateClass}` }, course.completionRate),
+                                vue.createVNode("div", { class: "progress-tasks-count" },
+                                  `${course.completedTasks}/${course.totalTasks} 任务点`
+                                ),
+                                vue.createVNode("button", {
+                                  class: "ignore-btn",
+                                  onClick: (e) => { e.stopPropagation(); requestIgnore(course, 'progress'); }
+                                }, "🚫")
+                              ]),
+                              // 悬浮提示
+                              vue.createVNode("div", { class: "progress-tooltip" }, [
+                                vue.createVNode("div", { class: "tooltip-title" }, course.courseName),
+                                vue.createVNode("div", { class: "tooltip-row" }, [
+                                  vue.createVNode("span", { class: "label" }, "完成进度"),
+                                  vue.createVNode("span", { class: `value ${rate >= 100 ? 'success' : (rate >= 60 ? 'warning' : 'highlight')}` }, course.completionRate)
                                 ]),
-                                vue.createVNode("span", { class: `progress-rate ${rateClass}` }, course.completionRate)
-                              ]),
-                              vue.createVNode("div", { class: "progress-tasks-count" },
-                                `${course.completedTasks}/${course.totalTasks} 任务点`
-                              )
-                            ]),
-                            // 悬浮提示
-                            vue.createVNode("div", { class: "progress-tooltip" }, [
-                              vue.createVNode("div", { class: "tooltip-title" }, course.courseName),
-                              vue.createVNode("div", { class: "tooltip-row" }, [
-                                vue.createVNode("span", { class: "label" }, "完成进度"),
-                                vue.createVNode("span", { class: `value ${rate >= 100 ? 'success' : (rate >= 60 ? 'warning' : 'highlight')}` }, course.completionRate)
-                              ]),
-                              vue.createVNode("div", { class: "tooltip-row" }, [
-                                vue.createVNode("span", { class: "label" }, "课程积分"),
-                                vue.createVNode("span", { class: "value" }, course.courseScore || "点击查看")
-                              ]),
-                              vue.createVNode("div", { class: "tooltip-row" }, [
-                                vue.createVNode("span", { class: "label" }, "章节测验"),
-                                vue.createVNode("span", { class: "value" }, course.chapterQuiz || "点击查看")
-                              ]),
-                              vue.createVNode("div", { class: "tooltip-row" }, [
-                                vue.createVNode("span", { class: "label" }, "当前排名"),
-                                vue.createVNode("span", { class: "value highlight" }, course.ranking || "点击查看")
-                              ]),
-                              vue.createVNode("div", {
-                                style: "margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #1890ff; text-align: center; cursor: pointer;"
-                              }, "📊 点击查看完整学习记录")
-                            ])
-                          ]);
-                        })
-                      )
+                                vue.createVNode("div", { class: "tooltip-row" }, [
+                                  vue.createVNode("span", { class: "label" }, "课程积分"),
+                                  vue.createVNode("span", { class: "value" }, course.courseScore || "点击查看")
+                                ]),
+                                vue.createVNode("div", { class: "tooltip-row" }, [
+                                  vue.createVNode("span", { class: "label" }, "章节测验"),
+                                  vue.createVNode("span", { class: "value" }, course.chapterQuiz || "点击查看")
+                                ]),
+                                vue.createVNode("div", { class: "tooltip-row" }, [
+                                  vue.createVNode("span", { class: "label" }, "当前排名"),
+                                  vue.createVNode("span", { class: "value highlight" }, course.ranking || "点击查看")
+                                ]),
+                                vue.createVNode("div", {
+                                  style: "margin-top: 10px; padding-top: 8px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #1890ff; text-align: center; cursor: pointer;"
+                                }, "📊 点击查看完整学习记录")
+                              ])
+                            ]);
+                          })
+                        )
                 ])
               ])
             ])
