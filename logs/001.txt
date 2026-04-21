@@ -1,0 +1,1901 @@
+任务列表（优化版）.user.js:4357 [学习记录] 中医学基础 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 剑指CET-4：大学生英语能力基础 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 剑指CET-4：大学生英语能力基础 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 大学英语2（2024级非英语本科专业） 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 大学英语2（2024级非英语本科专业） 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 学业指导 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 学业指导 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 人体结构与功能（本） 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 人体结构与功能（本） 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 中药学专业导论与实验室安全 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 中药学专业导论与实验室安全 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] “齐鲁文化孕育下的理工生”——思想政治理论社会实践（本科） 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] “齐鲁文化孕育下的理工生”——思想政治理论社会实践（本科） 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 马克思主义基本原理 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 马克思主义基本原理 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 大学体育 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 大学体育 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 分析化学实验 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 分析化学实验 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 足球 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 足球 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 大学生创新创业基础 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 大学生创新创业基础 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 中药古典文献 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 中药古典文献 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 马克思主义基本原理 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 马克思主义基本原理 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 医学信息素养 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 医学信息素养 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 中医诊断学 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 中医诊断学 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 医用化学 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 医用化学 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 大学生职业生涯规划与发展 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 大学生职业生涯规划与发展 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 写作 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 写作 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 中国近现代史纲要2023版 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 中国近现代史纲要2023版 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 药用植物学-2025-2026 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 药用植物学-2025-2026 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 2024-2025-2--二十四式简化太极拳 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 2024-2025-2--二十四式简化太极拳 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 公体1-体适能 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 公体1-体适能 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 思政课社会实践：方法与指导（2024上） 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 思政课社会实践：方法与指导（2024上） 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 根植齐鲁文化的大学生养成教育社会实践（2024) 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 根植齐鲁文化的大学生养成教育社会实践（2024) 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 大学生健康教育（本科） 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 大学生健康教育（本科） 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 大学英语1（2024级非英语本科专业） 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 大学英语1（2024级非英语本科专业） 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4197 [学习记录] 思想道德与法治 未找到iframe或iframe无src
+任务列表（优化版）.user.js:4357 [学习记录] 思想道德与法治 解析失败: ReferenceError: extractPairNearLabel is not defined
+    at Object.onload (任务列表（优化版）.user.js:4268:38)
+    at a.<anonymous> (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:20624)
+    at a.emit (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:1349)
+    at Object.messageHandle (438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:35744)
+    at 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2:37399
+onload @ 任务列表（优化版）.user.js:4357
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+a.emit @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+messageHandle @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+(anonymous) @ 438fe7fe-6d98-4cc0-a6fc-71a06c1d037c:2
+nativeSend @ content.js:1
+postMessage @ content.js:1
+sendMessage @ content.js:1
+(anonymous) @ content.js:1
+任务列表（优化版）.user.js:4369 [学习记录] 大学英语过程写作 任务点: 0/55 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 2025－2026－2乒乓球 任务点: 29/32 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 物理化学B（2025-2026学年第二学期） 任务点: 41/41 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中成药学 任务点: 0/5 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 医药数理统计  中药学 任务点: 0/28 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 健康传播基础与应用 任务点: 0/36 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 形势与政策 任务点: 0/274 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 药理学 任务点: 95/95 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学英语4（2024级非英语本科专业） 任务点: 33/42 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药化学 任务点: 3/75 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 毛泽东思想和中国特色社会主义理论体系概论 任务点: 94/94 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 由内而外的健康：中医体质调理全攻略 任务点: 1/1 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 医药数理统计  中药学 任务点: 28/28 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中医药文化 任务点: 131/131 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药化学实验 任务点: 134/143 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药鉴定学实验 任务点: 14/44 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 压力与情绪管理 任务点: 1/1 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 新时期 新目标 新使命——药学战略发展研讨会 任务点: 1/1 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 生化分子检测中的光电传感 任务点: 0/1 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 毛泽东思想和中国特色社会主义理论体系概论 任务点: 94/94 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 生物信息学与传统分子技术的差异与挑战 任务点: 1/1 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学英语四六级模拟考试 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 2026全国大学生AI答题实践竞赛 任务点: 9/9 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 基因组学在物种进化中的分析及应用 任务点: 0/1 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 党课 任务点: 30/30 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 康复中药部 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学英语3(2024级) 任务点: 37/37 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 分析化学-中药学（2025-2026学年第一学期） 任务点: 85/85 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 人工智能概论 任务点: 99/100 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 组织与胚胎学小学期 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 微生物学与免疫学 任务点: 206/207 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 基础化学实验（2024-2025学年第二学期） 任务点: 27/27 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 生物化学与分子生物学（郭平） 任务点: 86/86 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 职业生涯规划与就业指导 任务点: 38/43 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 方剂学 任务点: 178/178 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药与药用植物学实验-2025-2026第二学期 任务点: 43/43 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学体育 任务点: 160/164 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中医学基础 任务点: 20/20 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药学 任务点: 60/62 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 学业指导 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学英语2（2024级非英语本科专业） 任务点: 60/60 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 剑指CET-4：大学生英语能力基础 任务点: 104/104 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药学专业导论与实验室安全 任务点: 0/63 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] “齐鲁文化孕育下的理工生”——思想政治理论社会实践（本科） 任务点: 83/83 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 分析化学实验 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 马克思主义基本原理 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学体育 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 人体结构与功能（本） 任务点: 215/215 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 足球 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中药古典文献 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 医学信息素养 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 马克思主义基本原理 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学生职业生涯规划与发展 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 医用化学 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中医诊断学 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 写作 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学生创新创业基础 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 中国近现代史纲要2023版 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 药用植物学-2025-2026 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 2024-2025-2--二十四式简化太极拳 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 公体1-体适能 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 思政课社会实践：方法与指导（2024上） 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学生健康教育（本科） 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 大学英语1（2024级非英语本科专业） 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 思想道德与法治 任务点: 0/0 排名: -- 积分: --
+任务列表（优化版）.user.js:4369 [学习记录] 根植齐鲁文化的大学生养成教育社会实践（2024) 任务点: 0/0 排名: -- 积分: --
+
+
+任务列表（优化版）.user.js:4235 [调试] 2025－2026－2乒乓球 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学英语过程写作 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中成药学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 医药数理统计  中药学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 形势与政策 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 健康传播基础与应用 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 药理学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 物理化学B（2025-2026学年第二学期） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 毛泽东思想和中国特色社会主义理论体系概论 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学英语4（2024级非英语本科专业） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 医药数理统计  中药学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药化学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药化学实验 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中医药文化 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药鉴定学实验 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 由内而外的健康：中医体质调理全攻略 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 毛泽东思想和中国特色社会主义理论体系概论 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 压力与情绪管理 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 新时期 新目标 新使命——药学战略发展研讨会 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 生化分子检测中的光电传感 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 生物信息学与传统分子技术的差异与挑战 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 基因组学在物种进化中的分析及应用 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 2026全国大学生AI答题实践竞赛 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学英语四六级模拟考试 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 康复中药部 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 党课 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 人工智能概论 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学英语3(2024级) === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 微生物学与免疫学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 生物化学与分子生物学（郭平） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 分析化学-中药学（2025-2026学年第一学期） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 方剂学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 组织与胚胎学小学期 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 基础化学实验（2024-2025学年第二学期） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药与药用植物学实验-2025-2026第二学期 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 剑指CET-4：大学生英语能力基础 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学体育 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 职业生涯规划与就业指导 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学英语2（2024级非英语本科专业） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中医学基础 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 学业指导 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药学专业导论与实验室安全 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] “齐鲁文化孕育下的理工生”——思想政治理论社会实践（本科） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 人体结构与功能（本） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 分析化学实验 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 马克思主义基本原理 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学体育 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 足球 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 医学信息素养 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学生创新创业基础 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 马克思主义基本原理 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中药古典文献 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 医用化学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学生职业生涯规划与发展 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中医诊断学 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 2024-2025-2--二十四式简化太极拳 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 写作 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 药用植物学-2025-2026 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 中国近现代史纲要2023版 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 思政课社会实践：方法与指导（2024上） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学生健康教育（本科） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 根植齐鲁文化的大学生养成教育社会实践（2024) === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 公体1-体适能 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 思想道德与法治 === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================
+任务列表（优化版）.user.js:4235 [调试] 大学英语1（2024级非英语本科专业） === 页面结构分析 ===
+任务列表（优化版）.user.js:4236 [调试] #jobRank 元素: 不存在
+任务列表（优化版）.user.js:4237 [调试] #point 元素: 不存在
+任务列表（优化版）.user.js:4238 [调试] #testNum 元素: 不存在
+任务列表（优化版）.user.js:4239 [调试] #publishTestNum 元素: 不存在
+任务列表（优化版）.user.js:4244 [调试] 包含"排名"的元素数量: 0
+任务列表（优化版）.user.js:4252 [调试] 包含"积分"的元素数量: 0
+任务列表（优化版）.user.js:4260 [调试] 包含"测验"的元素数量: 0
+任务列表（优化版）.user.js:4265 [调试] 页面HTML片段（包含积分/排名/测验）: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="/mooc2-ans/style/common.css?v=2025-0424-1038" type="text/css" rel="stylesheet">
+</head>
+<body style="background:#fff">
+<div class="">
+    <div class="nullMain">
+        <div class="null_wid700 clearfix">
+  
+任务列表（优化版）.user.js:4266 [调试] ========================================

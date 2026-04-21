@@ -1,0 +1,59 @@
+# cURL(cmd)：curl ^"https://stat2-ans.chaoxing.com/stat2/study-data/ai-evaluate-stat?clazzid=143766007^&courseid=236388016^&cpi=425976805^&ut=s^&pEnc=3b7cfd231dc854fe09b40e27883ac53e^" ^
+  -H ^"Accept: application/json, text/javascript, */*; q=0.01^" ^
+  -H ^"Accept-Language: zh-CN,zh;q=0.9^" ^
+  -H ^"Cache-Control: no-cache^" ^
+  -H ^"Connection: keep-alive^" ^
+  -b ^"fid=7950; xxtenc=d5f779ef62c9c3495e7dd329d550e098; tl=1; _uid=358345264; UID=358345264; _d=1775053682490; vc3=RF9MRTzUafjYAGCC2pBwId2eO9unJsRl5JroPxNovhjVRkIONPkglQH8PtUGfA^%^2F3YIhwu80PCcvxAvA^%^2Ba4ns2KK0hhQ3xF4GL4mRFOVFDbKD^%^2BZL^%^2BQtroPlDQMRsxLQODL3YxOn^%^2BLaeTzichqjXPrcShrkl5mOaShjTfCy8TDZ4c^%^3Dd3db7634bcd8217fa6ee0ce3c44284c8; uf=dff23984ef72c20b30666cf0e946ecc34bd8119e3aec98035e65626d597097a4864e29e5baa66552d1a1aafc4666158981a6c9ddee30899fd807a544f7930b6aed1e6c11a143bb563b0339d97cdac4baf3167eede423adf6713028f1ec42bf71b1188854805578cccb5ede2d43eb0c2abdd8bba6cee68aa2d6639ae456eaf173820f8b5f1f476051bb4aa6dbeb6204ff4df7ff280fcb29d10d8a4c92b12beb4b3be486ba556cf5bc9b9de8791047168c2c45595b0e2f018de7fafd565af53bf2; cx_p_token=bede7fd7b965ddc417d9b5e7c1d90449; p_auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIzNTgzNDUyNjQiLCJsb2dpblRpbWUiOjE3NzUwNTM2ODI0OTIsImV4cCI6MTc3NTY1ODQ4Mn0.l2x0XNEyqpVAnyApbcMRLIz6zvF7dQAay7crNYuCy4Y; DSSTASH_LOG=C_38-UN_7293-US_358345264-T_1775053682492; spaceFid=7950; spaceRoleId=3; k8s=1775053691.74.29485.446004^|eaad5be7a76a3186b751a2b86ae2308e; jrose=60FD2570CD5155BA2825813C1E729867.mooc-statistics2-779d6ff6df-smnzm; route=e59199aa1c1b181d801f5372b243650b^" ^
+  -H ^"Pragma: no-cache^" ^
+  -H ^"Referer: https://stat2-ans.chaoxing.com/study-data/index?courseid=236388016^&clazzid=143766007^&cpi=425976805^&ut=s^&t=1775055498470^&stuenc=795aa7fc467fa6cdbdd301e8d0947e9b^" ^
+  -H ^"Sec-Fetch-Dest: empty^" ^
+  -H ^"Sec-Fetch-Mode: cors^" ^
+  -H ^"Sec-Fetch-Site: same-origin^" ^
+  -H ^"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36^" ^
+  -H ^"X-Requested-With: XMLHttpRequest^" ^
+  -H ^"sec-ch-ua: ^\^"Chromium^\^";v=^\^"137^\^", ^\^"Not/A)Brand^\^";v=^\^"24^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^"
+
+# request headers
+  GET /stat2/study-data/ai-evaluate-stat?clazzid=143766007&courseid=236388016&cpi=425976805&ut=s&pEnc=3b7cfd231dc854fe09b40e27883ac53e HTTP/1.1
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: zh-CN,zh;q=0.9
+Cache-Control: no-cache
+Connection: keep-alive
+Cookie: fid=7950; xxtenc=d5f779ef62c9c3495e7dd329d550e098; tl=1; _uid=358345264; UID=358345264; _d=1775053682490; vc3=RF9MRTzUafjYAGCC2pBwId2eO9unJsRl5JroPxNovhjVRkIONPkglQH8PtUGfA%2F3YIhwu80PCcvxAvA%2Ba4ns2KK0hhQ3xF4GL4mRFOVFDbKD%2BZL%2BQtroPlDQMRsxLQODL3YxOn%2BLaeTzichqjXPrcShrkl5mOaShjTfCy8TDZ4c%3Dd3db7634bcd8217fa6ee0ce3c44284c8; uf=dff23984ef72c20b30666cf0e946ecc34bd8119e3aec98035e65626d597097a4864e29e5baa66552d1a1aafc4666158981a6c9ddee30899fd807a544f7930b6aed1e6c11a143bb563b0339d97cdac4baf3167eede423adf6713028f1ec42bf71b1188854805578cccb5ede2d43eb0c2abdd8bba6cee68aa2d6639ae456eaf173820f8b5f1f476051bb4aa6dbeb6204ff4df7ff280fcb29d10d8a4c92b12beb4b3be486ba556cf5bc9b9de8791047168c2c45595b0e2f018de7fafd565af53bf2; cx_p_token=bede7fd7b965ddc417d9b5e7c1d90449; p_auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIzNTgzNDUyNjQiLCJsb2dpblRpbWUiOjE3NzUwNTM2ODI0OTIsImV4cCI6MTc3NTY1ODQ4Mn0.l2x0XNEyqpVAnyApbcMRLIz6zvF7dQAay7crNYuCy4Y; DSSTASH_LOG=C_38-UN_7293-US_358345264-T_1775053682492; spaceFid=7950; spaceRoleId=3; k8s=1775053691.74.29485.446004|eaad5be7a76a3186b751a2b86ae2308e; jrose=60FD2570CD5155BA2825813C1E729867.mooc-statistics2-779d6ff6df-smnzm; route=e59199aa1c1b181d801f5372b243650b
+Host: stat2-ans.chaoxing.com
+Pragma: no-cache
+Referer: https://stat2-ans.chaoxing.com/study-data/index?courseid=236388016&clazzid=143766007&cpi=425976805&ut=s&t=1775055498470&stuenc=795aa7fc467fa6cdbdd301e8d0947e9b
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+X-Requested-With: XMLHttpRequest
+sec-ch-ua: "Chromium";v="137", "Not/A)Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+
+# response headers
+HTTP/1.1 200
+Date: Wed, 01 Apr 2026 15:08:46 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 91
+Connection: keep-alive
+Rose: mooc-statistics2-779d6ff6df-smnzm
+upstreamdocker: 172.60.0.15:8080
+Origin-Agent-Cluster: ?0
+
+# response
+{
+    "data": {
+        "aiEvaluatePer": 0.0,
+        "publishLibraryNum": 1,
+        "aiEvaluateReachCount": 0
+    },
+    "status": true
+}
+
+# payload
+clazzid=143766007&courseid=236388016&cpi=425976805&ut=s&pEnc=3b7cfd231dc854fe09b40e27883ac53e

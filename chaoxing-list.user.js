@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.2.0
+// @version      2.2.1
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
-// @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.0.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊；7. v2.1.0 修复进度卡片宽屏等宽布局（消除横向滚动条）、新增课程信息忽略功能（二次确认、多选、localStorage 持久化存储、已忽略面板及撤销）；8. v2.2.0 增强版课程进度悬浮窗：鼠标悬停显示学习活动（作业、考试、测验、互动），智能数据加载与缓存，移动端自适应设计
+// @description  【优化版】支持作业、考试、课程任务列表快速查看。基于原版脚本修改：1. 新增支持在 https://i.chaoxing.com/ 空间页面显示；2. 优化考试与作业列表 UI；3. 新增"任务"/"课程任务"标签，汇总所有课程的待办任务；4. 新增待办即将过期任务提醒；5. 整合学习仪表盘，UI 极简优化，支持板块全屏查看；6. v2.0.0 UI 重构升级：全新设计风格、欢迎区域、状态胶囊；7. v2.1.0 修复进度卡片宽屏等宽布局（消除横向滚动条）、新增课程信息忽略功能（二次确认、多选、localStorage 持久化存储、已忽略面板及撤销）；8. v2.2.0 增强版课程进度悬浮窗：鼠标悬停显示学习活动（作业、考试、测验、互动），智能数据加载与缓存，移动端自适应设计；9. v2.2.1 新增课程进度查询防检测功能：添加请求延迟机制避免验证码，可开关课程进度查询功能
 // @license      AGPL-3.0-or-later
 // @copyright    lcandy2 All Rights Reserved
 // @copyright    2025, Coren (Modified based on original work)
@@ -81,6 +81,44 @@
       }
     });
   };
+
+  // --- 课程进度查询开关管理 ---
+  const PROGRESS_ENABLED_KEY = 'chaoxing_progress_enabled';
+  const PROGRESS_DELAY_KEY = 'chaoxing_progress_delay';
+  
+  const isProgressEnabled = () => {
+    try {
+      const stored = localStorage.getItem(PROGRESS_ENABLED_KEY);
+      return stored === null ? true : stored === 'true';
+    } catch { return true; }
+  };
+  
+  const setProgressEnabled = (enabled) => {
+    try {
+      localStorage.setItem(PROGRESS_ENABLED_KEY, String(enabled));
+      console.log('[课程进度] 查询功能已', enabled ? '开启' : '关闭');
+    } catch (e) {
+      console.error('[课程进度] 保存开关状态失败:', e);
+    }
+  };
+  
+  const getProgressDelay = () => {
+    try {
+      const stored = localStorage.getItem(PROGRESS_DELAY_KEY);
+      return stored ? parseInt(stored) : 500;
+    } catch { return 500; }
+  };
+  
+  const setProgressDelay = (delay) => {
+    try {
+      localStorage.setItem(PROGRESS_DELAY_KEY, String(delay));
+      console.log('[课程进度] 请求延迟已设置为', delay, 'ms');
+    } catch (e) {
+      console.error('[课程进度] 保存延迟设置失败:', e);
+    }
+  };
+  
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   // --- 忽略管理 - 使用 localStorage 持久化 ---
   const IGNORE_STORAGE_KEY = 'chaoxing_ignored_items';
@@ -2612,17 +2650,35 @@
         });
       };
 
-      // 加载所有课程进度
+      // 加载所有课程进度（带延迟机制）
       const loadAllCourseProgress = async () => {
+        if (!isProgressEnabled()) {
+          console.log('[课程进度] 查询功能已关闭，跳过加载');
+          courseProgressItems.value = [];
+          return;
+        }
+        
         console.log('[课程进度] 开始加载课程进度...');
         loadingProgress.value = true;
         try {
           const courses = await getAllCourses();
-          console.log('[课程进度] 获取到课程:', courses.length, '个，准备请求前20门...');
+          console.log('[课程进度] 获取到课程:', courses.length, '个');
           if (courses.length > 0) {
-            const progressPromises = courses.map(c => getCourseProgress(c)); // 获取所有课程进度
-            console.log('[课程进度] 等待所有进度请求完成...');
-            const results = await Promise.all(progressPromises);
+            const requestDelay = getProgressDelay();
+            console.log('[课程进度] 使用请求延迟:', requestDelay, 'ms');
+            
+            // 使用延迟机制逐个请求，避免触发验证码
+            const results = [];
+            for (let i = 0; i < courses.length; i++) {
+              console.log(`[课程进度] 正在获取第 ${i + 1}/${courses.length} 个课程...`);
+              const result = await getCourseProgress(courses[i]);
+              results.push(result);
+              
+              // 如果不是最后一个课程，等待延迟时间
+              if (i < courses.length - 1) {
+                await delay(requestDelay);
+              }
+            }
 
             // 过滤并排序结果
             courseProgressItems.value = results
@@ -4032,6 +4088,16 @@
             border-color: #1890ff;
             color: #1890ff;
           }
+          .refresh-btn.disabled {
+            background: #f5f5f5;
+            border-color: #d9d9d9;
+            color: #999;
+            cursor: not-allowed;
+          }
+          .refresh-btn.disabled:hover {
+            border-color: #d9d9d9;
+            color: #999;
+          }
 
           /* 移动端适配 */
           @media (max-width: 768px) {
@@ -4983,6 +5049,21 @@
                       const cnt = getIgnoredItemsBySection('progress').length;
                       return `🚫 已忽略(${cnt})`;
                     })()),
+                    // 课程进度查询开关按钮
+                    vue.createVNode("button", {
+                      class: isProgressEnabled() ? "refresh-btn" : "refresh-btn disabled",
+                      onClick: () => {
+                        const newState = !isProgressEnabled();
+                        setProgressEnabled(newState);
+                        if (newState) {
+                          loadAllCourseProgress();
+                        }
+                      }
+                    }, isProgressEnabled() ? "🔍 查询中" : "❌ 查询已关闭"),
+                    // 延迟时间提示
+                    vue.createVNode("span", { 
+                      style: "font-size: 11px; color: #999; margin-left: 4px;"
+                    }, `延迟${getProgressDelay()}ms`),
                     vue.createVNode("button", {
                       class: "refresh-btn",
                       onClick: () => loadAllCourseProgress()

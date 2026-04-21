@@ -1,0 +1,506 @@
+任务列表（优化版）.user.js:4485 [课程进度] 开始加载课程进度...
+任务列表（优化版）.user.js:4207 [课程进度] 课程列表响应前200字符: {"result":1,"msg":"获取成功","channelList":[{"cfid":-1,"catalogId":8093000,"cataid":"100000017","key":8093000,"content":{"cfid":8093000,"uid":"358345264","createtime":1751245623000,"puid":"358345264","pid
+任务列表（优化版）.user.js:4212 [课程进度] channelList 长度: 68
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (5) ['cfid', 'catalogId', 'cataid', 'key', 'content']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000017
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (8) ['cfid', 'uid', 'createtime', 'puid', 'pid', 'folderName', 'cpi', 'shareType']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (5) ['cfid', 'catalogId', 'cataid', 'key', 'content']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000017
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (8) ['cfid', 'uid', 'createtime', 'puid', 'pid', 'folderName', 'cpi', 'shareType']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=236146989&personId=425976805&classId=143947473&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=236388016&personId=425976805&classId=143766007&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=262149857&personId=425976805&classId=143533293&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=262077717&personId=425976805&classId=143367328&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=261354389&personId=425976805&classId=142677571&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=256867609&personId=425976805&classId=141782964&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=241154873&personId=425976805&classId=141605260&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=261354529&personId=425976805&classId=141561568&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=257770537&personId=425976805&classId=141531324&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260987031&personId=425976805&classId=141332310&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=236388016&personId=425976805&classId=141307743&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=261071343&personId=425976805&classId=140730990&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=233208696&personId=425976805&classId=141159359&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=261067345&personId=425976805&classId=140732010&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=233097976&personId=425976805&classId=140564583&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260987031&personId=425976805&classId=140507300&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260147467&personId=425976805&classId=138519113&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260147445&personId=425976805&classId=138518908&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260147438&personId=425976805&classId=138518826&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260069412&personId=425976805&classId=138393053&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260069424&personId=425976805&classId=138392841&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=260069433&personId=425976805&classId=138392421&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=257920901&personId=425976805&classId=133807271&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=258744688&personId=425976805&classId=135618322&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=258165536&personId=425976805&classId=134347649&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=221728059&personId=425976805&classId=133699570&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254730331&personId=425976805&classId=131948754&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254563655&personId=425976805&classId=126986025&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254650327&personId=425976805&classId=126916985&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254852683&personId=425976805&classId=126448318&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=233252338&personId=425976805&classId=126440487&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=244590552&personId=425976805&classId=125952489&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254141903&personId=425976805&classId=124934063&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=218925834&personId=425976805&classId=120926115&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=250877478&personId=425976805&classId=119849652&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=235813748&personId=425976805&classId=119285357&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=251562813&personId=425976805&classId=119030204&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=251562817&personId=425976805&classId=119030094&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=246553982&personId=425976805&classId=117011447&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=204833062&personId=425976805&classId=116489168&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=246955257&personId=425976805&classId=107801503&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=201818021&personId=425976805&classId=105573578&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=244584088&personId=425976805&classId=105972904&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=215340841&personId=425976805&classId=105878594&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=245566581&personId=425976805&classId=105429184&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254518114&personId=425976805&classId=133596585&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254193931&personId=425976805&classId=131503683&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=256340906&personId=425976805&classId=132299058&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=254916050&personId=425976805&classId=126631127&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=236006919&personId=425976805&classId=126021795&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=240945994&personId=425976805&classId=125856134&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=244562527&personId=425976805&classId=126091659&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=214159690&personId=425976805&classId=125879986&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=232664011&personId=425976805&classId=118036806&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=250627008&personId=425976805&classId=119015439&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=244572232&personId=425976805&classId=116676732&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=250756268&personId=425976805&classId=117585670&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=249761113&personId=425976805&classId=116788212&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=245082374&personId=425976805&classId=116488095&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=228946679&personId=425976805&classId=116701608&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=244403738&personId=425976805&classId=106780716&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=236829283&personId=425976805&classId=107515722&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=218971488&personId=425976805&classId=105941514&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=245954997&personId=425976805&classId=105872218&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=244596886&personId=425976805&classId=104284615&userId=358345264
+任务列表（优化版）.user.js:4215 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4216 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4217 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4218 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4225 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4226 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4227 [课程进度] 课程 courseSquareUrl: https://tsjy.chaoxing.com/plaza/app?courseId=214159710&personId=425976805&classId=105490815&userId=358345264
+任务列表（优化版）.user.js:4245 [课程进度] 解析到课程: 66 个
+任务列表（优化版）.user.js:4489 [课程进度] 获取到课程: 66 个，准备请求前20门...
+任务列表（优化版）.user.js:4492 [课程进度] 等待所有进度请求完成...
+任务列表（优化版）.user.js:4008 [课程进度] 开始从DOM提取enc参数...
+任务列表（优化版）.user.js:4009 [课程进度] 页面URL: https://mooc1-api.chaoxing.com/work/stu-work#chaoxing-dashboard
+任务列表（优化版）.user.js:4010 [课程进度] 页面标题: 作业列表
+任务列表（优化版）.user.js:4045 [课程进度] 开始扫描页面所有链接...
+任务列表（优化版）.user.js:4047 [课程进度] 页面共有 0 个链接
+任务列表（优化版）.user.js:4078 [课程进度] 未从链接中找到enc，尝试从courseSquareUrl提取...
+任务列表（优化版）.user.js:4085 [课程进度] 共找到 0 个课程的enc参数
+任务列表（优化版）.user.js:4104 [课程进度] 未找到enc，但仍然尝试获取pEnc...
+任务列表（优化版）.user.js:4118 [课程进度] 开始获取课程的pEnc参数...
+任务列表（优化版）.user.js:4129 [课程进度] 获取pEnc, 课程: 形势与政策 URL: https://stat2-ans.chaoxing.com/study-data/index?courseid=236146989&clazzid=143947473&cpi=425976805&ut=s&t=1775045407566&stuenc=
+任务列表（优化版）.user.js:4129 [课程进度] 获取pEnc, 课程: 医药数理统计  中药学 URL: https://stat2-ans.chaoxing.com/study-data/index?courseid=236388016&clazzid=143766007&cpi=425976805&ut=s&t=1775045407566&stuenc=
+任务列表（优化版）.user.js:4129 [课程进度] 获取pEnc, 课程: 大学英语过程写作 URL: https://stat2-ans.chaoxing.com/study-data/index?courseid=262149857&clazzid=143533293&cpi=425976805&ut=s&t=1775045407566&stuenc=
+任务列表（优化版）.user.js:4129 [课程进度] 获取pEnc, 课程: 中成药学 URL: https://stat2-ans.chaoxing.com/study-data/index?courseid=262077717&clazzid=143367328&cpi=425976805&ut=s&t=1775045407567&stuenc=
+任务列表（优化版）.user.js:4129 [课程进度] 获取pEnc, 课程: 2025－2026－2乒乓球 URL: https://stat2-ans.chaoxing.com/study-data/index?courseid=261354389&clazzid=142677571&cpi=425976805&ut=s&t=1775045407567&stuenc=
+任务列表（优化版）.user.js:4140 [课程进度] 获取pEnc响应, 课程: 形势与政策 状态: 200 长度: 38858
+任务列表（优化版）.user.js:4149 [课程进度] 找到pEnc: 形势与政策 pEnc: 'dd69b40de39a6071e468e24df14c4375';
+任务列表（优化版）.user.js:4156 [课程进度] pEnc已保存到localStorage: 形势与政策 143947473 'dd69b40de39a6071e468e24df14c4375';
+任务列表（优化版）.user.js:4140 [课程进度] 获取pEnc响应, 课程: 医药数理统计  中药学 状态: 200 长度: 38817
+任务列表（优化版）.user.js:4149 [课程进度] 找到pEnc: 医药数理统计  中药学 pEnc: '3b7cfd231dc854fe09b40e27883ac53e';
+任务列表（优化版）.user.js:4156 [课程进度] pEnc已保存到localStorage: 医药数理统计  中药学 143766007 '3b7cfd231dc854fe09b40e27883ac53e';
+任务列表（优化版）.user.js:4140 [课程进度] 获取pEnc响应, 课程: 大学英语过程写作 状态: 200 长度: 39379
+任务列表（优化版）.user.js:4149 [课程进度] 找到pEnc: 大学英语过程写作 pEnc: 'c9a6b5bd241059968a7d6756ee3a6eed';
+任务列表（优化版）.user.js:4156 [课程进度] pEnc已保存到localStorage: 大学英语过程写作 143533293 'c9a6b5bd241059968a7d6756ee3a6eed';
+任务列表（优化版）.user.js:4140 [课程进度] 获取pEnc响应, 课程: 2025－2026－2乒乓球 状态: 200 长度: 38818
+任务列表（优化版）.user.js:4149 [课程进度] 找到pEnc: 2025－2026－2乒乓球 pEnc: '9b2afa9e4d92373e8e23d6d418126c3a';
+任务列表（优化版）.user.js:4156 [课程进度] pEnc已保存到localStorage: 2025－2026－2乒乓球 142677571 '9b2afa9e4d92373e8e23d6d418126c3a';
+任务列表（优化版）.user.js:4140 [课程进度] 获取pEnc响应, 课程: 中成药学 状态: 200 长度: 38818
+任务列表（优化版）.user.js:4149 [课程进度] 找到pEnc: 中成药学 pEnc: '329ec83c889e8692a2a48fc554e54915';
+任务列表（优化版）.user.js:4156 [课程进度] pEnc已保存到localStorage: 中成药学 143367328 '329ec83c889e8692a2a48fc554e54915';
+任务列表（优化版）.user.js:4192 [课程进度] pEnc获取完成

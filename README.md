@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.2.0-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.2.1-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,17 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.2.1
+* 🛡️ **新增课程进度查询防检测功能**
+  * 添加请求延迟机制（默认500ms），避免并发请求过快触发验证码
+  * 提供查询开关按钮，可随时开启/关闭课程进度查询
+  * 开关状态通过 localStorage 持久化存储
+  * 显示当前延迟设置，方便用户了解查询速度
+* ⚡ **优化查询机制**
+  * 将原有的 Promise.all 并发请求改为逐个顺序请求
+  * 添加详细的进度日志（正在获取第X/Y个课程）
+  * 默认延迟时间设置为500ms，可在代码中调整
 
 ### v2.2.0
 * 🚀 **增强版课程进度悬浮窗**：鼠标悬停课程卡片时显示详细的学习活动

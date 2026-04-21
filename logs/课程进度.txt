@@ -1,0 +1,410 @@
+任务列表（优化版）.user.js:4262 [课程进度] 开始加载课程进度...
+任务列表（优化版）.user.js:4017 [课程进度] 课程列表响应前200字符: {"result":1,"msg":"获取成功","channelList":[{"cfid":-1,"catalogId":8093000,"cataid":"100000017","key":8093000,"content":{"cfid":8093000,"uid":"358345264","createtime":1751245623000,"puid":"358345264","pid
+任务列表（优化版）.user.js:4022 [课程进度] channelList 长度: 68
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (5) ['cfid', 'catalogId', 'cataid', 'key', 'content']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000017
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (8) ['cfid', 'uid', 'createtime', 'puid', 'pid', 'folderName', 'cpi', 'shareType']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (5) ['cfid', 'catalogId', 'cataid', 'key', 'content']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000017
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (8) ['cfid', 'uid', 'createtime', 'puid', 'pid', 'folderName', 'cpi', 'shareType']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (13) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (16) ['studentcount', 'chatid', 'endDate', 'isFiled', 'isthirdaq', 'isstart', 'beginDate', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (14) ['createtime', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4025 [课程进度] Channel keys: (9) ['cfid', 'norder', 'cataName', 'cataid', 'id', 'cpi', 'key', 'content', 'topsign']
+任务列表（优化版）.user.js:4026 [课程进度] Channel cataid: 100000002
+任务列表（优化版）.user.js:4027 [课程进度] Channel content keys: (14) ['studentcount', 'chatid', 'isFiled', 'isthirdaq', 'isstart', 'isretire', 'name', 'course', 'roletype', 'id', 'state', 'cpi', 'bbsid', 'isSquare']
+任务列表（优化版）.user.js:4028 [课程进度] Channel content.enc: undefined
+任务列表（优化版）.user.js:4035 [课程进度] 课程 keys: (15) ['createtime', 'appInfo', 'defaultShowCatalog', 'sectionId', 'smartCourseState', 'appData', 'belongSchoolId', 'coursestate', 'teacherfactor', 'isCourseSquare', 'schools', 'courseSquareUrl', 'imageurl', 'name', 'id']
+任务列表（优化版）.user.js:4036 [课程进度] 课程 enc: 无
+任务列表（优化版）.user.js:4054 [课程进度] 解析到课程: 66 个
+任务列表（优化版）.user.js:4266 [课程进度] 获取到课程: 66 个，准备请求前20门...
+任务列表（优化版）.user.js:4269 [课程进度] 等待所有进度请求完成...

@@ -1,0 +1,41 @@
+# request headers
+GET /stat2/study-data/job?clazzid=126440487&courseid=233252338&cpi=425976805&ut=s&pEnc=29a12f7badc6532e4155e2e52193318d HTTP/1.1
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: zh-CN,zh;q=0.9
+Cache-Control: no-cache
+Connection: keep-alive
+Cookie: fid=7950; xxtenc=d5f779ef62c9c3495e7dd329d550e098; source=""; _uid=358345264; _d=1775033895137; UID=358345264; vc3=TdXFLHtfaSAPPwiasl1WVs0cxh6WPRawSllOmfrkBU5DiN70wpTYFUPiZ82tGQDQ%2FspF59NKHWx2JhL4K6H4oMtdYQdc4bv10xrxpJy7jtaCIzrfDvasWTyeelVE2CZ%2FYbv%2FqbfCgr6m3WTNRzDcWTaAic7Q0qbC%2Bzk0qDM5uQM%3D097912631d52b01fbceec42b8b595b0e; uf=dff23984ef72c20b30666cf0e946ecc34bd8119e3aec98035e65626d597097a4864e29e5baa665524b95dce8e1e4cbc881a6c9ddee30899fd807a544f7930b6aed1e6c11a143bb563b0339d97cdac4baf3167eede423adf6713028f1ec42bf71b1188854805578cc00dca559dc22cb714d2e739a1338df10f64f763064429968b1402865960ac3c98b28a737bbd787e54df7ff280fcb29d10d8a4c92b12beb4b3be486ba556cf5bc202f865c97f39fc5560d457d8c24c6dfe7fafd565af53bf2; cx_p_token=b712d8df666e0cc63e0fb2402ef8675f; p_auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIzNTgzNDUyNjQiLCJsb2dpblRpbWUiOjE3NzUwMzM4OTUxMzgsImV4cCI6MTc3NTYzODY5NX0.PHDGRtwv1f-gPbxPNelr4vC7H3yTdmvtvAl4dGu3CYo; DSSTASH_LOG=C_38-UN_7293-US_358345264-T_1775033895138; spaceFid=7950; spaceRoleId=3; thirdRegist=0; k8s=1775033899.727.10798.232372; route=36ef5ecbfa418bb6fd1c82c50e9f0066; jrose=FB0C3D8AB0D475BB42CFF8D4C1D1B95F.mooc-statistics2-1745998317-fj5nc
+Host: stat2-ans.chaoxing.com
+Pragma: no-cache
+Referer: https://stat2-ans.chaoxing.com/study-data/index?courseid=233252338&clazzid=126440487&cpi=425976805&ut=s&t=1775035930152&stuenc=2ca08afba7995abe74cb2756c5d14352
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+X-Requested-With: XMLHttpRequest
+sec-ch-ua: "Chromium";v="137", "Not/A)Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+
+# response headers
+HTTP/1.1 200
+Date: Wed, 01 Apr 2026 10:54:42 GMT
+Content-Type: application/json;charset=UTF-8
+Content-Length: 254
+Connection: keep-alive
+Rose: mooc-statistics2-1745998317-fj5nc
+Origin-Agent-Cluster: ?0
+
+# payload
+clazzid
+126440487
+courseid
+233252338
+cpi
+425976805
+ut
+s
+pEnc
+29a12f7badc6532e4155e2e52193318d
+

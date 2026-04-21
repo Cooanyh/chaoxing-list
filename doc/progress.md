@@ -1,3 +1,41 @@
+## 2026-04-03 进展（v2.2.1）
+
+- **课程进度查询防检测功能（新增）**:
+    - 问题背景：原有的 `Promise.all` 并发请求所有课程进度，速度太快容易触发系统验证码
+    - 解决方案：添加延迟机制 + 查询开关
+    - 新增存储键：
+        - `chaoxing_progress_enabled`：课程进度查询开关状态
+        - `chaoxing_progress_delay`：请求延迟时间（默认500ms）
+    - 新增管理函数：
+        - `isProgressEnabled()`：检查查询功能是否启用
+        - `setProgressEnabled(enabled)`：设置查询功能开关
+        - `getProgressDelay()`：获取当前延迟时间
+        - `setProgressDelay(delay)`：设置延迟时间
+        - `delay(ms)`：异步延迟工具函数
+    - 修改 `loadAllCourseProgress()` 函数：
+        - 检查开关状态，关闭时跳过查询
+        - 使用 for 循环替代 `Promise.all` 并发请求
+        - 每个请求间隔默认等待500ms
+        - 添加详细进度日志（正在获取第X/Y个课程）
+    - UI 界面更新：
+        - 在课程进度卡片头部添加查询开关按钮
+        - 显示当前延迟时间设置
+        - 开关状态显示："🔍 查询中"（开启）或 "❌ 查询已关闭"（关闭）
+        - 添加禁用样式（灰色背景，cursor: not-allowed）
+    - localStorage 持久化：
+        - 开关状态和延迟时间都会保存到 localStorage
+        - 刷新页面后设置保持不变
+
+- **版本号更新**:
+    - chaoxing-list.user.js: 2.2.0 → 2.2.1
+    - README.md: 版本徽章更新为 2.2.1
+    - 更新描述信息：添加 v2.2.1 功能说明
+
+- **代码提交**:
+    - 完成本功能的所有代码修改
+    - 更新 README.md 更新日志
+    - 更新进展文档
+
 ## 2026-04-02 进展（v2.2.0 补充）
 
 - **课程进度全屏查看（新增）**:

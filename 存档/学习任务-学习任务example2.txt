@@ -1,0 +1,68 @@
+<div class="waterfall_cell  waterfall_cell_1134327" style="position: absolute; left: 0px; top: 590px; width: 590px;">
+            <div class="whiteBg">
+                <div class="title">
+                    <h2 class="fl">学习任务</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="list">
+                    <ul class="statistics-bar-list">
+                        <li>
+                            <span class="left-label">章节测验</span>
+                            <div class="gray-bar type-1">
+                                <div class="percent-bar" id="testFinishPer" style="width: 0%;"></div>
+                            </div>
+                            <span class="right-rate"><span id="testNum">0</span>/<span id="publishTestNum">1</span></span>
+                            <div class="r-link fr"><a href="javascript:" onclick="toChapterExam()">详情<i></i></a>
+                            </div>
+                        </li>
+                            <li>
+                                <span class="left-label">在线考试</span>
+                                <div class="gray-bar type-3">
+                                    <div class="percent-bar" style="width: 0.0%;"></div>
+                                </div>
+                                <span class="right-rate">0/0</span>
+                                <div class="r-link fr"><a href="#" onclick="toExam()">详情<i></i></a></div>
+                            </li>
+                            <li>
+                                <span class="left-label">课程作业</span>
+                                <div class="gray-bar type-4">
+                                    <div class="percent-bar" id="workFinishPer" style="width: 100%;"></div>
+                                </div>
+                                <span class="right-rate"><span id="workNum">1</span>/<span id="publishWorkNum">1</span></span>
+                                <div class="r-link fr"><a href="javascript:void(0);" onclick="toWork()">详情
+                                    <i></i></a>
+                                </div>
+                            </li>
+                                                <li>
+                            <span class="left-label">AI实践</span>
+                            <div class="gray-bar type-6">
+                                <div class="percent-bar" id="aiEvaluatePer" style="width: 0%;"></div>
+                            </div>
+                            <span class="right-rate"><span id="aiEvaluateReachCount">0</span>/<span id="publishLibraryNum">0</span></span>
+                            <div class="r-link fr"><a href="#" onclick="toAiEvaluateStat()">详情<i></i></a>
+                            </div>
+                        </li>
+                                                <li>
+                            <span class="left-label">互动测验</span>
+                            <div class="gray-bar type-5">
+                                <div class="percent-bar" id="videoFinishPer" style="width: 0%;"></div>
+                            </div>
+                            <span class="right-rate"><span id="videoTestFinish">0</span>/<span id="videoTestCount">0</span></span>
+                            <div class="r-link fr"><a href="#" onclick="toVideoTest()">详情<i></i></a></div>
+                        </li>
+                            <li>
+                                <span class="left-label">分组任务</span>
+                                <div class="gray-bar type-2">
+                                    <div class="percent-bar" id="taskPer" style="width: 100%"></div>
+                                </div>
+                                <span class="right-rate"><span id="taskNum">1</span>/<span id="publishTaskNum">1</span></span>
+                            </li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="intelligentTipsBx" style="" id="studyTaskRemind">
+                    <div class="intelligentTips_tit"><i></i><span>智能提醒</span></div>
+                    <p class="intelligentTips_font" id="studyTaskRemindMsg">章节测验完成率0.0%，且都低于班级平均，请注意！</p>
+                </div>
+            </div>
+        </div>
