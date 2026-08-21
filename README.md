@@ -1,3 +1,5 @@
+
+
 # 学习通作业/考试/待办列表 (Modified)
 ![Version](https://img.shields.io/badge/版本-2.2.1-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
@@ -22,7 +24,7 @@
 * **新增"待办任务"聚合页**：
     * 自动汇总所有状态为"未提交"的作业和"未完成/未过期"的考试和"进行中"的课程任务。
     * 按截止时间排序，提供直观的"立即去办"跳转按钮。
-    * 24小时内截至的任务会有"紧急任务"提醒
+    * 24小时内截止的任务会有"紧急任务"提醒
 * **新增课程任务聚合页**：
     * 自动遍历所有课程然后读取课程任务并汇总（**有遗漏风险！**）
 * **考试列表修复与优化**：
