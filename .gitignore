@@ -1,0 +1,8 @@
+# 本地调试记录、接口抓包与项目过程文档不纳入发布仓库
+/logs/
+/doc/
+/network/
+/Programs.md
+
+# 独立浏览器会话临时文件
+/.playwright-cli/
