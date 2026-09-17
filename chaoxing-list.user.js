@@ -2028,8 +2028,10 @@
       const loadingProgress = vue.ref(false);
       const activitiesLoaded = vue.ref(false);
       const activitiesFetched = vue.ref(false);
+      const activitiesLoadFailed = vue.ref(false);
       const activitiesFromCache = vue.ref(false);
       const progressLoaded = vue.ref(false);
+      const progressLoadFailed = vue.ref(false);
       const progressFromCache = vue.ref(false);
       const progressLastUpdate = vue.ref(null);
 
@@ -2790,11 +2792,14 @@
         if (!isProgressEnabled()) {
           console.log('[课程进度] 查询功能已关闭，跳过加载');
           courseProgressItems.value = [];
+          progressLoaded.value = true;
+          progressLoadFailed.value = false;
           return;
         }
 
         console.log('[课程进度] 开始加载课程进度...');
         loadingProgress.value = true;
+        progressLoadFailed.value = false;
         try {
           const courses = await getAllCourses();
           const activeCourses = courses.filter(course => !isCourseIgnored(course));
@@ -2862,6 +2867,8 @@
           startProgressAutoRefresh();
         } catch (e) {
           console.error('加载课程进度失败:', e);
+          progressLoadFailed.value = true;
+          progressLoaded.value = true;
         }
         loadingProgress.value = false;
       };
@@ -3470,6 +3477,7 @@
       const loadActivitiesData = async () => {
         if (loading.value.activities || activitiesFetched.value) return;
         loading.value.activities = true;
+        activitiesLoadFailed.value = false;
         try {
           const courses = await fetchCourseList();
           const allActivities = [];
@@ -3486,7 +3494,10 @@
           activitiesFetched.value = true;
           activitiesFromCache.value = false;
           if (settings.value.shortTermCacheEnabled) saveDashboardCache('activities', allActivities);
-        } catch (error) { console.error('[仪表盘] 加载课程任务失败:', error); }
+        } catch (error) {
+          console.error('[仪表盘] 加载课程任务失败:', error);
+          activitiesLoadFailed.value = true;
+        }
         loading.value.activities = false;
       };
 
@@ -5687,8 +5698,10 @@
                 vue.createVNode("div", { class: "card-body" }, [
                   loading.value.activities && !activitiesLoaded.value
                     ? renderLoadingSkeleton('正在加载课程任务…')
+                    : activitiesLoadFailed.value
+                      ? vue.createVNode("button", { class: "empty-state", onClick: () => loadActivitiesData() }, "课程任务加载失败，点击重试")
                     : !activitiesLoaded.value
-                      ? vue.createVNode("button", { class: "empty-state lazy-load-state", onClick: () => openFullScreen('activities') }, "点击查看全部，按需加载课程任务")
+                      ? renderLoadingSkeleton('正在加载课程任务…')
                     : filteredActivitiesItems.value.length === 0
                       ? vue.createVNode("div", { class: "empty-state" }, "✨ 这里暂时还没有课程任务")
                       : sortItems(filteredActivitiesItems.value, 'activities', 'urgent').map(item =>
@@ -5750,6 +5763,7 @@
                         const newState = !isProgressEnabled();
                         setProgressEnabled(newState);
                         if (newState) {
+                          progressLoaded.value = courseProgressItems.value.length > 0;
                           loadAllCourseProgress();
                         }
                       }
@@ -5821,7 +5835,11 @@
                     : loadingProgress.value && !progressLoaded.value
                       ? renderLoadingSkeleton('正在加载课程进度…')
                       : !progressLoaded.value
-                        ? vue.createVNode("button", { class: "empty-state lazy-load-state", onClick: () => openFullScreen('progress') }, "点击查看全部，按需加载课程进度")
+                        ? renderLoadingSkeleton('正在加载课程进度…')
+                      : !isProgressEnabled()
+                        ? vue.createVNode("div", { class: "empty-state" }, "课程进度查询已关闭，开启后会自动加载")
+                      : progressLoadFailed.value
+                        ? vue.createVNode("button", { class: "empty-state", onClick: () => loadAllCourseProgress() }, "课程进度加载失败，点击重试")
                       : filteredCourseProgressItems.value.length === 0
                         ? vue.createVNode("div", { class: "empty-state" }, "暂无课程进度数据")
                         : vue.createVNode("div", { class: "progress-items-grid" },
