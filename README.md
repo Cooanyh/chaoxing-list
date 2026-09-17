@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.2.1-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.0-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,20 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.0
+* ✨ **任务面板升级**：完善统一设置、动态忽略预览、任务引擎分类和课程级过滤体验。
+* ⚡ **加载体验优化**：支持可选短时缓存、分区骨架屏和课程进度悬浮详情的稳定展示。
+* 🧹 **代码整理**：清理过期及重复注释，并归档发布前的 v2.3.0 脚本快照。
+
+### v2.3.0
+* ⚙️ **统一设置**：集中控制任务分类、忽略开关和按课程忽略；首次使用会提示可在设置中开启其他任务。
+* 🧹 **精简默认展示**：默认仅显示作业、视频/任务点、AI 实践、分组讨论、测验和考试；签到、问卷、抢答、通知等可在弹窗中全选或按类型开启。
+* 🚫 **课程级忽略**：可多选课程；忽略后其所有相关任务自动隐藏，关闭总开关不会丢失既有忽略记录。
+* 📚 **任务引擎适配**：归一展示作业、AI 实践、分组讨论、测验和考试等活动；视频/任务点仅在课程进度中展示，避免重复。
+* 🧹 **动态忽略**：设置页可按分类持续忽略已完成作业（含 AI 实践）、已完成/过期考试、已结束课程任务和已完成课程进度；取消规则仅恢复动态匹配项，不会影响逐条手动忽略。
+* ⚡ **加载优化**：首页完整加载待办、作业、考试、课程任务、课程进度和高优先级信息；设置课程列表、课程进度悬浮详情等非首屏资源按需请求，避免重复访问。
+* 🗂️ **可选短时缓存**：可在设置中开启 5 分钟课程任务与课程进度缓存；命中缓存时先展示并明确标记，后台刷新成功后自动替换为最新数据。
 
 ### v2.2.1
 * 🛡️ **新增课程进度查询防检测功能**

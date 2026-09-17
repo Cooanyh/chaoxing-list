@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.0
+// @version      2.3.0
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -1944,6 +1944,7 @@
     return null;
   };
 
+  // --- 便当盒仪表盘组件 ---
   const _sfc_dashboard = /* @__PURE__ */ vue.defineComponent({
     __name: "dashboard",
     setup(__props) {
@@ -3791,7 +3792,9 @@
         const _component_v_icon = vue.resolveComponent("v-icon");
         const _component_v_container = vue.resolveComponent("v-container");
 
+        // 仪表盘 CSS 样式 (v2.2.0 新设计)
         const dashboardStyle = `
+          /* 全局重置 */
           .dashboard-wrapper {
             font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #f5f7fa;
@@ -3801,6 +3804,7 @@
           .dashboard-wrapper * { box-sizing: border-box; }
           .dashboard-wrapper a { text-decoration: none; color: inherit; }
 
+          /* 主体内容 */
           .main-content {
             width: 100%;
             max-width: 1200px;
