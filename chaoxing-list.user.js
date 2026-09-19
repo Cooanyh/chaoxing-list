@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.1
+// @version      2.4.2
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -31,6 +31,7 @@
 // @connect      mooc2-ans.chaoxing.com
 // @connect      mooc1.chaoxing.com
 // @connect      i.chaoxing.com
+// @connect      task.chaoxing.com
 // @run-at       document-end
 // ==/UserScript==
 
@@ -174,10 +175,16 @@
   const isExplicitlyClosedExam = (item) => item?.finished === true || item?.expired === true;
   const isExplicitlyEndedActivity = (item) => item?.finished === true || item?.status === '已结束';
   const isExplicitlyCompletedProgress = (item) => item?.isComplete === true || Number.parseInt(item?.completionRate, 10) >= 100;
+  const getTaskEnginePlanSection = (item) => {
+    if (!item?.taskEnginePlan) return 'activities';
+    if (item.type === '作业') return 'homework';
+    if (item.type === '考试') return 'exam';
+    return 'activities';
+  };
   const isDynamicallyIgnored = (item, sectionType, settings) => {
         const rules = settings.dynamicIgnoreRules || {};
-        // 课程任务被补入待办/高优先级区后，仍沿用“课程任务”规则。
-        if (sectionType === 'todo' && item.isActivity) sectionType = 'activities';
+        // 待办中的任务引擎子任务按实际类目应用规则，其余课程任务沿用课程任务规则。
+        if (sectionType === 'todo' && item.isActivity) sectionType = getTaskEnginePlanSection(item);
         switch (sectionType) {
       case 'homework': return !!rules.homework && isExplicitlyCompletedHomework(item);
       case 'exam': return !!rules.exam && isExplicitlyClosedExam(item);
@@ -583,6 +590,7 @@
         url: url,
         headers: options.headers || {},
         responseType: options.responseType || 'text',
+        timeout: options.timeout || 15000,
         onload: (response) => {
           if (response.status >= 200 && response.status < 400) {
             resolve(response);
@@ -666,44 +674,197 @@
     return typeMap[item.activeType] || typeMap[item.type] || '其他任务';
   };
 
-  const normalizeTaskEngineItems = (items, course) => {
-    if (!Array.isArray(items)) return [];
+  const getTaskEngineLink = (taskId, course) => taskId
+    ? `https://task.chaoxing.com/api/v1/middlePageApi/jumpStudyPlanList?taskId=${encodeURIComponent(taskId)}&moocClassId=${encodeURIComponent(course.clazzId)}`
+    : '';
 
-    return items.map((item) => {
-      const planCount = Number(item.planCount) || 0;
-      const planFinishCount = Number(item.planFinishCount) || 0;
-      const studyProgress = Number(item.taskStudyProgress) || 0;
-      const qualifyStatus = `${item.userTaskQualifyStatus || ''}`;
-      const isFinished = qualifyStatus === '已达标'
-        || qualifyStatus === '已完成'
-        || studyProgress >= 1
-        || (planCount > 0 && planFinishCount >= planCount);
-      const taskId = item.id ? String(item.id) : '';
-      const taskLink = taskId
-        ? `https://task.chaoxing.com/api/v1/middlePageApi/jumpStudyPlanList?taskId=${encodeURIComponent(taskId)}&moocClassId=${encodeURIComponent(course.clazzId)}`
-        : '';
+  const normalizeTaskEnginePlanType = (plan) => {
+    const typeName = `${plan.planTypeName || ''}`.trim();
+    const searchable = `${typeName} ${plan.name || ''}`;
+    if (/AI\s*实践|AI\s*评价|AI\s*对话/i.test(searchable)) return 'AI实践';
+    if (/分组/.test(searchable) && /(任务|作业)/.test(searchable)) return '分组任务';
+    if (/讨论/.test(searchable)) return '分组讨论';
+    if (/考试/.test(searchable)) return '考试';
+    if (/作业/.test(searchable)) return '作业';
+    if (/随堂练习/.test(searchable)) return '随堂练习';
+    if (/测验|自测|练习/.test(searchable)) return '测验';
+    if (/签到/.test(searchable)) return '签到';
+    if (/问卷/.test(searchable)) return '问卷';
+    if (/抢答/.test(searchable)) return '抢答';
+    if (/投票/.test(searchable)) return '投票';
+    if (/直播/.test(searchable)) return '直播';
+    if (/评分/.test(searchable)) return '评分';
+    if (/拍照/.test(searchable)) return '拍照';
+    if (/笔记/.test(searchable)) return '笔记';
+    if (/课程|章节|知识点|视频|文档|音频|阅读/.test(searchable)) return '视频/任务点';
 
-      return {
-        activeId: taskId ? `task-engine-${taskId}` : `task-engine-${course.courseId}-${item.name || ''}`,
-        taskId,
-        title: item.name || '未命名任务引擎任务',
-        type: '任务引擎',
-        status: isFinished ? '已结束' : '进行中',
-        time: item.lastStudyDateStr || item.createDate || '',
-        endTime: '',
-        courseName: course.courseName,
-        courseId: course.courseId,
-        clazzId: course.clazzId,
-        cpi: course.cpi,
-        finished: isFinished,
-        ongoing: !isFinished,
-        activeType: 'task-engine',
-        taskEngine: true,
-        taskLink,
-        progressText: planCount > 0 ? `${planFinishCount}/${planCount}` : '',
-        isActivity: true
+    const typeMap = {
+      0: '视频/任务点', 1: '视频/任务点', 4: '作业', 5: '考试',
+      8: '视频/任务点', 9: '签到', 10: '视频/任务点', 11: '视频/任务点',
+      13: '测验', 14: '分组讨论', 15: 'AI实践', 17: '测验', 22: '视频/任务点'
+    };
+    return typeMap[plan.planType] || '其他任务';
+  };
+
+  const normalizeTaskEngineSummaryItem = (item, course) => {
+    const planCount = Number(item.planCount) || 0;
+    const planFinishCount = Number(item.planFinishCount) || 0;
+    const studyProgress = Number(item.taskStudyProgress) || 0;
+    const qualifyStatus = `${item.userTaskQualifyStatus || ''}`;
+    const isFinished = qualifyStatus === '已达标'
+      || qualifyStatus === '已完成'
+      || studyProgress >= 1
+      || (planCount > 0 && planFinishCount >= planCount);
+    const taskId = item.id ? String(item.id) : '';
+
+    return {
+      activeId: taskId ? `task-engine-${taskId}` : `task-engine-${course.courseId}-${item.name || ''}`,
+      taskId,
+      title: item.name || '未命名任务引擎任务',
+      type: '任务引擎',
+      status: isFinished ? '已结束' : '进行中',
+      time: item.lastStudyDateStr || item.createDate || '',
+      endTime: '',
+      courseName: course.courseName,
+      course: course.courseName,
+      courseId: course.courseId,
+      clazzId: course.clazzId,
+      cpi: course.cpi,
+      finished: isFinished,
+      ongoing: !isFinished,
+      activeType: 'task-engine',
+      taskEngine: true,
+      taskEnginePlan: false,
+      taskLink: getTaskEngineLink(taskId, course),
+      progressText: planCount > 0 ? `${planFinishCount}/${planCount}` : '',
+      isActivity: true
+    };
+  };
+
+  const extractTaskEngineUserId = (response) => {
+    const html = `${response?.responseText || ''}`;
+    const htmlMatch = html.match(/(?:const|let|var)\s+eTaskUserId\s*=\s*["']([^"']+)["']/);
+    if (htmlMatch) return htmlMatch[1];
+    try {
+      return new URL(response?.finalUrl || '').searchParams.get('encryTaskUserId') || '';
+    } catch {
+      return '';
+    }
+  };
+
+  const parseTaskEngineDate = (value) => {
+    if (!value) return NaN;
+    return Date.parse(`${value}`.replace(/-/g, '/'));
+  };
+
+  const normalizeTaskEnginePlan = (plan, task, course) => {
+    const taskId = task.id ? String(task.id) : '';
+    const planId = plan.planId ? String(plan.planId) : '';
+    const type = normalizeTaskEnginePlanType(plan);
+    const isFinished = plan.isFinish === true
+      || Number(plan.isFinish) === 1
+      || Number(plan.planUser?.finish) === 1
+      || Number(plan.score?.completed) === 1;
+    const endTime = plan.endDateStr || '';
+    const isExpired = !isFinished
+      && Number.isFinite(parseTaskEngineDate(endTime))
+      && parseTaskEngineDate(endTime) < Date.now();
+    const isLocked = !isFinished && !isExpired && plan.planAllowStudy === false;
+    const status = isFinished ? '已完成' : (isExpired ? '已过期' : (isLocked ? '未开始' : '进行中'));
+    const taskLink = getTaskEngineLink(taskId, course);
+
+    return {
+      activeId: `task-engine-${taskId}-plan-${planId || plan.name || ''}`,
+      taskId,
+      planId,
+      title: plan.name || task.name || '未命名任务',
+      type,
+      planType: plan.planType,
+      planTypeName: plan.planTypeName || '',
+      parentTaskTitle: task.name || '',
+      status,
+      time: endTime || plan.startDateStr || '',
+      endTime,
+      leftTime: endTime,
+      timeLeft: endTime,
+      courseName: course.courseName,
+      course: course.courseName,
+      courseId: course.courseId,
+      clazzId: course.clazzId,
+      classId: course.clazzId,
+      cpi: course.cpi,
+      finished: isFinished,
+      expired: isExpired,
+      ongoing: !isFinished && !isExpired && !isLocked,
+      uncommitted: type === '作业' ? !isFinished && !isExpired : undefined,
+      activeType: 'task-engine-plan',
+      taskEngine: true,
+      taskEnginePlan: true,
+      taskLink,
+      isActivity: true
+    };
+  };
+
+  const fetchTaskEnginePlans = async (task, course) => {
+    const fallback = normalizeTaskEngineSummaryItem(task, course);
+    if (!fallback.taskLink) return [fallback];
+
+    try {
+      let landingResponse;
+      try {
+        landingResponse = await gmFetch(fallback.taskLink, {
+          headers: { Referer: 'https://mobilelearn.chaoxing.com/' }
+        });
+      } catch {
+        landingResponse = null;
+      }
+      let taskUserId = extractTaskEngineUserId(landingResponse);
+      if (!taskUserId) {
+        const subPageUrl = `https://task.chaoxing.com/userStudyPlan/studyPlanSubPage?taskId=${encodeURIComponent(fallback.taskId)}&encryJumpGroupId=null`;
+        landingResponse = await gmFetch(subPageUrl, { headers: { Referer: fallback.taskLink } });
+        taskUserId = extractTaskEngineUserId(landingResponse);
+      }
+      if (!taskUserId) throw new Error('未找到任务用户标识');
+
+      const apiHeaders = {
+        'X-Requested-With': 'XMLHttpRequest',
+        Referer: landingResponse.finalUrl || fallback.taskLink
       };
-    });
+      const groupUrl = `https://task.chaoxing.com/userStudyPlan/getGroupData?encryTaskUserId=${encodeURIComponent(taskUserId)}`;
+      const groupResponse = await gmFetch(groupUrl, { headers: apiHeaders });
+      const groups = JSON.parse(groupResponse.responseText).data;
+      if (!Array.isArray(groups) || groups.length === 0) return [fallback];
+
+      const readableGroups = groups.filter(group => group?.encryptGroupId);
+      if (readableGroups.length !== groups.length) throw new Error('任务分组标识不完整');
+      const planResults = await Promise.allSettled(readableGroups
+        .map(group => {
+          const planUrl = `https://task.chaoxing.com/userStudyPlan/getPlanDataByGroupId?encryTaskUserId=${encodeURIComponent(taskUserId)}&encryGroupId=${encodeURIComponent(group.encryptGroupId)}`;
+          return gmFetch(planUrl, { headers: apiHeaders });
+        }));
+      if (planResults.some(result => result.status !== 'fulfilled')) throw new Error('部分任务分组读取失败');
+      const plans = planResults.flatMap((result) => {
+        const data = JSON.parse(result.value.responseText).data;
+        if (!Array.isArray(data)) throw new Error('任务分组明细格式异常');
+        return data;
+      });
+
+      return plans.length
+        ? plans.map(plan => normalizeTaskEnginePlan(plan, task, course))
+        : [fallback];
+    } catch (error) {
+      console.warn(`[任务引擎] ${course.courseName} 的任务“${task.name || task.id || ''}”明细读取失败，保留任务包:`, error);
+      return [fallback];
+    }
+  };
+
+  const expandTaskEngineItems = async (items, course) => {
+    if (!Array.isArray(items)) return [];
+    const expanded = [];
+    for (const item of items) {
+      expanded.push(...await fetchTaskEnginePlans(item, course));
+    }
+    return expanded;
   };
 
   // 获取单个课程的课堂活动与任务引擎任务。视频/任务点仅在课程进度中展示，避免重复出现。
@@ -766,7 +927,7 @@
       if (taskEngineResult.status === 'fulfilled') {
         try {
           const taskEngineData = JSON.parse(taskEngineResult.value.responseText);
-          taskEngineItems = normalizeTaskEngineItems(taskEngineData.data, course);
+          taskEngineItems = await expandTaskEngineItems(taskEngineData.data, course);
         } catch (error) {
           console.warn(`[课程任务] ${course.courseName} 任务引擎解析失败:`, error);
         }
@@ -1553,7 +1714,9 @@
                   clazzId: activity.clazzId,
                   activeId: activity.activeId,
                   taskId: activity.taskId,
+                  planId: activity.planId,
                   taskEngine: activity.taskEngine,
+                  taskEnginePlan: activity.taskEnginePlan,
                   taskLink: activity.taskLink,
                   isActivity: true
                 });
@@ -2817,8 +2980,9 @@
             type: activity.type, title: activity.title, course: activity.courseName,
             info: activity.progressText ? `进度 ${activity.progressText}` : (activity.endTime || '进行中'), status: '进行中',
             courseId: activity.courseId, clazzId: activity.clazzId,
-            activeId: activity.activeId, taskId: activity.taskId,
-            taskEngine: activity.taskEngine, taskLink: activity.taskLink, isActivity: true
+            activeId: activity.activeId, taskId: activity.taskId, planId: activity.planId,
+            taskEngine: activity.taskEngine, taskEnginePlan: activity.taskEnginePlan,
+            taskLink: activity.taskLink, isActivity: true
           }));
         todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities];
         urgentTasks.value = todoItems.value.filter(item => {
@@ -3026,10 +3190,12 @@
       const getCompletedItemsForBulkIgnore = (section) => {
         switch (section) {
           case 'homework':
-            return [...homeworkItems.value, ...activitiesItems.value.filter(item => item.type === 'AI实践')]
+            return [...homeworkItems.value, ...activitiesItems.value.filter(isRoutedToHomework)]
               .filter(isExplicitlyCompletedHomework);
-          case 'exam': return examItems.value.filter(isExplicitlyClosedExam);
-          case 'activities': return activitiesItems.value.filter(item => item.type !== 'AI实践' && isExplicitlyEndedActivity(item));
+          case 'exam': return [...examItems.value, ...activitiesItems.value.filter(isRoutedToExam)]
+            .filter(isExplicitlyClosedExam);
+          case 'activities': return activitiesItems.value
+            .filter(item => !isRoutedToHomework(item) && !isRoutedToExam(item) && isExplicitlyEndedActivity(item));
           case 'progress': return courseProgressItems.value.filter(isExplicitlyCompletedProgress);
           default: return [];
         }
@@ -3158,20 +3324,25 @@
         ignoredVersion.value; // 触发依赖
         return todoItems.value.filter(item => shouldDisplayItem({ ...item, _sectionType: 'todo' }));
       });
+      const isRoutedToHomework = (item) => item.type === 'AI实践'
+        || (item.taskEnginePlan && item.type === '作业');
+      const isRoutedToExam = (item) => item.taskEnginePlan && item.type === '考试';
       const filteredHomeworkItems = vue.computed(() => {
         ignoredVersion.value;
-        const aiPracticeItems = activitiesItems.value.filter(item => item.type === 'AI实践');
-        return [...homeworkItems.value, ...aiPracticeItems]
+        const routedItems = activitiesItems.value.filter(isRoutedToHomework);
+        return [...homeworkItems.value, ...routedItems]
           .filter(item => shouldDisplayItem({ ...item, _sectionType: 'homework' }));
       });
       const filteredExamItems = vue.computed(() => {
         ignoredVersion.value;
-        return examItems.value.filter(item => shouldDisplayItem({ ...item, _sectionType: 'exam' }));
+        const routedItems = activitiesItems.value.filter(isRoutedToExam);
+        return [...examItems.value, ...routedItems]
+          .filter(item => shouldDisplayItem({ ...item, _sectionType: 'exam' }));
       });
       const filteredActivitiesItems = vue.computed(() => {
         ignoredVersion.value;
         return activitiesItems.value
-          .filter(item => item.type !== 'AI实践')
+          .filter(item => !isRoutedToHomework(item) && !isRoutedToExam(item))
           .filter(item => shouldDisplayItem({ ...item, _sectionType: 'activities' }));
       });
       const filteredCourseProgressItems = vue.computed(() => {
@@ -3596,6 +3767,7 @@
       };
 
       const getExamLink = (item) => {
+        if (item.isActivity) return getActivityLink(item);
         const url = new URL(API_OPEN_EXAM);
         url.searchParams.append("courseId", item.courseId);
         url.searchParams.append("classId", item.classId);
@@ -3610,6 +3782,13 @@
         url.searchParams.append("clazzid", item.clazzId);
         return url.href;
       };
+
+      const getHomeworkStatus = (item) => item.isActivity
+        ? (item.status || (item.finished ? '已完成' : '进行中'))
+        : (item.uncommitted ? '待提交' : '已提交');
+      const getHomeworkBadgeClass = (item) => item.isActivity
+        ? (item.finished ? 'status-done' : (item.expired ? 'status-gray' : 'status-warning'))
+        : (item.uncommitted ? 'status-warning' : 'status-done');
 
       // 切换视图函数（不跳转外部页面，在内部切换视图）
       const openFullScreen = (type) => {
@@ -5127,9 +5306,10 @@
         const getRawViewItems = (type) => {
           switch (type) {
             case 'todo': return todoItems.value;
-            case 'homework': return homeworkItems.value;
-            case 'exam': return examItems.value;
-            case 'activities': return activitiesItems.value;
+            case 'homework': return [...homeworkItems.value, ...activitiesItems.value.filter(isRoutedToHomework)];
+            case 'exam': return [...examItems.value, ...activitiesItems.value.filter(isRoutedToExam)];
+            case 'activities': return activitiesItems.value
+              .filter(item => !isRoutedToHomework(item) && !isRoutedToExam(item));
             case 'progress': return courseProgressItems.value;
             default: return [];
           }
@@ -5165,7 +5345,7 @@
             case 'todo':
               return item.info || item.leftTime || item.type || '待办';
             case 'homework':
-              return item.uncommitted ? '待提交' : '已提交';
+              return getHomeworkStatus(item);
             case 'exam':
               return item.finished ? '已完成' : (item.expired ? '已过期' : (item.timeLeft || '进行中'));
             case 'activities':
@@ -5182,7 +5362,7 @@
             case 'todo':
               return item.isActivity ? 'status-warning' : (item.type === '作业' ? 'status-normal' : 'status-urgent');
             case 'homework':
-              return item.uncommitted ? 'status-warning' : 'status-done';
+              return getHomeworkBadgeClass(item);
             case 'exam':
               return item.finished ? 'status-done' : (item.expired ? 'status-gray' : 'status-urgent');
             case 'activities':
@@ -5690,8 +5870,8 @@
                               class: `time-display ${parseTimeToMinutes(item.leftTime) < 24 * 60 ? 'urgent' : ''}`
                             }, item.leftTime) : null,
                             vue.createVNode("span", {
-                              class: `badge ${item.uncommitted ? 'status-warning' : 'status-done'}`
-                            }, item.uncommitted ? "待提交" : "已提交"),
+                              class: `badge ${getHomeworkBadgeClass(item)}`
+                            }, getHomeworkStatus(item)),
                             settings.value.ignoreEnabled ? vue.createVNode("button", {
                               class: "ignore-btn",
                               onClick: (e) => { e.stopPropagation(); requestIgnore(item, 'homework'); }

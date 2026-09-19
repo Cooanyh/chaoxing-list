@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.1-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.2-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,11 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.2
+* 🧱 **拆分任务引擎明细**：继续读取任务包内的分组与具体学习计划，不再只显示任务包汇总。
+* 🗂️ **按真实类目归并**：任务引擎子任务根据平台返回的类型分配到作业、考试或课程任务等对应栏目。
+* 🛡️ **明细读取回退**：单个任务包明细读取失败时保留原任务包，其他课程和任务不受影响。
 
 ### v2.4.1
 * 🧩 **补齐任务引擎任务**：课程任务会同时读取课堂活动与任务引擎数据，未完成的任务引擎任务会进入待办列表。
