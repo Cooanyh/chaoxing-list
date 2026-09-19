@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.7
+// @version      2.4.8
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -4863,7 +4863,10 @@
             top: auto;
             bottom: 20px;
           }
-          .progress-item.tooltip-portal-active > .progress-tooltip { display: none !important; }
+          .progress-item.tooltip-portal-active > .progress-tooltip,
+          .detail-progress-item.tooltip-portal-active > .progress-tooltip {
+            display: none !important;
+          }
           .progress-tooltip-portal {
             display: block !important;
             position: fixed !important;
