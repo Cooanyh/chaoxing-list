@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.3-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.4-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,12 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.4
+* 🔧 **修复任务引擎明细接口**：分组和计划接口改用平台要求的 POST，请求失败时仍保留任务包入口。
+* 🗂️ **具体任务分类展示**：作业、考试进入对应栏目；视频、分组任务、讨论、测验等按真实类型显示在课程任务中，未完成项统一进入待办聚合。
+* 🔗 **平台直达链接**：每个具体计划通过任务引擎接口获取真实学习地址，支持作业、考试、视频、文档、音频等不同计划类型。
+* ⏰ **补齐任务期限**：计划未返回时间时，对可能有期限的项目只读检查目标页并缓存结果；解析出的截止时间参与展示、排序和紧急判断。
 
 ### v2.4.3
 * 📊 **进度排序修正**：课程进度统一按完成率从低到高排列，无有效完成率的课程置于末尾。

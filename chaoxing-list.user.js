@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.3
+// @version      2.4.4
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -613,6 +613,7 @@
         method: options.method || 'GET',
         url: url,
         headers: options.headers || {},
+        data: options.data,
         responseType: options.responseType || 'text',
         timeout: options.timeout || 15000,
         onload: (response) => {
@@ -781,21 +782,123 @@
     return Date.parse(`${value}`.replace(/-/g, '/'));
   };
 
-  const normalizeTaskEnginePlan = (plan, task, course) => {
+  const isTaskEnginePlanFinished = (plan) => plan.isFinish === true
+    || Number(plan.isFinish) === 1
+    || Number(plan.planUser?.finish) === 1
+    || Number(plan.score?.completed) === 1;
+
+  const taskEngineDetailCache = new Map();
+  const TASK_ENGINE_DEADLINE_TYPES = new Set([
+    '作业', '考试', '测验', '随堂练习', '分组任务', '分组讨论',
+    '签到', '问卷', '抢答', '投票', '直播', 'AI实践'
+  ]);
+  const TASK_ENGINE_DETAIL_HOSTS = new Set([
+    'mooc1.chaoxing.com', 'mooc2-ans.chaoxing.com', 'mobilelearn.chaoxing.com',
+    'i.chaoxing.com', 'task.chaoxing.com'
+  ]);
+
+  const htmlToTaskEngineText = (html) => {
+    const source = `${html || ''}`;
+    if (typeof DOMParser !== 'undefined') {
+      const doc = new DOMParser().parseFromString(source, 'text/html');
+      return `${doc.body?.textContent || ''}`.replace(/\s+/g, ' ').trim();
+    }
+    return source
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;|&#160;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
+
+  const normalizeTaskEngineDateText = (value) => `${value || ''}`
+    .trim()
+    .replace(/年|\//g, '-')
+    .replace(/月/g, '-')
+    .replace(/日/g, '')
+    .replace(/\./g, '-')
+    .replace(/\s+/g, ' ');
+
+  const extractTaskEngineDetailTimes = (html) => {
+    const text = htmlToTaskEngineText(html);
+    if (!text) return { startTime: '', endTime: '' };
+    const datePattern = '(?:\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2}日?|\\d{1,2}[-/.月]\\d{1,2}日?)(?:\\s+\\d{1,2}:\\d{2}(?::\\d{2})?)?';
+    const endMatch = text.match(new RegExp(`(?:截止时间|结束时间|截止日期|有效期至)\\s*[:：]?\\s*(${datePattern})`, 'i'));
+    const startMatch = text.match(new RegExp(`(?:开始时间|开放时间)\\s*[:：]?\\s*(${datePattern})`, 'i'));
+    const periodMatch = text.match(new RegExp(`(?:作答时间|考试时间|活动时间|任务时间|学习时间|开放时间)\\s*[:：]?\\s*(${datePattern})\\s*(?:至|到|~|～)\\s*(${datePattern})`, 'i'));
+    return {
+      startTime: normalizeTaskEngineDateText(startMatch?.[1] || periodMatch?.[1] || ''),
+      endTime: normalizeTaskEngineDateText(endMatch?.[1] || periodMatch?.[2] || '')
+    };
+  };
+
+  const normalizeTaskEngineStudyUrl = (url, domainName = '') => {
+    if (!url) return '';
+    try {
+      const base = /^https?:\/\//i.test(domainName) ? domainName : 'https://task.chaoxing.com/';
+      const resolved = new URL(url, base);
+      return /^https?:$/.test(resolved.protocol) ? resolved.href : '';
+    } catch {
+      return '';
+    }
+  };
+
+  const resolveTaskEnginePlanDetails = async (plan, taskUserId, apiHeaders, fallbackLink) => {
+    const planFallbackLink = normalizeTaskEngineStudyUrl(plan.hyperLink || plan.url) || fallbackLink;
+    if (!plan.encryptPlanId) return { taskLink: planFallbackLink, startTime: '', endTime: '' };
+    const cacheKey = `${taskUserId}:${plan.encryptPlanId}`;
+    if (taskEngineDetailCache.has(cacheKey)) return taskEngineDetailCache.get(cacheKey);
+
+    const pending = (async () => {
+      const result = { taskLink: planFallbackLink, startTime: '', endTime: '' };
+      try {
+        const studyUrl = `https://task.chaoxing.com/userStudyPlan/getToStudyUrl?encryptPlanId=${encodeURIComponent(plan.encryptPlanId)}&encryTaskUserId=${encodeURIComponent(taskUserId)}&studyJumpType=0&isInterface=false`;
+        const studyResponse = await gmFetch(studyUrl, { method: 'POST', headers: apiHeaders });
+        const studyPayload = JSON.parse(studyResponse.responseText);
+        if (!studyPayload?.result) throw new Error(studyPayload?.message || '直达链接接口返回失败');
+        const directUrl = normalizeTaskEngineStudyUrl(studyPayload.data?.url, studyPayload.data?.domainName);
+        if (!directUrl) return result;
+        result.taskLink = directUrl;
+
+        const type = normalizeTaskEnginePlanType(plan);
+        if (plan.endDateStr || isTaskEnginePlanFinished(plan) || !TASK_ENGINE_DEADLINE_TYPES.has(type)) return result;
+        const host = new URL(directUrl).hostname;
+        if (!TASK_ENGINE_DETAIL_HOSTS.has(host)) return result;
+
+        try {
+          const detailResponse = await gmFetch(directUrl, {
+            headers: { Referer: 'https://task.chaoxing.com/' },
+            timeout: 12000
+          });
+          result.taskLink = normalizeTaskEngineStudyUrl(detailResponse.finalUrl) || directUrl;
+          Object.assign(result, extractTaskEngineDetailTimes(detailResponse.responseText));
+        } catch (error) {
+          console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”期限读取失败，保留平台直达链接:`, error);
+        }
+      } catch (error) {
+        console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”直达链接读取失败，保留任务包链接:`, error);
+      }
+      return result;
+    })();
+    taskEngineDetailCache.set(cacheKey, pending);
+    return pending;
+  };
+
+  const normalizeTaskEnginePlan = (plan, task, course, details = {}) => {
     const taskId = task.id ? String(task.id) : '';
     const planId = plan.planId ? String(plan.planId) : '';
     const type = normalizeTaskEnginePlanType(plan);
-    const isFinished = plan.isFinish === true
-      || Number(plan.isFinish) === 1
-      || Number(plan.planUser?.finish) === 1
-      || Number(plan.score?.completed) === 1;
-    const endTime = plan.endDateStr || '';
+    const isFinished = isTaskEnginePlanFinished(plan);
+    const startTime = plan.startDateStr || details.startTime || '';
+    const endTime = plan.endDateStr || details.endTime || '';
     const isExpired = !isFinished
       && Number.isFinite(parseTaskEngineDate(endTime))
       && parseTaskEngineDate(endTime) < Date.now();
     const isLocked = !isFinished && !isExpired && plan.planAllowStudy === false;
     const status = isFinished ? '已完成' : (isExpired ? '已过期' : (isLocked ? '未开始' : '进行中'));
-    const taskLink = getTaskEngineLink(taskId, course);
+    const taskLink = details.taskLink || getTaskEngineLink(taskId, course);
 
     return {
       activeId: `task-engine-${taskId}-plan-${planId || plan.name || ''}`,
@@ -807,7 +910,8 @@
       planTypeName: plan.planTypeName || '',
       parentTaskTitle: task.name || '',
       status,
-      time: endTime || plan.startDateStr || '',
+      time: endTime || startTime,
+      startTime,
       endTime,
       leftTime: endTime,
       timeLeft: endTime,
@@ -855,7 +959,7 @@
         Referer: landingResponse.finalUrl || fallback.taskLink
       };
       const groupUrl = `https://task.chaoxing.com/userStudyPlan/getGroupData?encryTaskUserId=${encodeURIComponent(taskUserId)}`;
-      const groupResponse = await gmFetch(groupUrl, { headers: apiHeaders });
+      const groupResponse = await gmFetch(groupUrl, { method: 'POST', headers: apiHeaders });
       const groups = JSON.parse(groupResponse.responseText).data;
       if (!Array.isArray(groups) || groups.length === 0) return [fallback];
 
@@ -864,7 +968,7 @@
       const planResults = await Promise.allSettled(readableGroups
         .map(group => {
           const planUrl = `https://task.chaoxing.com/userStudyPlan/getPlanDataByGroupId?encryTaskUserId=${encodeURIComponent(taskUserId)}&encryGroupId=${encodeURIComponent(group.encryptGroupId)}`;
-          return gmFetch(planUrl, { headers: apiHeaders });
+          return gmFetch(planUrl, { method: 'POST', headers: apiHeaders });
         }));
       if (planResults.some(result => result.status !== 'fulfilled')) throw new Error('部分任务分组读取失败');
       const plans = planResults.flatMap((result) => {
@@ -873,9 +977,13 @@
         return data;
       });
 
-      return plans.length
-        ? plans.map(plan => normalizeTaskEnginePlan(plan, task, course))
-        : [fallback];
+      if (!plans.length) return [fallback];
+      const normalizedPlans = [];
+      for (const plan of plans) {
+        const details = await resolveTaskEnginePlanDetails(plan, taskUserId, apiHeaders, fallback.taskLink);
+        normalizedPlans.push(normalizeTaskEnginePlan(plan, task, course, details));
+      }
+      return normalizedPlans;
     } catch (error) {
       console.warn(`[任务引擎] ${course.courseName} 的任务“${task.name || task.id || ''}”明细读取失败，保留任务包:`, error);
       return [fallback];
@@ -3002,20 +3110,21 @@
           .filter(activity => activity.ongoing)
           .map(activity => ({
             type: activity.type, title: activity.title, course: activity.courseName,
-            info: activity.progressText ? `进度 ${activity.progressText}` : (activity.endTime || '进行中'), status: '进行中',
+            info: activity.endTime || (activity.progressText ? `进度 ${activity.progressText}` : '进行中'),
+            leftTime: activity.endTime || activity.leftTime || '',
+            timeLeft: activity.endTime || activity.timeLeft || '',
+            endTime: activity.endTime || '',
+            status: '进行中',
             courseId: activity.courseId, clazzId: activity.clazzId,
             activeId: activity.activeId, taskId: activity.taskId, planId: activity.planId,
             taskEngine: activity.taskEngine, taskEnginePlan: activity.taskEnginePlan,
-            taskLink: activity.taskLink, isActivity: true
-          }));
+            taskLink: activity.taskLink, isActivity: true,
+            finished: activity.finished, expired: activity.expired,
+            ongoing: activity.ongoing, uncommitted: activity.uncommitted
+          }))
+          .map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
         todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities];
-        urgentTasks.value = todoItems.value.filter(item => {
-          const timeStr = item.leftTime || item.timeLeft || item.info || '';
-          return (timeStr.includes('小时') && parseInt(timeStr) <= 24)
-            || (timeStr.includes('天') && parseInt(timeStr) < 1)
-            || timeStr.includes('分钟') || timeStr.includes('分')
-            || (item.isActivity && item.status === '进行中');
-        });
+        urgentTasks.value = todoItems.value.filter(isTodoItemUrgent);
       };
 
       const hydrateShortTermCache = () => {
@@ -3510,7 +3619,12 @@
         if (!timeStr) return Infinity; // 无时间的排到最后
         const str = String(timeStr);
         // 匹配各种格式：剩余X天X小时、X小时X分钟、已过期等
-        if (str.includes('过期') || str.includes('截止')) return -1;
+        if (str.includes('过期') || str.includes('已结束')) return -1;
+        const absoluteMatch = str.match(/\d{4}[-/.年]\d{1,2}[-/.月]\d{1,2}日?(?:\s+\d{1,2}:\d{2}(?::\d{2})?)?/);
+        if (absoluteMatch) {
+          const timestamp = parseTaskEngineDate(normalizeTaskEngineDateText(absoluteMatch[0]));
+          if (Number.isFinite(timestamp)) return (timestamp - Date.now()) / 60000;
+        }
         let minutes = 0;
         const dayMatch = str.match(/(\d+)\s*天/);
         const hourMatch = str.match(/(\d+)\s*小时/);
@@ -3519,6 +3633,13 @@
         if (hourMatch) minutes += parseInt(hourMatch[1]) * 60;
         if (minMatch) minutes += parseInt(minMatch[1]);
         return minutes || Infinity;
+      };
+
+      const isTodoItemUrgent = (item) => {
+        const timeStr = item.leftTime || item.timeLeft || item.info || '';
+        const remainingMinutes = parseTimeToMinutes(timeStr);
+        if (Number.isFinite(remainingMinutes)) return remainingMinutes >= 0 && remainingMinutes <= 24 * 60;
+        return item.isActivity && item.status === '进行中';
       };
 
       // 智能排序函数：未完成+剩余时间短的在最上面
@@ -3630,14 +3751,8 @@
         todoItems.value = [...pendingTasks, ...pendingExams, ...todoItems.value.filter(item => item.isActivity)];
 
         // 计算紧急任务
-        urgentTasks.value = todoItems.value.filter(item => {
-          const timeStr = item.leftTime || item.timeLeft || item.info || '';
-          if (timeStr.includes('小时')) return parseInt(timeStr) <= 24;
-          if (timeStr.includes('天')) return parseInt(timeStr) < 1;
-          if (timeStr.includes('分钟') || timeStr.includes('分')) return true;
-          if (item.isActivity && item.status === '进行中') return true;
-          return false;
-        });
+        todoItems.value = todoItems.value.map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
+        urgentTasks.value = todoItems.value.filter(isTodoItemUrgent);
 
         loading.value.todo = false;
       };
