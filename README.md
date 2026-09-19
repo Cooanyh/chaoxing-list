@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.4-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.5-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,9 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.5
+* 🕒 **修复无年份考试期限误判**：任务引擎详情中的 `MM-DD HH:mm` 日期按当前年份解析，避免被 JavaScript 默认解析为 2001 年后错误显示为“已过期”。
 
 ### v2.4.4
 * 🔧 **修复任务引擎明细接口**：分组和计划接口改用平台要求的 POST，请求失败时仍保留任务包入口。

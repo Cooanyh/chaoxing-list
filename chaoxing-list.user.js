@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.4
+// @version      2.4.5
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -778,8 +778,33 @@
   };
 
   const parseTaskEngineDate = (value) => {
-    if (!value) return NaN;
-    return Date.parse(`${value}`.replace(/-/g, '/'));
+    if (value === null || value === undefined || value === '') return NaN;
+    if (typeof value === 'number') return Number.isFinite(value) ? value : NaN;
+
+    const text = normalizeTaskEngineDateText(value);
+    // 平台详情页常返回“09-20 20:00”这种省略年份的日期。
+    // Date.parse 会把它误解析为 2001 年，进而把当前年度的任务判为已过期。
+    const shortDateMatch = text.match(/^(\d{1,2})-(\d{1,2})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
+    if (shortDateMatch) {
+      const [, monthText, dayText, hourText = '0', minuteText = '0', secondText = '0'] = shortDateMatch;
+      const now = new Date();
+      const year = now.getFullYear();
+      const parsed = new Date(
+        year,
+        Number(monthText) - 1,
+        Number(dayText),
+        Number(hourText),
+        Number(minuteText),
+        Number(secondText)
+      );
+      if (
+        parsed.getFullYear() === year
+        && parsed.getMonth() === Number(monthText) - 1
+        && parsed.getDate() === Number(dayText)
+      ) return parsed.getTime();
+    }
+
+    return Date.parse(text.replace(/-/g, '/'));
   };
 
   const isTaskEnginePlanFinished = (plan) => plan.isFinish === true
