@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.6-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.7-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,11 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.7
+* 🧹 **课程进度去重**：课程列表按课程 ID 与班级 ID 合并，避免同一课程出现重复卡片或重复请求。
+* ♻️ **详情页复用已查询数据**：打开课程进度详情不会再次发起查询；仅在尚未加载或手动刷新时读取。
+* 🎛️ **详情页补齐进度操作**：将更新日期、已忽略、查询开关、请求间隔和刷新按钮同步到课程进度详情页。
 
 ### v2.4.6
 * 🪟 **修复课程进度详情悬浮卡遮挡**：详情页的课程活动卡改用页面级浮层，可超出网格和滚动容器显示，并根据卡片所在屏幕位置自动选择左右方向。

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.6
+// @version      2.4.7
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -2665,14 +2665,28 @@
                     });
                   }
 
-                  console.log('[课程进度] 解析到课程:', courses.length, '个');
+                  // 同一课程可能在课程列表接口中重复返回，按课程与班级组合键去重，
+                  // 避免重复卡片和重复的课程进度请求。
+                  const uniqueCourseMap = new Map();
+                  courses.forEach(course => {
+                    const key = `${course.courseId}_${course.clazzId}`;
+                    const existing = uniqueCourseMap.get(key);
+                    uniqueCourseMap.set(key, existing ? {
+                      ...existing,
+                      ...course,
+                      enc: existing.enc || course.enc || '',
+                      pEnc: existing.pEnc || course.pEnc || ''
+                    } : course);
+                  });
+                  const uniqueCourses = Array.from(uniqueCourseMap.values());
+                  console.log('[课程进度] 解析到课程:', courses.length, '个，去重后:', uniqueCourses.length, '个');
 
                   // 从页面 DOM 中提取 enc 参数
                   setTimeout(() => {
-                    extractEncFromDOM(courses);
+                    extractEncFromDOM(uniqueCourses);
                   }, 100);
 
-                  resolve(courses);
+                  resolve(uniqueCourses);
                 } catch (e) {
                   console.error('[课程进度] 解析课程列表失败:', e);
                   resolve([]);
@@ -3897,7 +3911,10 @@
       const openFullScreen = (type) => {
         currentView.value = type;
         if (type === 'activities') loadActivitiesData();
-        if (type === 'progress') loadAllCourseProgress();
+        // 首页已经加载过课程进度时，详情页直接复用当前数据，避免再次查询。
+        if (type === 'progress' && !progressLoaded.value && !loadingProgress.value) {
+          loadAllCourseProgress();
+        }
       };
 
       // 返回仪表盘
@@ -4968,6 +4985,15 @@
             }
           }
           @media (max-width: 720px) {
+            .progress-detail-header {
+              align-items: flex-start;
+              flex-direction: column;
+              gap: 12px;
+            }
+            .progress-detail-header > .progress-detail-actions {
+              justify-content: flex-start;
+              width: 100%;
+            }
             .bulk-ignore-dialog { width: min(560px, calc(100vw - 24px)); }
             .bulk-ignore-layout { grid-template-columns: 1fr; }
             .bulk-ignore-preview-list { max-height: 180px; }
@@ -5345,6 +5371,14 @@
             background: #fff; color: #64748b; font-size: 11px; cursor: pointer;
           }
           .progress-delay-link:hover { border-color: #91caff; color: #1677ff; }
+          .progress-detail-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 100%;
+          }
           .confirm-title {
             font-size: 16px;
             font-weight: 600;
@@ -5558,6 +5592,45 @@
           // 使用 getIgnoredItemsBySection 精确按板块过滤
           const allIgnored = getIgnoredItemsBySection(type);
           const ignoredCountNow = allIgnored.length;
+          const renderProgressDetailActions = () => vue.createVNode("div", { class: "progress-detail-actions" }, [
+            progressLastUpdate.value
+              ? vue.createVNode("span", { class: "progress-last-update" }, `更新于 ${progressLastUpdate.value}`)
+              : null,
+            vue.createVNode("button", {
+              class: "ignored-panel-btn",
+              onClick: () => { showIgnoredPanel.value = true; selectedForRestore.value = new Set(); }
+            }, `🚫 已忽略(${ignoredCountNow})`),
+            settings.value.ignoreEnabled ? vue.createVNode("button", {
+              class: `select-mode-btn ${selectMode.value ? 'active' : ''}`,
+              onClick: toggleSelectMode
+            }, selectMode.value ? "✕ 退出多选" : "多选") : null,
+            vue.createVNode("button", {
+              class: isProgressEnabled() ? "refresh-btn" : "refresh-btn disabled",
+              onClick: () => {
+                const newState = !isProgressEnabled();
+                setProgressEnabled(newState);
+                if (newState) {
+                  progressLoaded.value = courseProgressItems.value.length > 0;
+                  loadAllCourseProgress();
+                }
+              }
+            }, !isProgressEnabled()
+              ? "❌ 查询已关闭"
+              : loadingProgress.value
+                ? "🔄 查询中"
+                : progressLoaded.value
+                  ? "✓ 已查询"
+                  : "🔍 待查询"),
+            vue.createVNode("button", {
+              class: "progress-delay-link",
+              title: "在统一设置中修改课程进度请求间隔",
+              onClick: openSettings
+            }, `⏱ ${progressDelay.value}ms`),
+            vue.createVNode("button", {
+              class: "refresh-btn",
+              onClick: () => loadAllCourseProgress()
+            }, loadingProgress.value ? "刷新中..." : "🔄 刷新")
+          ]);
 
           // 渲染已忽略面板内容
           if (showIgnoredPanel.value) {
@@ -5615,7 +5688,7 @@
           // 渲染正常详情页
           return vue.createVNode("div", { class: "detail-view" }, [
             // 详情页头部
-            vue.createVNode("div", { class: "detail-header" }, [
+            vue.createVNode("div", { class: `detail-header ${type === 'progress' ? 'progress-detail-header' : ''}` }, [
               vue.createVNode("div", { class: "detail-header-left" }, [
                 vue.createVNode("button", {
                   class: "back-btn",
@@ -5629,23 +5702,25 @@
                   vue.createVNode("span", { class: "detail-count" }, `共 ${viewItems.length} 项`)
                 ])
               ]),
-              vue.createVNode("div", { style: "display:flex;gap:8px;align-items:center;" }, [
-                // 已忽略按钮
-                settings.value.ignoreEnabled ? vue.createVNode("button", {
-                  class: "ignored-panel-btn",
-                  onClick: () => { showIgnoredPanel.value = true; selectedForRestore.value = new Set(); }
-                }, `🚫 已忽略(${ignoredCountNow})`) : null,
-                // 多选按钮
-                settings.value.ignoreEnabled ? vue.createVNode("button", {
-                  class: `select-mode-btn ${selectMode.value ? 'active' : ''}`,
-                  onClick: toggleSelectMode
-                }, selectMode.value ? "✕ 退出多选" : "多选") : null,
-                // 仅作业、考试存在对应原始聚合页；待办、课程任务和课程进度不显示无效入口。
-                (type === 'homework' || type === 'exam') ? vue.createVNode("button", {
-                  class: "external-link-btn",
-                  onClick: () => navigateToOriginal(type)
-                }, "在原始页面打开") : null
-              ])
+              type === 'progress'
+                ? renderProgressDetailActions()
+                : vue.createVNode("div", { style: "display:flex;gap:8px;align-items:center;" }, [
+                  // 已忽略按钮
+                  settings.value.ignoreEnabled ? vue.createVNode("button", {
+                    class: "ignored-panel-btn",
+                    onClick: () => { showIgnoredPanel.value = true; selectedForRestore.value = new Set(); }
+                  }, `🚫 已忽略(${ignoredCountNow})`) : null,
+                  // 多选按钮
+                  settings.value.ignoreEnabled ? vue.createVNode("button", {
+                    class: `select-mode-btn ${selectMode.value ? 'active' : ''}`,
+                    onClick: toggleSelectMode
+                  }, selectMode.value ? "✕ 退出多选" : "多选") : null,
+                  // 仅作业、考试存在对应原始聚合页；待办、课程任务和课程进度不显示无效入口。
+                  (type === 'homework' || type === 'exam') ? vue.createVNode("button", {
+                    class: "external-link-btn",
+                    onClick: () => navigateToOriginal(type)
+                  }, "在原始页面打开") : null
+                ])
             ]),
             // 工具栏：排序选择器
             vue.createVNode("div", { class: "detail-toolbar" }, [
