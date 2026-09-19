@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.5
+// @version      2.4.6
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -3573,7 +3573,7 @@
         portal.classList.add('progress-tooltip-portal');
         document.body.appendChild(portal);
         const rect = itemElement.getBoundingClientRect();
-        const isLeftSide = Array.prototype.indexOf.call(itemElement.parentElement.children, itemElement) % 2 === 1;
+        const isLeftSide = rect.left > window.innerWidth / 2;
         const width = portal.offsetWidth;
         const height = portal.offsetHeight;
         const left = isLeftSide
@@ -3602,7 +3602,7 @@
 
         // 预加载活动数据
         await fetchCourseActivitiesOnHover(course);
-        if (shouldOpenUpward && hoveredCourseKey.value === cacheKey && itemElement.matches(':hover')) {
+        if ((isDetailItem || shouldOpenUpward) && hoveredCourseKey.value === cacheKey && itemElement.matches(':hover')) {
           showProgressTooltipPortal(itemElement);
         }
       };
@@ -3974,7 +3974,7 @@
             vue.createVNode('div', { class: 'detail-title' }, '统一设置')
           ])
         ]),
-        vue.createVNode('div', { class: 'detail-body', style: 'max-width:880px;' }, [
+        vue.createVNode('div', { class: 'detail-body settings-detail-body', style: 'max-width:880px;' }, [
           vue.createVNode('section', { class: 'settings-section' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '展示分类'),
             vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '默认只保留需要处理的学习任务；其他教学互动可按需展示。'),
@@ -4518,6 +4518,15 @@
             max-height: calc(100vh - 200px);
             overflow-y: auto;
           }
+          /* 课程进度详情使用页面滚动，悬浮卡片可以完整越出网格边界。 */
+          .progress-detail-body {
+            max-height: none;
+            overflow: visible;
+          }
+          .progress-detail-body .detail-progress-grid {
+            max-height: none;
+            overflow: visible;
+          }
           .detail-progress-item {
             background: #fff;
             border-radius: 12px;
@@ -4613,6 +4622,11 @@
             padding: 0 24px 24px;
             max-height: 600px;
             overflow-y: auto;
+          }
+          /* 设置页内容由页面统一滚动，避免详情容器再生成一条内层滚动条。 */
+          .settings-detail-body {
+            max-height: none;
+            overflow: visible;
           }
           .detail-list-item {
             display: flex;
@@ -5652,7 +5666,7 @@
               )
             ]),
             // 详情页内容
-            vue.createVNode("div", { class: "detail-body" }, [
+            vue.createVNode("div", { class: `detail-body ${type === 'progress' ? 'progress-detail-body' : ''}` }, [
               isLoading
                 ? renderLoadingSkeleton(`正在加载${title}…`)
                 : sortedItems.length === 0

@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.5-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.6-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,10 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.6
+* 🪟 **修复课程进度详情悬浮卡遮挡**：详情页的课程活动卡改用页面级浮层，可超出网格和滚动容器显示，并根据卡片所在屏幕位置自动选择左右方向。
+* 📜 **设置页改为单滚动条**：移除设置详情容器的内层滚动，设置内容统一使用页面最外层滚动。
 
 ### v2.4.5
 * 🕒 **修复无年份考试期限误判**：任务引擎详情中的 `MM-DD HH:mm` 日期按当前年份解析，避免被 JavaScript 默认解析为 2001 年后错误显示为“已过期”。
