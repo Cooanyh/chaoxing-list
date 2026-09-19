@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.0-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.1-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -51,6 +51,11 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.1
+* 🧩 **补齐任务引擎任务**：课程任务会同时读取课堂活动与任务引擎数据，未完成的任务引擎任务会进入待办列表。
+* 🔗 **任务跳转优化**：任务引擎条目可直接打开对应任务详情，完成状态与子计划进度会一并保留。
+* 🛡️ **接口回退增强**：课堂活动或任务引擎任一接口失败时，另一数据源仍可正常展示。
 
 ### v2.4.0
 * ✨ **任务面板升级**：完善统一设置、动态忽略预览、任务引擎分类和课程级过滤体验。

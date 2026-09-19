@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.0
+// @version      2.4.1
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -134,7 +134,7 @@
     dynamicIgnoreRules: { homework: false, exam: false, activities: false, progress: false },
     settingsHintSeen: false
   });
-  const CORE_TASK_TYPES = new Set(['作业', '视频/任务点', 'AI实践', '分组讨论', '分组任务', '测验', '随堂练习', '考试']);
+  const CORE_TASK_TYPES = new Set(['作业', '视频/任务点', 'AI实践', '任务引擎', '分组讨论', '分组任务', '测验', '随堂练习', '考试']);
   const OTHER_TASK_TYPES = ['签到', '问卷', '抢答', '通知', '投票', '直播', '评分', '拍照', '笔记', '其他任务'];
 
   const getSettings = () => {
@@ -666,39 +666,80 @@
     return typeMap[item.activeType] || typeMap[item.type] || '其他任务';
   };
 
-  // 获取单个课程的活动/任务列表。视频/任务点仅在课程进度中展示，避免重复出现。
+  const normalizeTaskEngineItems = (items, course) => {
+    if (!Array.isArray(items)) return [];
+
+    return items.map((item) => {
+      const planCount = Number(item.planCount) || 0;
+      const planFinishCount = Number(item.planFinishCount) || 0;
+      const studyProgress = Number(item.taskStudyProgress) || 0;
+      const qualifyStatus = `${item.userTaskQualifyStatus || ''}`;
+      const isFinished = qualifyStatus === '已达标'
+        || qualifyStatus === '已完成'
+        || studyProgress >= 1
+        || (planCount > 0 && planFinishCount >= planCount);
+      const taskId = item.id ? String(item.id) : '';
+      const taskLink = taskId
+        ? `https://task.chaoxing.com/api/v1/middlePageApi/jumpStudyPlanList?taskId=${encodeURIComponent(taskId)}&moocClassId=${encodeURIComponent(course.clazzId)}`
+        : '';
+
+      return {
+        activeId: taskId ? `task-engine-${taskId}` : `task-engine-${course.courseId}-${item.name || ''}`,
+        taskId,
+        title: item.name || '未命名任务引擎任务',
+        type: '任务引擎',
+        status: isFinished ? '已结束' : '进行中',
+        time: item.lastStudyDateStr || item.createDate || '',
+        endTime: '',
+        courseName: course.courseName,
+        courseId: course.courseId,
+        clazzId: course.clazzId,
+        cpi: course.cpi,
+        finished: isFinished,
+        ongoing: !isFinished,
+        activeType: 'task-engine',
+        taskEngine: true,
+        taskLink,
+        progressText: planCount > 0 ? `${planFinishCount}/${planCount}` : '',
+        isActivity: true
+      };
+    });
+  };
+
+  // 获取单个课程的课堂活动与任务引擎任务。视频/任务点仅在课程进度中展示，避免重复出现。
   const fetchCourseActivities = async (course) => {
     try {
-      // 使用正确的 JSON API 接口
       const timestamp = Date.now();
-      const url = `https://mobilelearn.chaoxing.com/v2/apis/active/student/activelist?fid=0&courseId=${course.courseId}&classId=${course.clazzId}&showNotStartedActive=0&_=${timestamp}`;
-      console.log(`[课程任务] 获取课程任务 ${course.courseName}:`, url);
-      const response = await gmFetch(url);
-      console.log(`[课程任务] ${course.courseName} 原始响应:`, response.responseText.substring(0, 300));
+      const activityUrl = `https://mobilelearn.chaoxing.com/v2/apis/active/student/activelist?fid=0&courseId=${course.courseId}&classId=${course.clazzId}&showNotStartedActive=0&_=${timestamp}`;
+      const taskEngineUrl = `https://mobilelearn.chaoxing.com/v2/apis/active/getData?DB_STRATEGY=DEFAULT&courseId=${course.courseId}&classId=${course.clazzId}`;
+      console.log(`[课程任务] 获取课程活动与任务引擎 ${course.courseName}`);
 
-      const data = JSON.parse(response.responseText);
-      console.log(`[课程任务] ${course.courseName} 解析后:`, data);
+      const [activityResult, taskEngineResult] = await Promise.allSettled([
+        gmFetch(activityUrl),
+        gmFetch(taskEngineUrl)
+      ]);
 
-      // 尝试多种可能的数据结构
       let activeList = null;
-      if (data.data && data.data.activeList) {
-        activeList = data.data.activeList;
-      } else if (data.activeList) {
-        activeList = data.activeList;
-      } else if (Array.isArray(data.data)) {
-        activeList = data.data;
-      } else if (Array.isArray(data)) {
-        activeList = data;
+      if (activityResult.status === 'fulfilled') {
+        try {
+          const data = JSON.parse(activityResult.value.responseText);
+          if (data.data && data.data.activeList) {
+            activeList = data.data.activeList;
+          } else if (data.activeList) {
+            activeList = data.activeList;
+          } else if (Array.isArray(data.data)) {
+            activeList = data.data;
+          } else if (Array.isArray(data)) {
+            activeList = data;
+          }
+        } catch (error) {
+          console.warn(`[课程任务] ${course.courseName} 课堂活动解析失败:`, error);
+        }
+      } else {
+        console.warn(`[课程任务] ${course.courseName} 课堂活动读取失败:`, activityResult.reason);
       }
 
-      if (!activeList || activeList.length === 0) {
-        console.log(`[课程任务] ${course.courseName} 没有找到任务列表`);
-        return [];
-      }
-
-      console.log(`[课程任务] ${course.courseName} 找到 ${activeList.length} 个任务`);
-
-      const activities = activeList.map((item) => {
+      const activities = (activeList || []).map((item) => {
         // 状态判断：status=1 进行中，status=2 已结束
         const isOngoing = item.status === 1;
         const isEnded = item.status === 2;
@@ -721,7 +762,20 @@
         };
       });
 
-      return activities;
+      let taskEngineItems = [];
+      if (taskEngineResult.status === 'fulfilled') {
+        try {
+          const taskEngineData = JSON.parse(taskEngineResult.value.responseText);
+          taskEngineItems = normalizeTaskEngineItems(taskEngineData.data, course);
+        } catch (error) {
+          console.warn(`[课程任务] ${course.courseName} 任务引擎解析失败:`, error);
+        }
+      } else {
+        console.warn(`[课程任务] ${course.courseName} 任务引擎读取失败:`, taskEngineResult.reason);
+      }
+
+      console.log(`[课程任务] ${course.courseName} 找到 ${activities.length} 个课堂活动、${taskEngineItems.length} 个任务引擎任务`);
+      return [...activities, ...taskEngineItems];
     } catch (error) {
       console.error(`[课程任务] 获取课程 ${course.courseName} 的任务失败:`, error);
       return [];
@@ -1399,6 +1453,7 @@
 
       const getLink = (item) => {
         if (item.isActivity) {
+          if (item.taskLink) return item.taskLink;
           // 课程活动跳转到课程页面
           const requestUrl = new URL(API_VISIT_COURSE);
           requestUrl.searchParams.append("courseid", item.courseId);
@@ -1492,10 +1547,14 @@
                   type: activity.type,
                   title: activity.title,
                   course: activity.courseName,
-                  info: activity.endTime || '进行中',
+                  info: activity.progressText ? `进度 ${activity.progressText}` : (activity.endTime || '进行中'),
                   status: '进行中',
                   courseId: activity.courseId,
                   clazzId: activity.clazzId,
+                  activeId: activity.activeId,
+                  taskId: activity.taskId,
+                  taskEngine: activity.taskEngine,
+                  taskLink: activity.taskLink,
                   isActivity: true
                 });
               });
@@ -2756,8 +2815,10 @@
           .filter(activity => activity.ongoing)
           .map(activity => ({
             type: activity.type, title: activity.title, course: activity.courseName,
-            info: activity.endTime || '进行中', status: '进行中',
-            courseId: activity.courseId, clazzId: activity.clazzId, isActivity: true
+            info: activity.progressText ? `进度 ${activity.progressText}` : (activity.endTime || '进行中'), status: '进行中',
+            courseId: activity.courseId, clazzId: activity.clazzId,
+            activeId: activity.activeId, taskId: activity.taskId,
+            taskEngine: activity.taskEngine, taskLink: activity.taskLink, isActivity: true
           }));
         todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities];
         urgentTasks.value = todoItems.value.filter(item => {
@@ -3504,6 +3565,7 @@
       // 链接生成函数
       const getTodoLink = (item) => {
         if (item.isActivity) {
+          if (item.taskLink) return item.taskLink;
           const url = new URL(API_VISIT_COURSE);
           url.searchParams.append("courseid", item.courseId);
           url.searchParams.append("clazzid", item.clazzId);
@@ -3542,6 +3604,7 @@
       };
 
       const getActivityLink = (item) => {
+        if (item.taskLink) return item.taskLink;
         const url = new URL(API_VISIT_COURSE);
         url.searchParams.append("courseid", item.courseId);
         url.searchParams.append("clazzid", item.clazzId);
