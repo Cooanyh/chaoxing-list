@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.8
+// @version      2.4.9
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -870,14 +870,37 @@
     }
   };
 
+  const isTaskEngineCompletedStudyUrl = (url) => {
+    if (!url) return false;
+    try {
+      const parsed = new URL(url);
+      if (!/(^|\.)chaoxing\.com$/i.test(parsed.hostname)) return false;
+      return /\/exam\/test\/look\/?$/i.test(parsed.pathname);
+    } catch {
+      return false;
+    }
+  };
+
   const resolveTaskEnginePlanDetails = async (plan, taskUserId, apiHeaders, fallbackLink) => {
     const planFallbackLink = normalizeTaskEngineStudyUrl(plan.hyperLink || plan.url) || fallbackLink;
-    if (!plan.encryptPlanId) return { taskLink: planFallbackLink, startTime: '', endTime: '' };
+    if (!plan.encryptPlanId) {
+      return {
+        taskLink: planFallbackLink,
+        startTime: '',
+        endTime: '',
+        finished: isTaskEngineCompletedStudyUrl(planFallbackLink)
+      };
+    }
     const cacheKey = `${taskUserId}:${plan.encryptPlanId}`;
     if (taskEngineDetailCache.has(cacheKey)) return taskEngineDetailCache.get(cacheKey);
 
     const pending = (async () => {
-      const result = { taskLink: planFallbackLink, startTime: '', endTime: '' };
+      const result = {
+        taskLink: planFallbackLink,
+        startTime: '',
+        endTime: '',
+        finished: isTaskEngineCompletedStudyUrl(planFallbackLink)
+      };
       try {
         const studyUrl = `https://task.chaoxing.com/userStudyPlan/getToStudyUrl?encryptPlanId=${encodeURIComponent(plan.encryptPlanId)}&encryTaskUserId=${encodeURIComponent(taskUserId)}&studyJumpType=0&isInterface=false`;
         const studyResponse = await gmFetch(studyUrl, { method: 'POST', headers: apiHeaders });
@@ -886,9 +909,10 @@
         const directUrl = normalizeTaskEngineStudyUrl(studyPayload.data?.url, studyPayload.data?.domainName);
         if (!directUrl) return result;
         result.taskLink = directUrl;
+        result.finished = result.finished || isTaskEngineCompletedStudyUrl(directUrl);
 
         const type = normalizeTaskEnginePlanType(plan);
-        if (plan.endDateStr || isTaskEnginePlanFinished(plan) || !TASK_ENGINE_DEADLINE_TYPES.has(type)) return result;
+        if (plan.endDateStr || isTaskEnginePlanFinished(plan) || result.finished || !TASK_ENGINE_DEADLINE_TYPES.has(type)) return result;
         const host = new URL(directUrl).hostname;
         if (!TASK_ENGINE_DETAIL_HOSTS.has(host)) return result;
 
@@ -898,6 +922,7 @@
             timeout: 12000
           });
           result.taskLink = normalizeTaskEngineStudyUrl(detailResponse.finalUrl) || directUrl;
+          result.finished = result.finished || isTaskEngineCompletedStudyUrl(result.taskLink);
           Object.assign(result, extractTaskEngineDetailTimes(detailResponse.responseText));
         } catch (error) {
           console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”期限读取失败，保留平台直达链接:`, error);
@@ -915,7 +940,9 @@
     const taskId = task.id ? String(task.id) : '';
     const planId = plan.planId ? String(plan.planId) : '';
     const type = normalizeTaskEnginePlanType(plan);
-    const isFinished = isTaskEnginePlanFinished(plan);
+    const isFinished = isTaskEnginePlanFinished(plan)
+      || details.finished === true
+      || isTaskEngineCompletedStudyUrl(details.taskLink);
     const startTime = plan.startDateStr || details.startTime || '';
     const endTime = plan.endDateStr || details.endTime || '';
     const isExpired = !isFinished
