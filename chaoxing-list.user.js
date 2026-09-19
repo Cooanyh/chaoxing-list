@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.2
+// @version      2.4.3
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -86,6 +86,9 @@
   // --- 课程进度查询开关管理 ---
   const PROGRESS_ENABLED_KEY = 'chaoxing_progress_enabled';
   const PROGRESS_DELAY_KEY = 'chaoxing_progress_delay';
+  const DEFAULT_PROGRESS_DELAY = 500;
+  const MIN_PROGRESS_DELAY = 300;
+  const MAX_PROGRESS_DELAY = 10000;
 
   const isProgressEnabled = () => {
     try {
@@ -103,23 +106,43 @@
     }
   };
 
+  const normalizeProgressDelay = (value) => {
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) return DEFAULT_PROGRESS_DELAY;
+    return Math.min(MAX_PROGRESS_DELAY, Math.max(MIN_PROGRESS_DELAY, parsed));
+  };
+
   const getProgressDelay = () => {
     try {
       const stored = localStorage.getItem(PROGRESS_DELAY_KEY);
-      return stored ? parseInt(stored) : 500;
-    } catch { return 500; }
+      return stored === null ? DEFAULT_PROGRESS_DELAY : normalizeProgressDelay(stored);
+    } catch { return DEFAULT_PROGRESS_DELAY; }
   };
 
   const setProgressDelay = (delay) => {
+    const normalizedDelay = normalizeProgressDelay(delay);
     try {
-      localStorage.setItem(PROGRESS_DELAY_KEY, String(delay));
-      console.log('[课程进度] 请求延迟已设置为', delay, 'ms');
+      localStorage.setItem(PROGRESS_DELAY_KEY, String(normalizedDelay));
+      console.log('[课程进度] 请求延迟已设置为', normalizedDelay, 'ms');
     } catch (e) {
       console.error('[课程进度] 保存延迟设置失败:', e);
     }
+    return normalizedDelay;
   };
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const getCourseCompletionRate = (item) => {
+    const rate = Number.parseFloat(String(item?.completionRate ?? '').replace('%', ''));
+    return Number.isFinite(rate) ? rate : null;
+  };
+  const compareCourseProgress = (a, b, direction = 1) => {
+    const rateA = getCourseCompletionRate(a);
+    const rateB = getCourseCompletionRate(b);
+    if (rateA === null && rateB !== null) return 1;
+    if (rateA !== null && rateB === null) return -1;
+    if (rateA !== null && rateB !== null && rateA !== rateB) return (rateA - rateB) * direction;
+    return (a.courseName || '').localeCompare(b.courseName || '', 'zh-CN');
+  };
 
   // --- 忽略管理 - 使用 localStorage 持久化 ---
   const IGNORE_STORAGE_KEY = 'chaoxing_ignored_items';
@@ -133,7 +156,8 @@
     otherTaskTypes: [],
     shortTermCacheEnabled: false,
     dynamicIgnoreRules: { homework: false, exam: false, activities: false, progress: false },
-    settingsHintSeen: false
+    settingsHintSeen: false,
+    courseIgnoreHintSeen: false
   });
   const CORE_TASK_TYPES = new Set(['作业', '视频/任务点', 'AI实践', '任务引擎', '分组讨论', '分组任务', '测验', '随堂练习', '考试']);
   const OTHER_TASK_TYPES = ['签到', '问卷', '抢答', '通知', '投票', '直播', '评分', '拍照', '笔记', '其他任务'];
@@ -3052,35 +3076,10 @@
               }
             }
 
-            // 过滤并排序结果
+            // 过滤后按完成率从低到高排列；没有有效完成率的课程放在末尾。
             courseProgressItems.value = results
               .filter(item => !item.shouldFilter) // 过滤掉标记为需要过滤的课程
-              .sort((a, b) => {
-                // 判断是否有数据
-                const hasData = (item) => {
-                  const scoreValid = item.courseScore && item.courseScore !== '--' && item.courseScore !== '0分' && item.courseScore !== '--分';
-                  const rankingValid = item.ranking && item.ranking !== '--';
-                  const quizValid = item.chapterQuiz && item.chapterQuiz !== '--';
-                  const aiValid = item.aiPractice && item.aiPractice !== '--';
-                  const groupValid = item.groupTask && item.groupTask !== '--';
-                  return scoreValid || rankingValid || quizValid || aiValid || groupValid;
-                };
-
-                const aHasData = hasData(a);
-                const bHasData = hasData(b);
-
-                // 有数据的优先
-                if (aHasData && !bHasData) return -1;
-                if (!aHasData && bHasData) return 1;
-
-                // 都有数据或都没有数据，按原有逻辑排序
-                const aHasTasks = a.totalTasks > 0;
-                const bHasTasks = b.totalTasks > 0;
-                if (aHasTasks !== bHasTasks) return aHasTasks ? -1 : 1;
-                if (a.isComplete && !b.isComplete) return 1;
-                if (!a.isComplete && b.isComplete) return -1;
-                return parseInt(a.completionRate) - parseInt(b.completionRate);
-              });
+              .sort(compareCourseProgress);
             progressLastUpdate.value = new Date().toLocaleTimeString();
           } else {
             courseProgressItems.value = [];
@@ -3114,6 +3113,7 @@
       const dashboardSkeletonFading = vue.ref(false);
       const settings = vue.ref(getSettings());
       const settingsVersion = vue.ref(0);
+      const progressDelay = vue.ref(getProgressDelay());
       const settingsCourses = vue.ref([]);
       const settingsCoursesLoading = vue.ref(false);
       const showCourseIgnoreDialog = vue.ref(false);
@@ -3140,6 +3140,10 @@
         saveSettings(settings.value);
         settingsVersion.value++;
       };
+      const updateProgressDelay = (value) => {
+        progressDelay.value = setProgressDelay(value);
+        notifySettingsSaved(`课程进度请求间隔已设为 ${progressDelay.value}ms，下次查询生效`);
+      };
       const shouldDisplayItem = (item) => {
         settingsVersion.value;
         const section = item._sectionType || 'unknown';
@@ -3160,6 +3164,11 @@
       const openCourseIgnoreDialog = async () => {
         showCourseIgnoreDialog.value = true;
         await loadSettingsCourses();
+      };
+      const openCourseIgnoreFromHint = () => {
+        updateSetting('courseIgnoreHintSeen', true);
+        currentView.value = 'settings';
+        openCourseIgnoreDialog();
       };
       const toggleOtherTaskType = (type, checked) => {
         const selected = new Set(settings.value.otherTaskTypes || []);
@@ -3518,62 +3527,16 @@
 
         // 课程进度特殊排序
         if (type === 'progress') {
-          // 判断课程是否有数据
-          const hasData = (item) => {
-            const scoreValid = item.courseScore && item.courseScore !== '--' && item.courseScore !== '0分' && item.courseScore !== '--分';
-            const rankingValid = item.ranking && item.ranking !== '--';
-            const quizValid = item.chapterQuiz && item.chapterQuiz !== '--';
-            const aiValid = item.aiPractice && item.aiPractice !== '--';
-            const groupValid = item.groupTask && item.groupTask !== '--';
-            return scoreValid || rankingValid || quizValid || aiValid || groupValid;
-          };
-
           switch (sortType) {
             case 'urgent':
             case 'status':
-              // 有数据的优先，然后按完成率升序
-              return arr.sort((a, b) => {
-                const aHasData = hasData(a);
-                const bHasData = hasData(b);
-
-                // 有数据的排前面
-                if (aHasData && !bHasData) return -1;
-                if (!aHasData && bHasData) return 1;
-
-                // 都有数据，按完成率升序
-                const rateA = parseInt(a.completionRate) || 0;
-                const rateB = parseInt(b.completionRate) || 0;
-                if (rateA >= 100 && rateB < 100) return 1;
-                if (rateA < 100 && rateB >= 100) return -1;
-                return rateA - rateB;
-              });
+              return arr.sort(compareCourseProgress);
             case 'time-asc':
-              // 有数据优先，然后按完成率升序
-              return arr.sort((a, b) => {
-                const aHasData = hasData(a);
-                const bHasData = hasData(b);
-                if (aHasData && !bHasData) return -1;
-                if (!aHasData && bHasData) return 1;
-                return (parseInt(a.completionRate) || 0) - (parseInt(b.completionRate) || 0);
-              });
+              return arr.sort(compareCourseProgress);
             case 'time-desc':
-              // 有数据优先，然后按完成率降序
-              return arr.sort((a, b) => {
-                const aHasData = hasData(a);
-                const bHasData = hasData(b);
-                if (aHasData && !bHasData) return -1;
-                if (!aHasData && bHasData) return 1;
-                return (parseInt(b.completionRate) || 0) - (parseInt(a.completionRate) || 0);
-              });
+              return arr.sort((a, b) => compareCourseProgress(a, b, -1));
             case 'name':
-              // 有数据优先，然后按名称排序
-              return arr.sort((a, b) => {
-                const aHasData = hasData(a);
-                const bHasData = hasData(b);
-                if (aHasData && !bHasData) return -1;
-                if (!aHasData && bHasData) return 1;
-                return (a.courseName || '').localeCompare(b.courseName || '');
-              });
+              return arr.sort((a, b) => (a.courseName || '').localeCompare(b.courseName || '', 'zh-CN'));
             default:
               return arr;
           }
@@ -3899,6 +3862,25 @@
             vue.createVNode('span', { style: 'margin-left:10px;color:#64748b;font-size:13px;' }, `已忽略 ${getIgnoredItemsBySection('course').length} 门课程`)
           ]),
           vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
+            vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '课程进度查询'),
+            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '逐门查询课程进度时，两次请求之间会按此间隔等待。适当增大间隔可减少连续请求。'),
+            vue.createVNode('label', { class: 'progress-delay-setting' }, [
+              vue.createVNode('span', { class: 'progress-delay-label' }, '请求间隔'),
+              vue.createVNode('input', {
+                class: 'progress-delay-input',
+                type: 'number',
+                min: MIN_PROGRESS_DELAY,
+                max: MAX_PROGRESS_DELAY,
+                step: 100,
+                value: progressDelay.value,
+                'aria-label': '课程进度请求间隔（毫秒）',
+                onChange: e => updateProgressDelay(e.target.value)
+              }),
+              vue.createVNode('span', { class: 'progress-delay-unit' }, '毫秒')
+            ]),
+            vue.createVNode('div', { class: 'progress-delay-help' }, `可设置 ${MIN_PROGRESS_DELAY}–${MAX_PROGRESS_DELAY}ms，默认 ${DEFAULT_PROGRESS_DELAY}ms；修改后从下一轮查询开始生效。`)
+          ]),
+          vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '短时缓存'),
             vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '用于短时间内快速刷新时先显示上次的课程任务和课程进度，随后自动更新。缓存有效期为 5 分钟，默认关闭。'),
             vue.createVNode('label', { class: 'settings-toggle-row' }, [
@@ -4123,6 +4105,28 @@
             width: 26px; height: 26px; border-radius: 8px; background: #dff1ff; font-size: 15px;
           }
           .settings-onboarding-actions { display: flex; gap: 8px; flex-shrink: 0; }
+          .course-ignore-onboarding {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 8000;
+            width: min(390px, calc(100vw - 32px));
+            padding: 18px;
+            border: 1px solid #d8e8ff;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 16px 44px rgba(15, 23, 42, .18);
+            animation: course-ignore-hint-in .24s ease-out;
+          }
+          .course-ignore-onboarding-head { display: flex; align-items: flex-start; gap: 11px; }
+          .course-ignore-onboarding-icon {
+            display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto;
+            width: 34px; height: 34px; border-radius: 10px; background: #eef5ff; font-size: 18px;
+          }
+          .course-ignore-onboarding-title { color: #1e293b; font-size: 15px; font-weight: 600; }
+          .course-ignore-onboarding-copy { margin-top: 4px; color: #64748b; font-size: 13px; line-height: 1.6; }
+          .course-ignore-onboarding-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+          @keyframes course-ignore-hint-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
           /* 紧急提醒条 */
           .urgent-strip {
@@ -4990,6 +4994,7 @@
             .card-header { padding: 15px; }
             .dashboard-grid { grid-template-columns: 1fr; }
             .progress-card { grid-column: span 1; }
+            .course-ignore-onboarding { right: 16px; bottom: 16px; }
           }
 
           /* ===== 忽略功能样式 ===== */
@@ -5172,6 +5177,20 @@
           .settings-toggle-copy { display: flex; flex-direction: column; gap: 2px; color: #1e293b; }
           .settings-toggle-copy strong { font-size: 14px; font-weight: 600; }
           .settings-toggle-copy small { color: #64748b; font-size: 12px; }
+          .progress-delay-setting { display: flex; align-items: center; gap: 10px; width: fit-content; }
+          .progress-delay-label { color: #334155; font-size: 14px; font-weight: 600; }
+          .progress-delay-input {
+            width: 120px; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 7px;
+            background: #fff; color: #1e293b; font-size: 14px; outline: none;
+          }
+          .progress-delay-input:focus { border-color: #1677ff; box-shadow: 0 0 0 3px rgba(22,119,255,.12); }
+          .progress-delay-unit { color: #64748b; font-size: 13px; }
+          .progress-delay-help { margin-top: 8px; color: #94a3b8; font-size: 12px; }
+          .progress-delay-link {
+            padding: 4px 8px; border: 1px solid #e2e8f0; border-radius: 5px;
+            background: #fff; color: #64748b; font-size: 11px; cursor: pointer;
+          }
+          .progress-delay-link:hover { border-color: #91caff; color: #1677ff; }
           .confirm-title {
             font-size: 16px;
             font-weight: 600;
@@ -6017,10 +6036,12 @@
                         : progressLoaded.value
                           ? "✓ 已查询"
                           : "🔍 待查询"),
-                    // 延迟时间提示
-                    vue.createVNode("span", {
-                      style: "font-size: 11px; color: #999; margin-left: 4px;"
-                    }, `延迟${getProgressDelay()}ms`),
+                    // 当前延迟，点击可进入统一设置修改。
+                    vue.createVNode("button", {
+                      class: "progress-delay-link",
+                      title: "在统一设置中修改课程进度请求间隔",
+                      onClick: openSettings
+                    }, `⏱ ${progressDelay.value}ms`),
                     vue.createVNode("button", {
                       class: "refresh-btn",
                       onClick: () => loadAllCourseProgress()
@@ -6266,6 +6287,23 @@
           ]),
           // 全局确认弹窗
           renderConfirmDialog(),
+          !settings.value.courseIgnoreHintSeen ? vue.createVNode("div", {
+            class: "course-ignore-onboarding",
+            role: "dialog",
+            'aria-labelledby': 'course-ignore-onboarding-title'
+          }, [
+            vue.createVNode("div", { class: "course-ignore-onboarding-head" }, [
+              vue.createVNode("span", { class: "course-ignore-onboarding-icon", 'aria-hidden': 'true' }, "🛡️"),
+              vue.createVNode("div", null, [
+                vue.createVNode("div", { id: "course-ignore-onboarding-title", class: "course-ignore-onboarding-title" }, "忽略不需要查询的课程"),
+                vue.createVNode("div", { class: "course-ignore-onboarding-copy" }, "可将已结课或无需关注的课程加入忽略列表，减少无效查询和触发风控的概率。")
+              ])
+            ]),
+            vue.createVNode("div", { class: "course-ignore-onboarding-actions" }, [
+              vue.createVNode("button", { class: "back-btn", onClick: () => updateSetting('courseIgnoreHintSeen', true) }, "知道了"),
+              vue.createVNode("button", { class: "external-link-btn", onClick: openCourseIgnoreFromHint }, "去忽略课程")
+            ])
+          ]) : null,
           dashboardSkeletonOverlay.value ? renderDashboardSkeletonOverlay() : null
         ]);
       };

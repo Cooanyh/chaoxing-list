@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.2-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.3-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -52,6 +52,11 @@
 
 ## 📋 更新日志
 
+### v2.4.3
+* 📊 **进度排序修正**：课程进度统一按完成率从低到高排列，无有效完成率的课程置于末尾。
+* ⏱️ **请求间隔设置**：统一设置页可配置课程进度逐门查询间隔，支持 300–10000ms，默认 500ms。
+* 🛡️ **首次使用提醒**：右下角提示可忽略已结课或无需关注的课程，并可直接进入课程忽略选择，减少无效查询。
+
 ### v2.4.2
 * 🧱 **拆分任务引擎明细**：继续读取任务包内的分组与具体学习计划，不再只显示任务包汇总。
 * 🗂️ **按真实类目归并**：任务引擎子任务根据平台返回的类型分配到作业、考试或课程任务等对应栏目。
@@ -85,7 +90,7 @@
 * ⚡ **优化查询机制**
   * 将原有的 Promise.all 并发请求改为逐个顺序请求
   * 添加详细的进度日志（正在获取第X/Y个课程）
-  * 默认延迟时间设置为500ms，可在代码中调整
+  * 默认延迟时间设置为500ms，可在统一设置中调整
 
 ### v2.2.0
 * 🚀 **增强版课程进度悬浮窗**：鼠标悬停课程卡片时显示详细的学习活动
