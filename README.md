@@ -1,5 +1,5 @@
 # 学习通作业/考试/待办列表 (Modified)
-![Version](https://img.shields.io/badge/版本-2.4.9-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![Version](https://img.shields.io/badge/版本-2.4.10-blue?style=flat-square)     ![License](https://img.shields.io/badge/协议-AGPL%203.0-green?style=flat-square)    [![Author](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh)    ![Original](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 这是一个用于优化超星学习通（chaoxing.com）作业与考试列表显示的 Userscript 脚本。
 
@@ -24,7 +24,7 @@
     * 按截止时间排序，提供直观的"立即去办"跳转按钮。
     * 24小时内截至的任务会有"紧急任务"提醒
 * **新增课程任务聚合页**：
-    * 自动遍历所有课程然后读取课程任务并汇总（**有遗漏风险！**）
+    * 自动遍历所有课程并汇总课堂活动与任务引擎任务；读取失败或响应格式变化时显示警告并支持重试，避免把不完整结果误认为空列表。
 * **考试列表修复与优化**：
     * **状态标签优化**：将原本的纯文本状态优化为彩色 Chip 标签（进行中/未开始/已结束），视觉识别更清晰。
     * **列表布局调整**：在考试列表中增加了"课程"列，与作业列表布局保持一致。
@@ -51,6 +51,10 @@
 3.  点击对应入口即可打开悬浮层查看详情。
 
 ## 📋 更新日志
+
+### v2.4.10
+* ⚠️ **防止课程任务静默遗漏**：任务引擎分组读取失败时保留已成功读取的子任务，并尝试备用子任务清单；按平台计划数检查读取完整度并去除重复计划。课程列表和任务接口增加响应格式校验与一次有限重试，部分失败会明确提示可能遗漏。
+* 🔄 **补齐重试入口**：待办、课程任务列表和仪表盘均提供刷新重试；不完整读取不会覆盖已有的仪表盘任务缓存。
 
 ### v2.4.9
 * ✅ **修复任务引擎考试完成状态**：任务引擎考试跳转到已提交答卷查看页时识别为“已完成”，不再因计划明细状态滞后显示“进行中”。

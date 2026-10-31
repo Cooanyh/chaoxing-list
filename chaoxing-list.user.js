@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.9
+// @version      2.4.10
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -617,10 +617,12 @@
         responseType: options.responseType || 'text',
         timeout: options.timeout || 15000,
         onload: (response) => {
-          if (response.status >= 200 && response.status < 400) {
+          if (response.status >= 200 && response.status < 300) {
             resolve(response);
           } else {
-            reject(new Error(`Request failed: ${response.status}`));
+            const error = new Error(`Request failed: ${response.status}`);
+            error.status = response.status;
+            reject(error);
           }
         },
         onerror: (error) => reject(error),
@@ -629,60 +631,161 @@
     });
   };
 
+  const gmFetchWithRetry = async (url, options = {}, retries = 1) => {
+    let attempt = 0;
+    while (true) {
+      try {
+        return await gmFetch(url, options);
+      } catch (error) {
+        const status = Number(error?.status);
+        const retryable = !Number.isFinite(status) || status === 0 || status === 408 || status === 429 || status >= 500;
+        if (!retryable || attempt >= retries) throw error;
+        await delay(status === 429 ? 1200 : 350 * (attempt + 1));
+        attempt += 1;
+      }
+    }
+  };
+
   // 获取所有课程列表
   const fetchCourseList = async () => {
+    let skippedCourseCount = 0;
+    let wasEmpty = false;
     try {
       console.log('[课程任务] 正在获取课程列表:', API_COURSE_LIST);
-      const response = await gmFetch(API_COURSE_LIST);
-      console.log('[课程任务] 课程列表原始响应:', response.responseText.substring(0, 1000));
+      const response = await gmFetchWithRetry(API_COURSE_LIST);
       const data = JSON.parse(response.responseText);
-      console.log('[课程任务] 解析后数据:', data);
-
-      if (!data.channelList) {
-        console.log('[课程任务] 没有 channelList');
-        return [];
-      }
+      if (!data || !Array.isArray(data.channelList)) throw new Error('课程列表响应格式无法识别');
+      console.log('[课程任务] 收到课程栏位:', data.channelList.length);
+      wasEmpty = data.channelList.length === 0;
 
       const courses = [];
       for (const channel of data.channelList) {
+        if (!channel || typeof channel !== 'object') {
+          skippedCourseCount += 1;
+          continue;
+        }
         const content = channel.content;
         if (!content) continue;
 
         // 检查是否是课程（有 course 对象）
-        if (content.course && content.course.data && content.course.data.length > 0) {
+        if (content.course) {
+          if (!Array.isArray(content.course.data)) {
+            skippedCourseCount += 1;
+            continue;
+          }
+          if (content.course.data.length === 0) continue;
           const courseInfo = content.course.data[0];
 
           // 尝试多种方式获取 clazzId
           let clazzId = '';
-          if (content.clazz && content.clazz.data && content.clazz.data.length > 0) {
-            clazzId = String(content.clazz.data[0].id);
-          } else if (content.id) {
-            clazzId = String(content.id);
-          } else if (channel.key) {
-            clazzId = String(channel.key);
+          const clazzData = content.clazz?.data;
+          if (Array.isArray(clazzData) && clazzData[0]?.id != null) {
+            clazzId = String(clazzData[0].id).trim();
+          } else if (content.id != null && String(content.id).trim()) {
+            clazzId = String(content.id).trim();
+          } else if (channel.key != null && String(channel.key).trim()) {
+            clazzId = String(channel.key).trim();
           }
 
           // 只添加有 clazzId 的课程（API 需要此参数）
-          if (courseInfo && clazzId) {
+          const courseId = courseInfo?.id == null ? '' : String(courseInfo.id).trim();
+          if (courseInfo && courseId && clazzId && courseId !== 'undefined' && clazzId !== 'undefined') {
             courses.push({
-              courseId: String(courseInfo.id),
+              courseId,
               courseName: courseInfo.name || '未知课程',
               clazzId: clazzId,
               cpi: String(content.cpi || ''),
               teacherName: courseInfo.teacherfactor || ''
             });
             console.log(`[课程任务] 解析课程: ${courseInfo.name}, clazzId=${clazzId}`);
-          } else if (courseInfo) {
-            console.log(`[课程任务] 跳过无 clazzId 的课程: ${courseInfo.name}`);
+          } else {
+            skippedCourseCount += 1;
+            console.warn(`[课程任务] 跳过字段不完整的课程栏位: ${courseInfo?.name || '未知课程'}`);
           }
         }
       }
+      if (data.channelList.length > 0 && courses.length === 0) {
+        throw new Error('课程列表有数据，但没有识别出可读取的课程');
+      }
       console.log('[课程任务] 最终解析到课程:', courses.length, '个');
+      courseListDiagnostics.set(courses, { skippedCourseCount, wasEmpty });
       return courses;
     } catch (error) {
-      console.error('[课程任务] 获取课程列表失败:', error);
-      return [];
+      console.error('[课程任务] 获取课程列表失败:', error?.message || error);
+      throw error;
     }
+  };
+
+  const getArrayByPaths = (value, paths) => {
+    for (const path of paths) {
+      let current = value;
+      for (const key of path) current = current?.[key];
+      if (Array.isArray(current)) return current;
+    }
+    return null;
+  };
+
+  const extractClassroomActivityList = (payload) => {
+    const list = getArrayByPaths(payload, [
+      ['data', 'activeList'], ['data', 'list'], ['data', 'data'],
+      ['activeList'], ['data'], []
+    ]);
+    if (list) {
+      const items = list.filter(item => item && typeof item === 'object' && !Array.isArray(item));
+      return { items, invalidCount: list.length - items.length };
+    }
+    throw new Error('课堂活动响应格式无法识别');
+  };
+
+  const extractTaskEngineItems = (payload) => {
+    if (payload?.success === false || payload?.result === false) {
+      throw new Error('任务引擎接口返回失败');
+    }
+    const list = getArrayByPaths(payload, [
+      ['data'], ['data', 'data'], ['data', 'list'], ['data', 'taskList'],
+      ['data', 'taskListList'], ['data', 'tasks'], ['data', 'activeList'],
+      ['data', 'records'], ['list'], ['taskList'], ['taskListList'],
+      ['tasks'], ['activeList'], ['records'], []
+    ]);
+    if (list) {
+      const items = list.filter(item => item && typeof item === 'object' && !Array.isArray(item));
+      return { items, invalidCount: list.length - items.length };
+    }
+    throw new Error('任务引擎响应格式无法识别');
+  };
+
+  const courseActivityIssues = new Map();
+  const courseActivityInFlight = new Map();
+  const courseListDiagnostics = new WeakMap();
+  const getCourseActivityKey = (course) => `${course?.courseId || ''}__${course?.clazzId || course?.classId || ''}`;
+  const clearCourseActivityIssues = () => courseActivityIssues.clear();
+  const recordCourseActivityIssue = (course, source) => {
+    const key = getCourseActivityKey(course);
+    const sources = courseActivityIssues.get(key) || new Set();
+    sources.add(source);
+    courseActivityIssues.set(key, sources);
+  };
+  const getCourseActivityIssues = (courses) => {
+    const courseListResult = Array.isArray(courses) ? courseListDiagnostics.get(courses) : null;
+    const issues = (courses || []).flatMap(course => {
+      const sources = [...(courseActivityIssues.get(getCourseActivityKey(course)) || [])];
+      return sources.length ? [{ courseName: course.courseName, sources }] : [];
+    });
+    for (let i = 0; i < (courseListResult?.skippedCourseCount || 0); i += 1) {
+      issues.push({ courseName: '未识别课程', sources: ['课程列表'] });
+    }
+    if (courseListResult?.wasEmpty) issues.push({ courseName: '课程列表', sources: ['课程列表'] });
+    return issues;
+  };
+  const formatCourseActivityIssues = (issues) => {
+    if (!issues?.length) return '';
+    if (issues.some(issue => issue.sources?.includes('课程列表'))) {
+      const affectedCourses = issues.filter(issue => !issue.sources?.includes('课程列表')).length;
+      const detail = affectedCourses ? `另有 ${affectedCourses} 门课程读取失败。` : '';
+      return `课程列表为空或部分课程未能识别，待办任务可能遗漏。${detail}请刷新重试。`;
+    }
+    const sources = [...new Set(issues.flatMap(issue => issue.sources || []))].join('、');
+    return `读取不完整：${issues.length} 门课程的${sources || '课程任务'}接口或数据格式异常，列表可能遗漏。请刷新重试。`;
   };
 
   const normalizeTaskType = (item) => {
@@ -881,7 +984,7 @@
     }
   };
 
-  const resolveTaskEnginePlanDetails = async (plan, taskUserId, apiHeaders, fallbackLink) => {
+  const resolveTaskEnginePlanDetails = async (plan, taskUserId, apiHeaders, fallbackLink, reportIssue = () => {}) => {
     const planFallbackLink = normalizeTaskEngineStudyUrl(plan.hyperLink || plan.url) || fallbackLink;
     if (!plan.encryptPlanId) {
       return {
@@ -903,7 +1006,7 @@
       };
       try {
         const studyUrl = `https://task.chaoxing.com/userStudyPlan/getToStudyUrl?encryptPlanId=${encodeURIComponent(plan.encryptPlanId)}&encryTaskUserId=${encodeURIComponent(taskUserId)}&studyJumpType=0&isInterface=false`;
-        const studyResponse = await gmFetch(studyUrl, { method: 'POST', headers: apiHeaders });
+        const studyResponse = await gmFetchWithRetry(studyUrl, { method: 'POST', headers: apiHeaders });
         const studyPayload = JSON.parse(studyResponse.responseText);
         if (!studyPayload?.result) throw new Error(studyPayload?.message || '直达链接接口返回失败');
         const directUrl = normalizeTaskEngineStudyUrl(studyPayload.data?.url, studyPayload.data?.domainName);
@@ -917,7 +1020,7 @@
         if (!TASK_ENGINE_DETAIL_HOSTS.has(host)) return result;
 
         try {
-          const detailResponse = await gmFetch(directUrl, {
+          const detailResponse = await gmFetchWithRetry(directUrl, {
             headers: { Referer: 'https://task.chaoxing.com/' },
             timeout: 12000
           });
@@ -925,10 +1028,12 @@
           result.finished = result.finished || isTaskEngineCompletedStudyUrl(result.taskLink);
           Object.assign(result, extractTaskEngineDetailTimes(detailResponse.responseText));
         } catch (error) {
-          console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”期限读取失败，保留平台直达链接:`, error);
+          reportIssue('任务引擎计划详情');
+          console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”期限读取失败，保留平台直达链接:`, error?.message || error);
         }
       } catch (error) {
-        console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”直达链接读取失败，保留任务包链接:`, error);
+        reportIssue('任务引擎计划详情');
+        console.warn(`[任务引擎] “${plan.name || plan.planId || ''}”直达链接读取失败，保留任务包链接:`, error?.message || error);
       }
       return result;
     })();
@@ -985,14 +1090,55 @@
     };
   };
 
-  const fetchTaskEnginePlans = async (task, course) => {
+  const extractTaskEngineStandardPlans = (payload) => {
+    const entries = payload?.data?.userTaskQualifyDTO?.planUserBOList;
+    if (!Array.isArray(entries)) throw new Error('任务引擎备用子任务列表格式无法识别');
+
+    let invalidCount = 0;
+    const plans = [];
+    for (const entry of entries) {
+      if (!entry?.plan || typeof entry.plan !== 'object' || Array.isArray(entry.plan)) {
+        invalidCount += 1;
+        continue;
+      }
+      plans.push({
+        ...entry.plan,
+        isFinish: entry.plan.isFinish ?? entry.finish,
+        planUser: {
+          ...(entry.plan.planUser || {}),
+          finish: entry.plan.planUser?.finish ?? entry.finish
+        }
+      });
+    }
+    return { plans, invalidCount };
+  };
+
+  const dedupeTaskEnginePlans = (plans) => {
+    const seen = new Set();
+    return plans.filter(plan => {
+      const identity = plan.encryptPlanId || plan.planId || plan.id || plan.externalDataId;
+      if (identity == null || identity === '') return true;
+      const key = String(identity);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  const fetchTaskEngineStandardPlans = async (taskUserId, apiHeaders) => {
+    const url = `https://task.chaoxing.com/userStudyPlan/getUserStandard?encryTaskUserId=${encodeURIComponent(taskUserId)}`;
+    const response = await gmFetchWithRetry(url, { headers: apiHeaders });
+    return extractTaskEngineStandardPlans(JSON.parse(response.responseText));
+  };
+
+  const fetchTaskEnginePlans = async (task, course, reportIssue = () => {}) => {
     const fallback = normalizeTaskEngineSummaryItem(task, course);
     if (!fallback.taskLink) return [fallback];
 
     try {
       let landingResponse;
       try {
-        landingResponse = await gmFetch(fallback.taskLink, {
+        landingResponse = await gmFetchWithRetry(fallback.taskLink, {
           headers: { Referer: 'https://mobilelearn.chaoxing.com/' }
         });
       } catch {
@@ -1001,7 +1147,7 @@
       let taskUserId = extractTaskEngineUserId(landingResponse);
       if (!taskUserId) {
         const subPageUrl = `https://task.chaoxing.com/userStudyPlan/studyPlanSubPage?taskId=${encodeURIComponent(fallback.taskId)}&encryJumpGroupId=null`;
-        landingResponse = await gmFetch(subPageUrl, { headers: { Referer: fallback.taskLink } });
+        landingResponse = await gmFetchWithRetry(subPageUrl, { headers: { Referer: fallback.taskLink } });
         taskUserId = extractTaskEngineUserId(landingResponse);
       }
       if (!taskUserId) throw new Error('未找到任务用户标识');
@@ -1010,49 +1156,98 @@
         'X-Requested-With': 'XMLHttpRequest',
         Referer: landingResponse.finalUrl || fallback.taskLink
       };
-      const groupUrl = `https://task.chaoxing.com/userStudyPlan/getGroupData?encryTaskUserId=${encodeURIComponent(taskUserId)}`;
-      const groupResponse = await gmFetch(groupUrl, { method: 'POST', headers: apiHeaders });
-      const groups = JSON.parse(groupResponse.responseText).data;
-      if (!Array.isArray(groups) || groups.length === 0) return [fallback];
+      let groupedPlans = [];
+      let groupedReadHadIssue = false;
+      let groupedReadComplete = false;
+      const expectedPlanCount = Number(task.planCount) || 0;
+      try {
+        const groupUrl = `https://task.chaoxing.com/userStudyPlan/getGroupData?encryTaskUserId=${encodeURIComponent(taskUserId)}`;
+        const groupResponse = await gmFetchWithRetry(groupUrl, { method: 'POST', headers: apiHeaders });
+        const groups = JSON.parse(groupResponse.responseText).data;
+        if (!Array.isArray(groups)) throw new Error('任务分组列表格式异常');
 
-      const readableGroups = groups.filter(group => group?.encryptGroupId);
-      if (readableGroups.length !== groups.length) throw new Error('任务分组标识不完整');
-      const planResults = await Promise.allSettled(readableGroups
-        .map(group => {
+        const readableGroups = groups.filter(group => group?.encryptGroupId);
+        if (readableGroups.length !== groups.length) groupedReadHadIssue = true;
+        const planResults = await Promise.allSettled(readableGroups.map(group => {
           const planUrl = `https://task.chaoxing.com/userStudyPlan/getPlanDataByGroupId?encryTaskUserId=${encodeURIComponent(taskUserId)}&encryGroupId=${encodeURIComponent(group.encryptGroupId)}`;
-          return gmFetch(planUrl, { method: 'POST', headers: apiHeaders });
+          return gmFetchWithRetry(planUrl, { method: 'POST', headers: apiHeaders });
         }));
-      if (planResults.some(result => result.status !== 'fulfilled')) throw new Error('部分任务分组读取失败');
-      const plans = planResults.flatMap((result) => {
-        const data = JSON.parse(result.value.responseText).data;
-        if (!Array.isArray(data)) throw new Error('任务分组明细格式异常');
-        return data;
-      });
+        for (const result of planResults) {
+          if (result.status !== 'fulfilled') {
+            groupedReadHadIssue = true;
+            continue;
+          }
+          try {
+            const data = JSON.parse(result.value.responseText).data;
+            if (!Array.isArray(data)) {
+              groupedReadHadIssue = true;
+              continue;
+            }
+            const validPlans = data.filter(plan => plan && typeof plan === 'object' && !Array.isArray(plan));
+            if (validPlans.length !== data.length) groupedReadHadIssue = true;
+            groupedPlans.push(...validPlans);
+          } catch {
+            groupedReadHadIssue = true;
+          }
+        }
+        groupedPlans = dedupeTaskEnginePlans(groupedPlans);
+        if (expectedPlanCount > 0 && groupedPlans.length < expectedPlanCount) groupedReadHadIssue = true;
+        groupedReadComplete = !groupedReadHadIssue && groupedPlans.length > 0;
+      } catch (error) {
+        groupedReadHadIssue = true;
+        console.warn(`[任务引擎] ${course.courseName} 分组任务明细读取失败，尝试备用接口:`, error?.message || error);
+      }
 
-      if (!plans.length) return [fallback];
+      let plans = groupedPlans;
+      let standardReadSucceeded = false;
+      let standardReadHadIssue = false;
+      if (!groupedReadComplete) {
+        try {
+          const standardResult = await fetchTaskEngineStandardPlans(taskUserId, apiHeaders);
+          standardReadSucceeded = true;
+          const standardPlans = dedupeTaskEnginePlans(standardResult.plans);
+          standardReadHadIssue = standardResult.invalidCount > 0
+            || (expectedPlanCount > 0 && standardPlans.length < expectedPlanCount);
+          if (standardPlans.length > 0) plans = standardPlans;
+        } catch (error) {
+          console.warn(`[任务引擎] ${course.courseName} 备用子任务列表读取失败:`, error?.message || error);
+        }
+      }
+
+      if (standardReadHadIssue || (groupedReadHadIssue && (!standardReadSucceeded || plans === groupedPlans))) {
+        reportIssue('任务引擎分组明细');
+      }
+      if (!plans.length) {
+        if (!standardReadSucceeded || expectedPlanCount > 0 || groupedReadHadIssue) reportIssue('任务引擎明细');
+        return [fallback];
+      }
+
       const normalizedPlans = [];
       for (const plan of plans) {
-        const details = await resolveTaskEnginePlanDetails(plan, taskUserId, apiHeaders, fallback.taskLink);
+        const details = await resolveTaskEnginePlanDetails(plan, taskUserId, apiHeaders, fallback.taskLink, reportIssue);
         normalizedPlans.push(normalizeTaskEnginePlan(plan, task, course, details));
       }
       return normalizedPlans;
     } catch (error) {
-      console.warn(`[任务引擎] ${course.courseName} 的任务“${task.name || task.id || ''}”明细读取失败，保留任务包:`, error);
+      reportIssue('任务引擎明细');
+      console.warn(`[任务引擎] ${course.courseName} 的任务“${task.name || task.id || ''}”明细读取失败，保留任务包:`, error?.message || error);
       return [fallback];
     }
   };
 
-  const expandTaskEngineItems = async (items, course) => {
-    if (!Array.isArray(items)) return [];
+  const expandTaskEngineItems = async (items, course, reportIssue = () => {}) => {
     const expanded = [];
     for (const item of items) {
-      expanded.push(...await fetchTaskEnginePlans(item, course));
+      expanded.push(...await fetchTaskEnginePlans(item, course, reportIssue));
     }
     return expanded;
   };
 
   // 获取单个课程的课堂活动与任务引擎任务。视频/任务点仅在课程进度中展示，避免重复出现。
-  const fetchCourseActivities = async (course) => {
+  const fetchCourseActivitiesOnce = async (course) => {
+    const issueKey = getCourseActivityKey(course);
+    courseActivityIssues.set(issueKey, new Set());
+    const reportIssue = (source) => recordCourseActivityIssue(course, source);
     try {
       const timestamp = Date.now();
       const activityUrl = `https://mobilelearn.chaoxing.com/v2/apis/active/student/activelist?fid=0&courseId=${course.courseId}&classId=${course.clazzId}&showNotStartedActive=0&_=${timestamp}`;
@@ -1060,31 +1255,27 @@
       console.log(`[课程任务] 获取课程活动与任务引擎 ${course.courseName}`);
 
       const [activityResult, taskEngineResult] = await Promise.allSettled([
-        gmFetch(activityUrl),
-        gmFetch(taskEngineUrl)
+        gmFetchWithRetry(activityUrl),
+        gmFetchWithRetry(taskEngineUrl)
       ]);
 
-      let activeList = null;
+      let activeList = [];
       if (activityResult.status === 'fulfilled') {
         try {
           const data = JSON.parse(activityResult.value.responseText);
-          if (data.data && data.data.activeList) {
-            activeList = data.data.activeList;
-          } else if (data.activeList) {
-            activeList = data.activeList;
-          } else if (Array.isArray(data.data)) {
-            activeList = data.data;
-          } else if (Array.isArray(data)) {
-            activeList = data;
-          }
+          const parsedActivityList = extractClassroomActivityList(data);
+          activeList = parsedActivityList.items;
+          if (parsedActivityList.invalidCount > 0) reportIssue('课堂活动数据');
         } catch (error) {
-          console.warn(`[课程任务] ${course.courseName} 课堂活动解析失败:`, error);
+          reportIssue('课堂活动');
+          console.warn(`[课程任务] ${course.courseName} 课堂活动解析失败:`, error?.message || error);
         }
       } else {
-        console.warn(`[课程任务] ${course.courseName} 课堂活动读取失败:`, activityResult.reason);
+        reportIssue('课堂活动');
+        console.warn(`[课程任务] ${course.courseName} 课堂活动读取失败:`, activityResult.reason?.message || activityResult.reason);
       }
 
-      const activities = (activeList || []).map((item) => {
+      const activities = activeList.map((item) => {
         // 状态判断：status=1 进行中，status=2 已结束
         const isOngoing = item.status === 1;
         const isEnded = item.status === 2;
@@ -1111,20 +1302,37 @@
       if (taskEngineResult.status === 'fulfilled') {
         try {
           const taskEngineData = JSON.parse(taskEngineResult.value.responseText);
-          taskEngineItems = await expandTaskEngineItems(taskEngineData.data, course);
+          const parsedTaskEngineList = extractTaskEngineItems(taskEngineData);
+          if (parsedTaskEngineList.invalidCount > 0) reportIssue('任务引擎数据');
+          taskEngineItems = await expandTaskEngineItems(parsedTaskEngineList.items, course, reportIssue);
         } catch (error) {
-          console.warn(`[课程任务] ${course.courseName} 任务引擎解析失败:`, error);
+          reportIssue('任务引擎');
+          console.warn(`[课程任务] ${course.courseName} 任务引擎解析失败:`, error?.message || error);
         }
       } else {
-        console.warn(`[课程任务] ${course.courseName} 任务引擎读取失败:`, taskEngineResult.reason);
+        reportIssue('任务引擎');
+        console.warn(`[课程任务] ${course.courseName} 任务引擎读取失败:`, taskEngineResult.reason?.message || taskEngineResult.reason);
       }
 
       console.log(`[课程任务] ${course.courseName} 找到 ${activities.length} 个课堂活动、${taskEngineItems.length} 个任务引擎任务`);
       return [...activities, ...taskEngineItems];
     } catch (error) {
-      console.error(`[课程任务] 获取课程 ${course.courseName} 的任务失败:`, error);
+      reportIssue('课程任务');
+      console.error(`[课程任务] 获取课程 ${course.courseName} 的任务失败:`, error?.message || error);
       return [];
     }
+  };
+
+  const fetchCourseActivities = (course) => {
+    const key = getCourseActivityKey(course);
+    const current = courseActivityInFlight.get(key);
+    if (current) return current;
+
+    const request = fetchCourseActivitiesOnce(course).finally(() => {
+      if (courseActivityInFlight.get(key) === request) courseActivityInFlight.delete(key);
+    });
+    courseActivityInFlight.set(key, request);
+    return request;
   };
 
   // 获取所有课程的任务汇总
@@ -1137,7 +1345,7 @@
     }
 
     // 并发获取所有课程的任务（限制并发数防止请求过多）
-    const batchSize = 5;
+    const batchSize = 3;
     const allActivities = [];
 
     for (let i = 0; i < courses.length; i += batchSize) {
@@ -1743,6 +1951,7 @@
       const search = vue.ref("");
       const showActivities = vue.ref(true);  // 是否显示课程任务（默认开启）
       const showUrgentOnly = vue.ref(false);  // 是否只显示紧急任务
+      const activityReadWarning = vue.ref('');
 
       // 计算属性：根据开关过滤显示的列表
       const todoList = vue.computed(() => {
@@ -1821,6 +2030,8 @@
       };
 
       vue.onMounted(async () => {
+        clearCourseActivityIssues();
+        activityReadWarning.value = '';
         const currentTasks = extractTasks();
         const pendingTasks = currentTasks.filter(t => t.uncommitted).map(t => ({
           ...t,
@@ -1879,7 +2090,7 @@
           console.log('[待办任务] 获取到课程:', courses.length, '个');
 
           // 限制并发数
-          const batchSize = 5;
+          const batchSize = 3;
           for (let i = 0; i < courses.length; i += batchSize) {
             const batch = courses.slice(i, i + batchSize);
             const batchResults = await Promise.all(
@@ -1906,9 +2117,11 @@
                 });
               });
           }
+          activityReadWarning.value = formatCourseActivityIssues(getCourseActivityIssues(courses));
           console.log('[待办任务] 进行中任务:', ongoingActivities.length, '个');
         } catch (e) {
           console.error('[待办任务] 获取课程任务失败:', e);
+          activityReadWarning.value = '课程列表或任务引擎读取失败，待办清单可能不完整。请刷新重试。';
         }
 
         // 排序：作业和考试在前，课程任务在后
@@ -1976,6 +2189,22 @@
                 ]
               }) : null
             ),
+            activityReadWarning.value ? vue.createVNode(_component_v_alert, {
+              type: "error",
+              variant: "tonal",
+              class: "mb-4"
+            }, {
+              default: () => [
+                vue.createVNode("div", { class: "d-flex align-center justify-space-between ga-3" }, [
+                  vue.createVNode("span", {}, activityReadWarning.value),
+                  vue.createVNode(_component_v_btn, {
+                    variant: "outlined",
+                    size: "small",
+                    onClick: () => window.location.reload()
+                  }, { default: () => [vue.createTextVNode("刷新重试")] })
+                ])
+              ]
+            }) : null,
             vue.createVNode(_component_v_row, { align: "center", class: "mb-2" }, {
               default: () => [
                 vue.createVNode(_component_v_col, { cols: "8" }, {
@@ -2047,7 +2276,9 @@
         return requestUrl.href;
       };
 
-      vue.onMounted(async () => {
+      const loadActivities = async () => {
+        loading.value = true;
+        clearCourseActivityIssues();
         try {
           progress.value = "正在获取课程列表...";
           const courses = await fetchCourseList();
@@ -2066,15 +2297,17 @@
             allActivities.push(...batchResults.flat());
           }
 
-          activitiesList.value = allActivities;
-          progress.value = "";
+          const issues = getCourseActivityIssues(courses);
+          if (!issues.length || !activitiesList.value.length) activitiesList.value = allActivities;
+          progress.value = formatCourseActivityIssues(issues);
         } catch (error) {
           console.error('[课程任务] 加载失败:', error);
           progress.value = "加载失败，请刷新重试";
         } finally {
           loading.value = false;
         }
-      });
+      };
+      vue.onMounted(loadActivities);
 
       return (_ctx, _cache) => {
         const _component_v_text_field = vue.resolveComponent("v-text-field");
@@ -2083,14 +2316,31 @@
         const _component_v_data_table = vue.resolveComponent("v-data-table");
         const _component_v_card = vue.resolveComponent("v-card");
         const _component_v_progress_linear = vue.resolveComponent("v-progress-linear");
+        const _component_v_alert = vue.resolveComponent("v-alert");
 
-        return vue.openBlock(), vue.createBlock(_component_v_card, { title: "课程任务列表", variant: "flat", subtitle: progress.value }, {
+        return vue.openBlock(), vue.createBlock(_component_v_card, { title: "课程任务列表", variant: "flat", subtitle: loading.value ? progress.value : '' }, {
           text: vue.withCtx(() => [
             vue.createVNode(_component_v_text_field, {
               modelValue: search.value,
               "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => search.value = $event),
               label: "搜索", "prepend-inner-icon": "search", variant: "outlined", "hide-details": "", "single-line": ""
             }),
+          (progress.value.includes('读取不完整') || progress.value.includes('课程列表为空') || progress.value.includes('加载失败')) ? vue.createVNode(_component_v_alert, {
+            type: progress.value.includes('加载失败') ? 'error' : 'warning',
+            variant: "tonal",
+            class: "mt-4"
+          }, {
+            default: vue.withCtx(() => [
+              vue.createVNode("div", { class: "d-flex align-center justify-space-between ga-3" }, [
+                vue.createVNode("span", {}, progress.value),
+                vue.createVNode(_component_v_btn, {
+                  variant: "outlined",
+                  size: "small",
+                  onClick: loadActivities
+                }, { default: () => [vue.createTextVNode("刷新重试")] })
+              ])
+            ])
+          }) : null,
             loading.value ? vue.createVNode(_component_v_progress_linear, { indeterminate: "", color: "primary", class: "mt-4" }) : null
           ]),
           default: vue.withCtx(() => [
@@ -2435,6 +2685,7 @@
       const activitiesLoaded = vue.ref(false);
       const activitiesFetched = vue.ref(false);
       const activitiesLoadFailed = vue.ref(false);
+      const activitiesLoadIssues = vue.ref([]);
       const activitiesFromCache = vue.ref(false);
       const progressLoaded = vue.ref(false);
       const progressLoadFailed = vue.ref(false);
@@ -3854,6 +4105,8 @@
         if (loading.value.activities || activitiesFetched.value) return;
         loading.value.activities = true;
         activitiesLoadFailed.value = false;
+        activitiesLoadIssues.value = [];
+        clearCourseActivityIssues();
         try {
           const courses = await fetchCourseList();
           const allActivities = [];
@@ -3863,18 +4116,33 @@
             const batchResults = await Promise.all(batch.map(course => fetchCourseActivities(course)));
             allActivities.push(...batchResults.flat());
           }
-          activitiesItems.value = allActivities;
-          // 首页与任务详情共用本次读取结果，避免再为待办重复遍历所有课程。
-          syncActivitiesToTodo(allActivities);
+          activitiesLoadIssues.value = getCourseActivityIssues(courses);
+          const hasReadIssues = activitiesLoadIssues.value.length > 0;
+          if (!hasReadIssues || !activitiesLoaded.value) {
+            activitiesItems.value = allActivities;
+            // 首页与任务详情共用本次读取结果，避免再为待办重复遍历所有课程。
+            syncActivitiesToTodo(allActivities);
+          }
           activitiesLoaded.value = true;
           activitiesFetched.value = true;
-          activitiesFromCache.value = false;
-          if (settings.value.shortTermCacheEnabled) saveDashboardCache('activities', allActivities);
+          if (!hasReadIssues) {
+            activitiesFromCache.value = false;
+            if (settings.value.shortTermCacheEnabled) saveDashboardCache('activities', allActivities);
+          }
         } catch (error) {
           console.error('[仪表盘] 加载课程任务失败:', error);
           activitiesLoadFailed.value = true;
         }
         loading.value.activities = false;
+      };
+
+      const retryActivitiesData = () => {
+        if (loading.value.activities) return;
+        activitiesFetched.value = false;
+        activitiesLoadFailed.value = false;
+        activitiesLoadIssues.value = [];
+        clearCourseActivityIssues();
+        loadActivitiesData();
       };
 
       // 链接生成函数
@@ -6209,7 +6477,7 @@
                   vue.createVNode("div", { class: "card-title" }, [
                     vue.createVNode("span", { class: "indicator-dot", style: "background: #52c41a;" }),
                     "课程任务",
-                    activitiesFromCache.value ? vue.createVNode("span", { class: "cache-source-note" }, "缓存内容 · 正在更新") : null
+                    activitiesFromCache.value ? vue.createVNode("span", { class: "cache-source-note" }, activitiesLoadIssues.value.length > 0 || activitiesLoadFailed.value ? "缓存保留 · 本次读取不完整" : "缓存内容 · 正在更新") : null
                   ]),
                   vue.createVNode("a", {
                     class: "card-more",
@@ -6217,14 +6485,38 @@
                   }, "查看全部")
                 ]),
                 vue.createVNode("div", { class: "card-body" }, [
+                  activitiesLoadIssues.value.length > 0 ? vue.createVNode("div", {
+                    role: "alert",
+                    style: "display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;padding:10px 12px;border:1px solid #ffe7ba;border-radius:8px;background:#fff7e6;color:#ad6800;"
+                  }, [
+                    vue.createVNode("span", {}, formatCourseActivityIssues(activitiesLoadIssues.value)),
+                    vue.createVNode("button", {
+                      type: "button",
+                      style: "border:1px solid #d48806;border-radius:6px;padding:4px 10px;background:#fff;color:#ad6800;white-space:nowrap;cursor:pointer;",
+                      onClick: retryActivitiesData
+                    }, "重试读取")
+                  ]) : null,
+                  activitiesLoadFailed.value ? vue.createVNode("div", {
+                    role: "alert",
+                    style: "display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;padding:10px 12px;border:1px solid #ffccc7;border-radius:8px;background:#fff2f0;color:#a8071a;"
+                  }, [
+                    vue.createVNode("span", {}, "课程列表读取失败，当前结果可能不完整。"),
+                    vue.createVNode("button", {
+                      type: "button",
+                      style: "border:1px solid #cf1322;border-radius:6px;padding:4px 10px;background:#fff;color:#a8071a;white-space:nowrap;cursor:pointer;",
+                      onClick: retryActivitiesData
+                    }, "刷新重试")
+                  ]) : null,
                   loading.value.activities && !activitiesLoaded.value
                     ? renderLoadingSkeleton('正在加载课程任务…')
-                    : activitiesLoadFailed.value
-                      ? vue.createVNode("button", { class: "empty-state", onClick: () => loadActivitiesData() }, "课程任务加载失败，点击重试")
+                    : activitiesLoadFailed.value && !activitiesLoaded.value
+                      ? null
                     : !activitiesLoaded.value
                       ? renderLoadingSkeleton('正在加载课程任务…')
                     : filteredActivitiesItems.value.length === 0
-                      ? vue.createVNode("div", { class: "empty-state" }, "✨ 这里暂时还没有课程任务")
+                      ? vue.createVNode("div", { class: "empty-state" }, activitiesLoadIssues.value.length > 0
+                        ? "读取未完整，暂不能确认没有课程任务"
+                        : "✨ 这里暂时还没有课程任务")
                       : sortItems(filteredActivitiesItems.value, 'activities', 'urgent').map(item =>
                         vue.createVNode("div", {
                           class: "list-item",
