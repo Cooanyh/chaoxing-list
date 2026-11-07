@@ -997,7 +997,8 @@
   };
 
   const getTaskDeadlineTimestamp = (item) => {
-    const candidates = [item?.endTime, item?.deadlineAt, item?.deadline, item?.timeRange, item?.timeLeft, item?.leftTime, item?.info];
+    // info 是展示字段，课程任务可能在这里写“进度 1/2”，不能当作截止日期解析。
+    const candidates = [item?.endTime, item?.deadlineAt, item?.deadline, item?.timeRange, item?.timeLeft, item?.leftTime];
     for (const candidate of candidates) {
       const timestamp = parseTaskDeadlineText(candidate);
       if (Number.isFinite(timestamp)) return timestamp;
@@ -4188,7 +4189,8 @@
           }
         });
 
-        deadlineReminderItems.value = deadlineReminderItems.value
+        const alertsByTaskKey = new Map();
+        deadlineReminderItems.value
           .filter(alert => {
             const currentItem = rawItems.get(alert.taskKey);
             const isVisible = eligibleItems.has(alert.taskKey);
@@ -4198,13 +4200,12 @@
               && alert.deadlineAt > now
               && (!taskStates[alert.taskKey]?.acknowledgedStages?.[alert.threshold.key] || alert._openedFromBanner)
               && (!Number.isFinite(currentDeadline) || Math.abs(currentDeadline - alert.deadlineAt) <= 60 * 1000);
-          });
+          })
+          .forEach(alert => alertsByTaskKey.set(alert.taskKey, alert));
 
-        const existingAlertIds = new Set(deadlineReminderItems.value.map(alert => alert.id));
-        newAlerts.forEach(alert => {
-          if (!existingAlertIds.has(alert.id)) deadlineReminderItems.value.push(alert);
-        });
-        deadlineReminderItems.value.sort((a, b) => a.deadlineAt - b.deadlineAt);
+        // 同一任务只保留最新待处理阶段，避免旧阶段与新阶段同时显示。
+        newAlerts.forEach(alert => alertsByTaskKey.set(alert.taskKey, alert));
+        deadlineReminderItems.value = [...alertsByTaskKey.values()].sort((a, b) => a.deadlineAt - b.deadlineAt);
         deadlineReminderBannerItems.value = newBannerAlerts.sort((a, b) => a.deadlineAt - b.deadlineAt);
 
         if (stateChanged) saveDeadlineReminderState(deadlineReminderState);
