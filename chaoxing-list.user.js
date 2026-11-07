@@ -4875,7 +4875,6 @@
             font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #f5f7fa;
             min-height: 100vh;
-            width: 100%;
             min-width: 0;
             padding: 20px;
           }
@@ -4887,6 +4886,8 @@
             max-width: 1200px;
             min-width: 0;
             margin: 0 auto;
+            container-name: chaoxing-main;
+            container-type: inline-size;
           }
 
           /* 滚动条美化 */
@@ -5000,7 +5001,7 @@
           /* 仪表盘网格 */
           .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(560px, 100%), 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
             align-items: stretch;
           }
@@ -5466,10 +5467,10 @@
           .detail-list-item .status-info {
             min-width: 80px;
           }
-          /* 课程进度卡片样式 - 跨越当前网格的所有列 */
+          /* 课程进度卡片样式 - 保留桌面端原有的两列布局 */
           .progress-card {
             min-height: 200px;
-            grid-column: 1 / -1;
+            grid-column: span 2;
             overflow: hidden;
           }
           .progress-card .card-body {
@@ -5879,7 +5880,7 @@
             .dashboard-header { padding: 15px; }
             .card-header { padding: 15px; }
             .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
-            .progress-card { grid-column: 1 / -1; }
+            .progress-card { grid-column: span 1; }
             .urgent-strip { align-items: flex-start; gap: 8px; padding: 10px 12px; }
             .urgent-left { align-items: flex-start; }
             .urgent-action { align-self: center; }
@@ -5901,6 +5902,32 @@
             .settings-toggle-row { width: 100%; max-width: 100%; }
             .settings-section .external-link-btn { max-width: 100%; white-space: normal; }
             .course-ignore-onboarding { right: 16px; bottom: 16px; }
+          }
+
+          /* 依据仪表盘实际内容宽度适配，覆盖手机浏览器的桌面布局视口。 */
+          @container chaoxing-main (max-width: 820px) {
+            .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+            .progress-card { grid-column: span 1; }
+            .urgent-strip { align-items: flex-start; gap: 8px; padding: 10px 12px; }
+            .urgent-left { align-items: flex-start; }
+            .urgent-action { align-self: center; }
+            .settings-onboarding { flex-wrap: wrap; }
+            .settings-onboarding-copy { flex: 1 1 100%; align-items: flex-start; }
+            .settings-onboarding-actions { width: 100%; justify-content: flex-end; }
+            .card { min-width: 0; }
+            .card-header { gap: 10px; padding: 12px; }
+            .card-body { min-width: 0; padding: 0 10px; }
+            .list-item, .detail-list-item { align-items: flex-start; flex-wrap: wrap; gap: 7px; padding: 12px 6px; }
+            .item-main, .detail-list-item .item-main { flex: 1 1 100%; min-width: 0; margin-right: 0; }
+            .task-title { white-space: normal; overflow-wrap: anywhere; }
+            .item-time-status { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
+            .detail-header { flex-wrap: wrap; gap: 10px; padding: 14px 16px; }
+            .detail-header-left { min-width: 0; flex-wrap: wrap; }
+            .detail-body { padding: 0 12px 18px; }
+            .detail-progress-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px; }
+            .settings-section { padding: 14px; }
+            .settings-toggle-row { width: 100%; max-width: 100%; }
+            .settings-section .external-link-btn { max-width: 100%; white-space: normal; }
           }
 
           /* ===== 忽略功能样式 ===== */
