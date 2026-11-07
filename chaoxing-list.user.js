@@ -4382,6 +4382,21 @@
         return item.isActivity && item.status === '进行中';
       };
 
+      const isIncompleteForUrgentSort = (item, type) => {
+        switch (type) {
+          case 'homework':
+            return item.isActivity
+              ? item.uncommitted !== false && isReminderItemIncomplete(item)
+              : item.uncommitted === true && !isExplicitlyCompletedHomework(item);
+          case 'exam':
+            return !isExplicitlyClosedExam(item);
+          case 'activities':
+            return isReminderItemIncomplete(item);
+          default:
+            return true;
+        }
+      };
+
       // 智能排序函数：未完成+剩余时间短的在最上面
       const sortItems = (items, type, sortType = 'urgent') => {
         const arr = [...items];
@@ -4405,7 +4420,14 @@
 
         switch (sortType) {
           case 'urgent':
-            return arr.sort(compareTodoItemsByDeadline);
+            return arr.sort((a, b) => {
+              if (type !== 'todo') {
+                const aIncomplete = isIncompleteForUrgentSort(a, type);
+                const bIncomplete = isIncompleteForUrgentSort(b, type);
+                if (aIncomplete !== bIncomplete) return aIncomplete ? -1 : 1;
+              }
+              return compareTodoItemsByDeadline(a, b);
+            });
           case 'time-asc':
             return arr.sort(compareTodoItemsByDeadline);
           case 'time-desc':
