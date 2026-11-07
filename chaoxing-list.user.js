@@ -48,6 +48,27 @@
     document.body.appendChild(wrapper);
     wrapper.style.display = "none";
   };
+  const ensureResponsiveViewport = () => {
+    if (!document.head) return;
+    let viewport = Array.from(document.head.querySelectorAll('meta[name]'))
+      .find(meta => meta.getAttribute('name')?.trim().toLowerCase() === 'viewport');
+    if (!viewport) {
+      viewport = document.createElement('meta');
+      viewport.setAttribute('name', 'viewport');
+      document.head.appendChild(viewport);
+    }
+    const directives = (viewport.getAttribute('content') || '')
+      .split(',')
+      .map(directive => directive.trim())
+      .filter(Boolean);
+    const widthIndex = directives.findIndex(directive => /^width\s*=/i.test(directive));
+    if (widthIndex >= 0) directives[widthIndex] = 'width=device-width';
+    else directives.unshift('width=device-width');
+    if (!directives.some(directive => /^initial-scale\s*=/i.test(directive))) {
+      directives.push('initial-scale=1');
+    }
+    viewport.setAttribute('content', directives.join(', '));
+  };
   const removeStyles = () => {
     removeHtmlStyle();
     const styles = document.querySelectorAll("link[rel=stylesheet]");
@@ -4917,7 +4938,22 @@
         const _component_v_container = vue.resolveComponent("v-container");
 
         const dashboardStyle = `
+          html, body {
+            width: 100% !important;
+            max-width: 100vw !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+          }
+          .chaoxing-list-root,
+          .chaoxing-list-root > * {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+          }
           .dashboard-wrapper {
+            width: 100%;
+            max-width: 100%;
             font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #f5f7fa;
             min-height: 100vh;
@@ -5944,14 +5980,14 @@
           @media (max-width: 768px) {
             .dashboard-wrapper { padding: 10px; }
             .welcome-row {
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 5px;
+              flex-wrap: wrap;
+              gap: 8px;
             }
             .welcome-actions {
-              width: 100%;
+              width: auto;
+              margin-left: auto;
               flex-wrap: wrap;
-              justify-content: space-between;
+              justify-content: flex-end;
               gap: 8px;
             }
             .dashboard-header { padding: 15px; }
@@ -5985,18 +6021,18 @@
           @container chaoxing-main (max-width: 1100px) {
             .dashboard-header { min-width: 0; padding: 15px; }
             .welcome-row {
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 8px;
-            }
-            .welcome-actions {
-              width: 100%;
-              align-items: flex-start;
-              justify-content: space-between;
               flex-wrap: wrap;
               gap: 8px;
             }
-            .date-info { flex: 1 1 auto; }
+            .welcome-actions {
+              width: auto;
+              max-width: 100%;
+              margin-left: auto;
+              justify-content: flex-end;
+              flex-wrap: wrap;
+              gap: 8px;
+            }
+            .date-info { flex: 0 1 auto; white-space: nowrap; overflow-wrap: normal; }
             .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
             .progress-card { grid-column: span 1; }
             .urgent-strip { align-items: flex-start; gap: 8px; padding: 10px 12px; }
@@ -7539,7 +7575,7 @@
 
 
   const appendApp = () => {
-
+    ensureResponsiveViewport();
     const vuetify$1 = vuetify.createVuetify({
       icons: {
         defaultSet: "md",
@@ -7560,6 +7596,7 @@
     vue.createApp(app).use(vuetify$1).mount(
       (() => {
         const app2 = document.createElement("div");
+        app2.className = "chaoxing-list-root";
         document.body.append(app2);
         return app2;
       })()
