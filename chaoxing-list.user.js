@@ -3896,6 +3896,7 @@
       });
 
       const deadlineReminderItems = vue.ref([]);
+      const deadlineReminderBannerItems = vue.ref([]);
       const showDeadlineReminderDialog = vue.ref(false);
       let deadlineReminderState = getDeadlineReminderState();
       let deadlineReminderTimer = null;
@@ -3916,6 +3917,7 @@
             && Math.abs(entry.deadlineAt - absoluteDeadline) > 60 * 1000) {
             entry.stages = {};
             entry.acknowledgedStages = {};
+            entry.bannerDismissedStages = {};
           }
           entry.deadlineAt = absoluteDeadline;
           entry.deadlineSource = 'absolute';
@@ -3938,6 +3940,7 @@
           && Math.abs(entry.deadlineAt - nextDeadline) > 2 * 60 * 1000) {
           entry.stages = {};
           entry.acknowledgedStages = {};
+          entry.bannerDismissedStages = {};
         }
         entry.deadlineAt = nextDeadline;
         entry.deadlineSource = 'relative';
@@ -3971,6 +3974,29 @@
         showDeadlineReminderDialog.value = false;
       };
 
+      const dismissDeadlineReminderBanner = () => {
+        deadlineReminderState = getDeadlineReminderState();
+        deadlineReminderBannerItems.value.forEach(alert => {
+          const entry = deadlineReminderState.tasks[alert.taskKey];
+          if (!entry) return;
+          entry.bannerDismissedStages = entry.bannerDismissedStages && typeof entry.bannerDismissedStages === 'object'
+            ? entry.bannerDismissedStages
+            : {};
+          Object.keys(entry.stages || {}).forEach(stage => { entry.bannerDismissedStages[stage] = true; });
+          entry.updatedAt = Date.now();
+        });
+        saveDeadlineReminderState(deadlineReminderState);
+        deadlineReminderBannerItems.value = [];
+      };
+
+      const openDeadlineReminderDialog = () => {
+        const alertsById = new Map();
+        deadlineReminderItems.value.forEach(alert => alertsById.set(alert.id, alert));
+        deadlineReminderBannerItems.value.forEach(alert => alertsById.set(alert.id, { ...alert, _openedFromBanner: true }));
+        deadlineReminderItems.value = [...alertsById.values()].sort((a, b) => a.deadlineAt - b.deadlineAt);
+        showDeadlineReminderDialog.value = true;
+      };
+
       const dismissDeadlineReminderTask = (taskKey) => {
         deadlineReminderState = getDeadlineReminderState();
         const entry = deadlineReminderState.tasks[taskKey] || { stages: {} };
@@ -3979,6 +4005,7 @@
         deadlineReminderState.tasks[taskKey] = entry;
         saveDeadlineReminderState(deadlineReminderState);
         deadlineReminderItems.value = deadlineReminderItems.value.filter(item => item.taskKey !== taskKey);
+        deadlineReminderBannerItems.value = deadlineReminderBannerItems.value.filter(item => item.taskKey !== taskKey);
         if (!deadlineReminderItems.value.length) showDeadlineReminderDialog.value = false;
       };
 
@@ -4056,6 +4083,7 @@
       const evaluateDeadlineReminders = () => {
         if (!settings.value.deadlineReminderEnabled) {
           deadlineReminderItems.value = [];
+          deadlineReminderBannerItems.value = [];
           showDeadlineReminderDialog.value = false;
           return;
         }
@@ -4073,6 +4101,7 @@
         });
         const rawItems = new Map(todoItems.value.map(item => [getTaskReminderKey(item), item]));
         const newAlerts = [];
+        const newBannerAlerts = [];
         let stateChanged = false;
 
         Object.entries(taskStates).forEach(([taskKey, entry]) => {
@@ -4089,6 +4118,9 @@
           entry.stages = entry.stages && typeof entry.stages === 'object' ? entry.stages : {};
           entry.acknowledgedStages = entry.acknowledgedStages && typeof entry.acknowledgedStages === 'object'
             ? entry.acknowledgedStages
+            : {};
+          entry.bannerDismissedStages = entry.bannerDismissedStages && typeof entry.bannerDismissedStages === 'object'
+            ? entry.bannerDismissedStages
             : {};
           const deadlineAt = resolveReminderDeadline(item, entry, now);
           if (!Number.isFinite(deadlineAt) || deadlineAt <= now || entry.muted) {
@@ -4120,6 +4152,19 @@
               item
             });
           }
+
+          const pendingBannerThresholds = DEADLINE_REMINDER_THRESHOLDS.filter(threshold =>
+            entry.stages[threshold.key] && !entry.bannerDismissedStages[threshold.key]);
+          const pendingBannerThreshold = pendingBannerThresholds[pendingBannerThresholds.length - 1];
+          if (pendingBannerThreshold) {
+            newBannerAlerts.push({
+              id: `${taskKey}:${Math.round(deadlineAt)}:${pendingBannerThreshold.key}`,
+              taskKey,
+              threshold: pendingBannerThreshold,
+              deadlineAt,
+              item
+            });
+          }
         });
 
         deadlineReminderItems.value = deadlineReminderItems.value
@@ -4130,7 +4175,7 @@
             return isVisible
               && (!currentItem || isReminderItemIncomplete(currentItem))
               && alert.deadlineAt > now
-              && !taskStates[alert.taskKey]?.acknowledgedStages?.[alert.threshold.key]
+              && (!taskStates[alert.taskKey]?.acknowledgedStages?.[alert.threshold.key] || alert._openedFromBanner)
               && (!Number.isFinite(currentDeadline) || Math.abs(currentDeadline - alert.deadlineAt) <= 60 * 1000);
           });
 
@@ -4139,6 +4184,7 @@
           if (!existingAlertIds.has(alert.id)) deadlineReminderItems.value.push(alert);
         });
         deadlineReminderItems.value.sort((a, b) => a.deadlineAt - b.deadlineAt);
+        deadlineReminderBannerItems.value = newBannerAlerts.sort((a, b) => a.deadlineAt - b.deadlineAt);
 
         if (stateChanged) saveDeadlineReminderState(deadlineReminderState);
         if (newAlerts.length) {
@@ -5869,6 +5915,12 @@
             color: #999;
           }
 
+          /* 中小屏按可用宽度切为单列，避免宿主的桌面布局视口造成右侧卡片被裁切。 */
+          @media (max-width: 1100px), (max-device-width: 768px) {
+            .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+            .progress-card { grid-column: span 1; }
+          }
+
           /* 移动端适配 */
           @media (max-width: 768px) {
             .dashboard-wrapper { padding: 10px; }
@@ -6065,6 +6117,7 @@
           .deadline-reminder-banner:hover .deadline-reminder-banner-text.is-scrolling { animation-play-state: paused; }
           @keyframes deadline-reminder-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
           .deadline-reminder-banner-button { flex: 0 0 auto; padding: 6px 10px; border: 0; border-radius: 7px; background: #f59e0b; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; }
+          .deadline-reminder-banner-close { flex: 0 0 auto; padding: 2px 5px; border: 0; background: transparent; color: #8c5a06; font-size: 20px; line-height: 1; cursor: pointer; }
           .deadline-reminder-overlay {
             position: fixed; z-index: 13000; inset: 0; display: flex; align-items: center; justify-content: center;
             padding: 20px; background: rgba(15, 23, 42, .58); backdrop-filter: blur(2px);
@@ -6796,12 +6849,13 @@
 
         const renderDeadlineReminderLayers = () => {
           const items = deadlineReminderItems.value;
-          if (!items.length) return [];
-          const bannerText = items.map(alert => {
+          const bannerItems = deadlineReminderBannerItems.value;
+          if (!items.length && !bannerItems.length) return [];
+          const bannerText = bannerItems.map(alert => {
             const course = alert.item.course || alert.item.courseName || '课程';
             return `${course} · ${alert.item.title || '待办任务'}（还剩${formatReminderRemaining(alert.deadlineAt - Date.now())}）`;
           }).join('　　｜　　');
-          const banner = vue.createVNode('div', { class: 'deadline-reminder-banner', role: 'status' }, [
+          const banner = bannerItems.length ? vue.createVNode('div', { class: 'deadline-reminder-banner', role: 'status' }, [
             vue.createVNode('span', { class: 'deadline-reminder-banner-icon', 'aria-hidden': 'true' }, '🔔'),
             vue.createVNode('div', { class: 'deadline-reminder-banner-viewport' }, [
               vue.createVNode('span', {
@@ -6810,10 +6864,17 @@
             ]),
             vue.createVNode('button', {
               class: 'deadline-reminder-banner-button',
-              onClick: () => { showDeadlineReminderDialog.value = true; }
-            }, `查看 ${items.length} 项`)
-          ]);
-          const dialog = showDeadlineReminderDialog.value ? vue.createVNode('div', {
+              onClick: openDeadlineReminderDialog
+            }, `查看 ${bannerItems.length} 项`),
+            vue.createVNode('button', {
+              class: 'deadline-reminder-banner-close',
+              type: 'button',
+              'aria-label': '关闭临近提醒横幅',
+              title: '关闭横幅',
+              onClick: dismissDeadlineReminderBanner
+            }, '×')
+          ]) : null;
+          const dialog = showDeadlineReminderDialog.value && items.length ? vue.createVNode('div', {
             class: 'deadline-reminder-overlay',
             role: 'presentation'
           }, [
@@ -6849,7 +6910,7 @@
               ])
             ])
           ]) : null;
-          return [banner, dialog];
+          return [banner, dialog].filter(Boolean);
         };
 
         if (currentView.value === 'settings') {
@@ -6898,6 +6959,7 @@
               // 紧急提醒条
               filteredUrgentTasks.value.length > 0 ? vue.createVNode("div", {
                 class: "urgent-strip",
+                title: '剩余时间为0至24小时（含）的待办会计入；时间无法解析时，仅状态为“进行中”的课程活动计入。超过24小时或已逾期的任务不计入。',
                 onClick: () => openFullScreen('todo')
               }, [
                 vue.createVNode("div", { class: "urgent-left" }, [
@@ -6905,7 +6967,7 @@
                   vue.createVNode("span", {}, [
                     "你还有 ",
                     vue.createVNode("span", { class: "urgent-count" }, filteredUrgentTasks.value.length),
-                    ` 个高优先级任务待处理：${getDashboardTodoPreviewItems().map(t => t.title).join('、')}${filteredTodoItems.value.length > 2 ? '等...' : ''}`
+                    ` 个高优先级任务（剩余0–24小时或期限未知且进行中）：${getDashboardTodoPreviewItems().map(t => t.title).join('、')}${filteredTodoItems.value.length > 2 ? '等...' : ''}`
                   ])
                 ]),
                 vue.createVNode("div", { class: "urgent-action" }, "去处理 >")
