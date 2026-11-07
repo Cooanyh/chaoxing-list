@@ -4967,6 +4967,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+            min-width: 0;
           }
           .welcome-text {
             font-size: 22px;
@@ -4975,10 +4977,22 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
+          }
+          .welcome-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            max-width: 100%;
           }
           .date-info {
             font-size: 14px;
             color: #8c8c8c;
+            min-width: 0;
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
           }
           .settings-onboarding {
             display: flex;
@@ -5934,6 +5948,12 @@
               align-items: flex-start;
               gap: 5px;
             }
+            .welcome-actions {
+              width: 100%;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              gap: 8px;
+            }
             .dashboard-header { padding: 15px; }
             .card-header { padding: 15px; }
             .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
@@ -5963,6 +5983,20 @@
 
           /* 依据仪表盘实际内容宽度适配，覆盖手机浏览器的桌面布局视口。 */
           @container chaoxing-main (max-width: 1100px) {
+            .dashboard-header { min-width: 0; padding: 15px; }
+            .welcome-row {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 8px;
+            }
+            .welcome-actions {
+              width: 100%;
+              align-items: flex-start;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 8px;
+            }
+            .date-info { flex: 1 1 auto; }
             .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
             .progress-card { grid-column: span 1; }
             .urgent-strip { align-items: flex-start; gap: 8px; padding: 10px 12px; }
@@ -6946,7 +6980,7 @@
             vue.createVNode("div", { class: "dashboard-header" }, [
               vue.createVNode("div", { class: "welcome-row" }, [
                 vue.createVNode("div", { class: "welcome-text" }, `👋 ${greeting.value}，${userName.value}`),
-                vue.createVNode("div", { style: "display:flex;align-items:center;gap:12px;" }, [
+                vue.createVNode("div", { class: "welcome-actions" }, [
                   vue.createVNode("div", { class: "date-info" }, dateInfo.value),
                   vue.createVNode("button", { class: "external-link-btn", onClick: openSettings }, "⚙ 设置")
                 ])
