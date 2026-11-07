@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.5.1
+// @version      2.5.0
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、截止提醒、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -5919,6 +5919,11 @@
           @media (max-width: 1100px), (max-device-width: 768px) {
             .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
             .progress-card { grid-column: span 1; }
+            .dashboard-grid > .card, .dashboard-grid .card-body { min-width: 0; max-width: 100%; }
+            .dashboard-grid .list-item, .dashboard-grid .detail-list-item { align-items: flex-start; flex-wrap: wrap; gap: 7px; padding: 12px 6px; }
+            .dashboard-grid .item-main, .dashboard-grid .detail-list-item .item-main { flex: 1 1 100%; min-width: 0; margin-right: 0; }
+            .dashboard-grid .task-title { white-space: normal; overflow-wrap: anywhere; }
+            .dashboard-grid .item-time-status { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
           }
 
           /* 移动端适配 */
@@ -5957,7 +5962,7 @@
           }
 
           /* 依据仪表盘实际内容宽度适配，覆盖手机浏览器的桌面布局视口。 */
-          @container chaoxing-main (max-width: 820px) {
+          @container chaoxing-main (max-width: 1100px) {
             .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
             .progress-card { grid-column: span 1; }
             .urgent-strip { align-items: flex-start; gap: 8px; padding: 10px 12px; }
@@ -6967,7 +6972,7 @@
                   vue.createVNode("span", {}, [
                     "你还有 ",
                     vue.createVNode("span", { class: "urgent-count" }, filteredUrgentTasks.value.length),
-                    ` 个高优先级任务（剩余0–24小时或期限未知且进行中）：${getDashboardTodoPreviewItems().map(t => t.title).join('、')}${filteredTodoItems.value.length > 2 ? '等...' : ''}`
+                    ` 个高优先级任务：${getDashboardTodoPreviewItems().map(t => t.title).join('、')}${filteredTodoItems.value.length > 2 ? '等...' : ''}`
                   ])
                 ]),
                 vue.createVNode("div", { class: "urgent-action" }, "去处理 >")
