@@ -4357,6 +4357,9 @@
         }
       };
 
+      const getDashboardTodoPreviewItems = () =>
+        sortItems(filteredTodoItems.value, 'todo', 'urgent').slice(0, 2);
+
       // 获取待办任务数据
       const loadTodoData = async () => {
         loading.value.todo = true;
@@ -4872,6 +4875,8 @@
             font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #f5f7fa;
             min-height: 100vh;
+            width: 100%;
+            min-width: 0;
             padding: 20px;
           }
           .dashboard-wrapper * { box-sizing: border-box; }
@@ -4880,6 +4885,7 @@
           .main-content {
             width: 100%;
             max-width: 1200px;
+            min-width: 0;
             margin: 0 auto;
           }
 
@@ -4985,15 +4991,16 @@
             cursor: pointer;
           }
           .urgent-strip:hover { background-color: #ffccc7; }
-          .urgent-left { display: flex; align-items: center; gap: 10px; }
+          .urgent-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+          .urgent-left > span:last-child { min-width: 0; overflow-wrap: anywhere; line-height: 1.5; }
           .urgent-icon { font-size: 16px; }
           .urgent-count { font-weight: bold; color: #cf1322; }
-          .urgent-action { font-size: 13px; color: #8c8c8c; }
+          .urgent-action { flex: 0 0 auto; margin-left: 10px; font-size: 13px; color: #8c8c8c; white-space: nowrap; }
 
           /* 仪表盘网格 */
           .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(560px, 100%), 1fr));
             gap: 20px;
             align-items: stretch;
           }
@@ -5329,12 +5336,17 @@
             max-height: none;
             overflow: visible;
           }
-          .settings-group-heading { margin: 4px 0 12px; padding-bottom: 10px; border-bottom: 1px solid #e8edf4; }
+          .settings-group-heading { margin: 4px 0 12px; padding: 2px 0 12px 14px; border-bottom: 2px solid #dbeafe; border-left: 3px solid #3b82f6; }
           .settings-group-heading-spaced { margin-top: 34px; }
-          .settings-group-heading h3 { margin: 0; color: #1f2937; font-size: 17px; font-weight: 650; }
-          .settings-group-heading p { margin: 5px 0 0; color: #64748b; font-size: 13px; line-height: 1.5; }
+          .settings-group-heading h3 { margin: 0; color: #1e3a5f; font-size: 18px; font-weight: 700; line-height: 1.4; }
+          .settings-group-heading p { margin: 5px 0 0; color: #52637b; font-size: 14px; line-height: 1.55; }
+          .settings-section { min-width: 0; padding: 17px 18px; border: 1px solid #e2eaf4; border-radius: 12px; background: #fbfdff; }
+          .settings-section > h3 { display: flex; align-items: center; gap: 8px; color: #26374b; font-size: 15px; font-weight: 650; line-height: 1.5; }
+          .settings-section > h3::before { content: ''; display: inline-block; width: 4px; height: 15px; flex: 0 0 auto; border-radius: 99px; background: #60a5fa; }
+          .settings-section > p { color: #64748b; font-size: 13px; line-height: 1.6; }
           .reminder-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
           .reminder-settings-row .settings-toggle-row { flex: 1 1 340px; }
+          .settings-detail-body .progress-delay-help { padding: 10px 12px; border-radius: 8px; background: #f1f5f9; color: #52637b; line-height: 1.6; }
           .external-link-btn:disabled { opacity: .55; cursor: not-allowed; }
           .detail-list-item {
             display: flex;
@@ -5454,10 +5466,10 @@
           .detail-list-item .status-info {
             min-width: 80px;
           }
-          /* 课程进度卡片样式 - 占用2列 */
+          /* 课程进度卡片样式 - 跨越当前网格的所有列 */
           .progress-card {
             min-height: 200px;
-            grid-column: span 2;
+            grid-column: 1 / -1;
             overflow: hidden;
           }
           .progress-card .card-body {
@@ -5866,8 +5878,28 @@
             }
             .dashboard-header { padding: 15px; }
             .card-header { padding: 15px; }
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .progress-card { grid-column: span 1; }
+            .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+            .progress-card { grid-column: 1 / -1; }
+            .urgent-strip { align-items: flex-start; gap: 8px; padding: 10px 12px; }
+            .urgent-left { align-items: flex-start; }
+            .urgent-action { align-self: center; }
+            .settings-onboarding { flex-wrap: wrap; }
+            .settings-onboarding-copy { flex: 1 1 100%; align-items: flex-start; }
+            .settings-onboarding-actions { width: 100%; justify-content: flex-end; }
+            .card { min-width: 0; }
+            .card-header { gap: 10px; padding: 12px; }
+            .card-body { min-width: 0; padding: 0 10px; }
+            .list-item { align-items: flex-start; flex-wrap: wrap; gap: 7px; padding: 12px 6px; }
+            .item-main { flex: 1 1 100%; min-width: 0; margin-right: 0; }
+            .task-title { white-space: normal; overflow-wrap: anywhere; }
+            .item-time-status { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
+            .detail-header { flex-wrap: wrap; gap: 10px; padding: 14px 16px; }
+            .detail-header-left { min-width: 0; flex-wrap: wrap; }
+            .detail-body { padding: 0 12px 18px; }
+            .detail-progress-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px; }
+            .settings-section { padding: 14px; }
+            .settings-toggle-row { width: 100%; max-width: 100%; }
+            .settings-section .external-link-btn { max-width: 100%; white-space: normal; }
             .course-ignore-onboarding { right: 16px; bottom: 16px; }
           }
 
@@ -6846,7 +6878,7 @@
                   vue.createVNode("span", {}, [
                     "你还有 ",
                     vue.createVNode("span", { class: "urgent-count" }, filteredUrgentTasks.value.length),
-                    ` 个高优先级任务待处理：${filteredUrgentTasks.value.slice(0, 2).map(t => t.title).join('、')}${filteredUrgentTasks.value.length > 2 ? '等...' : ''}`
+                    ` 个高优先级任务待处理：${getDashboardTodoPreviewItems().map(t => t.title).join('、')}${filteredTodoItems.value.length > 2 ? '等...' : ''}`
                   ])
                 ]),
                 vue.createVNode("div", { class: "urgent-action" }, "去处理 >")
