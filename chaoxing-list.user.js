@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.4.10
+// @version      2.5.0
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
-// @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、任务分类筛选、按课程忽略及任务引擎模块汇总。
+// @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、截止提醒、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
 // @copyright    lcandy2 All Rights Reserved
 // @copyright    2025, Coren (Modified based on original work)
@@ -135,7 +135,16 @@
     const rate = Number.parseFloat(String(item?.completionRate ?? '').replace('%', ''));
     return Number.isFinite(rate) ? rate : null;
   };
+  const hasCourseProgressTaskCount = item => item?.totalTasks !== null && item?.totalTasks !== undefined && item?.totalTasks !== '';
+  const compareEmptyProgressLast = (a, b) => {
+    const emptyA = hasCourseProgressTaskCount(a) && Number(a.totalTasks) === 0;
+    const emptyB = hasCourseProgressTaskCount(b) && Number(b.totalTasks) === 0;
+    if (emptyA === emptyB) return 0;
+    return emptyA ? 1 : -1;
+  };
   const compareCourseProgress = (a, b, direction = 1) => {
+    const emptyOrder = compareEmptyProgressLast(a, b);
+    if (emptyOrder) return emptyOrder;
     const rateA = getCourseCompletionRate(a);
     const rateB = getCourseCompletionRate(b);
     if (rateA === null && rateB !== null) return 1;
@@ -143,17 +152,29 @@
     if (rateA !== null && rateB !== null && rateA !== rateB) return (rateA - rateB) * direction;
     return (a.courseName || '').localeCompare(b.courseName || '', 'zh-CN');
   };
+  const compareCourseProgressByName = (a, b) => compareEmptyProgressLast(a, b)
+    || (a.courseName || '').localeCompare(b.courseName || '', 'zh-CN');
 
   // --- 忽略管理 - 使用 localStorage 持久化 ---
   const IGNORE_STORAGE_KEY = 'chaoxing_ignored_items';
   const SETTINGS_STORAGE_KEY = 'chaoxing_list_settings_v1';
   const DASHBOARD_CACHE_STORAGE_KEY = 'chaoxing_list_dashboard_cache_v1';
+  const DEADLINE_REMINDER_STORAGE_KEY = 'chaoxing_list_deadline_reminders_v1';
   const DASHBOARD_CACHE_TTL = 5 * 60 * 1000;
+  const DEADLINE_REMINDER_CHECK_INTERVAL = 30 * 1000;
+  const DEADLINE_REMINDER_THRESHOLDS = Object.freeze([
+    { key: '12h', label: '12 小时', milliseconds: 12 * 60 * 60 * 1000 },
+    { key: '6h', label: '6 小时', milliseconds: 6 * 60 * 60 * 1000 },
+    { key: '3h', label: '3 小时', milliseconds: 3 * 60 * 60 * 1000 },
+    { key: '30m', label: '30 分钟', milliseconds: 30 * 60 * 1000 }
+  ]);
   const COURSE_IGNORE_PREFIX = 'course__';
   const DEFAULT_SETTINGS = Object.freeze({
     ignoreEnabled: false,
     showOtherTasks: false,
     otherTaskTypes: [],
+    deadlineReminderEnabled: true,
+    deadlineBrowserNotificationEnabled: false,
     shortTermCacheEnabled: false,
     dynamicIgnoreRules: { homework: false, exam: false, activities: false, progress: false },
     settingsHintSeen: false,
@@ -168,6 +189,21 @@
     } catch { return { ...DEFAULT_SETTINGS }; }
   };
   const saveSettings = (settings) => localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, ...settings }));
+  const getDeadlineReminderState = () => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(DEADLINE_REMINDER_STORAGE_KEY) || '{}');
+      if (!stored || typeof stored !== 'object' || !stored.tasks || typeof stored.tasks !== 'object') return { tasks: {} };
+      return {
+        ...stored,
+        tasks: Object.fromEntries(Object.entries(stored.tasks)
+          .filter(([, entry]) => entry && typeof entry === 'object' && !Array.isArray(entry)))
+      };
+    } catch { return { tasks: {} }; }
+  };
+  const saveDeadlineReminderState = (state) => {
+    try { localStorage.setItem(DEADLINE_REMINDER_STORAGE_KEY, JSON.stringify(state)); }
+    catch (error) { console.warn('[临近提醒] 保存提醒状态失败:', error); }
+  };
   const getDashboardCache = () => {
     try { return JSON.parse(localStorage.getItem(DASHBOARD_CACHE_STORAGE_KEY) || '{}'); }
     catch { return {}; }
@@ -908,6 +944,85 @@
     }
 
     return Date.parse(text.replace(/-/g, '/'));
+  };
+
+  const parseTaskDeadlineText = (value) => {
+    if (typeof value === 'number') {
+      if (!Number.isFinite(value)) return NaN;
+      return value > 0 && value < 1e12 ? value * 1000 : value;
+    }
+    const text = `${value || ''}`.trim();
+    if (!text) return NaN;
+    if (/^\d{13}$/.test(text)) return Number(text);
+    if (/^\d{10}$/.test(text)) return Number(text) * 1000;
+    if (/^\d{4}-\d{2}-\d{2}T/i.test(text)) {
+      const isoTimestamp = Date.parse(text);
+      if (Number.isFinite(isoTimestamp)) return isoTimestamp;
+    }
+
+    const datePattern = '(?:\\d{4}[-/.年]\\d{1,2}[-/.月]\\d{1,2}日?|\\d{1,2}[-/.月]\\d{1,2}日?)';
+    const timePattern = '\\d{1,2}:\\d{2}(?::\\d{2})?';
+    const rangeMatch = text.match(new RegExp(`(${datePattern})\\s+(${timePattern})\\s*(?:至|到|[-–—~～])\\s*(?:(${datePattern})\\s*)?(${timePattern})`));
+    if (rangeMatch) {
+      return parseTaskEngineDate(`${rangeMatch[3] || rangeMatch[1]} ${rangeMatch[4]}`);
+    }
+
+    const dateTimePattern = new RegExp(`${datePattern}(?:\\s+${timePattern})?`, 'g');
+    const dateMatches = Array.from(text.matchAll(dateTimePattern), match => match[0]);
+    if (!dateMatches.length) return NaN;
+    const lastDate = dateMatches[dateMatches.length - 1].trim();
+    const hasTime = new RegExp(`${timePattern}`).test(lastDate);
+    return parseTaskEngineDate(hasTime ? lastDate : `${lastDate} 23:59:59`);
+  };
+
+  const getTaskDeadlineTimestamp = (item) => {
+    const candidates = [item?.endTime, item?.deadlineAt, item?.deadline, item?.timeRange, item?.timeLeft, item?.leftTime, item?.info];
+    for (const candidate of candidates) {
+      const timestamp = parseTaskDeadlineText(candidate);
+      if (Number.isFinite(timestamp)) return timestamp;
+    }
+    return NaN;
+  };
+
+  const parseTaskRemainingMinutes = (value) => {
+    const text = `${value || ''}`;
+    if (!text) return Infinity;
+    if (/过期|已结束|已截止/.test(text)) return -1;
+    let minutes = 0;
+    let matched = false;
+    const dayMatch = text.match(/(\d+)\s*天/);
+    const hourMatch = text.match(/(\d+)\s*小时/);
+    const minuteMatch = text.match(/(\d+)\s*分/);
+    const secondMatch = text.match(/(\d+)\s*秒/);
+    if (dayMatch) { minutes += Number(dayMatch[1]) * 24 * 60; matched = true; }
+    if (hourMatch) { minutes += Number(hourMatch[1]) * 60; matched = true; }
+    if (minuteMatch) { minutes += Number(minuteMatch[1]); matched = true; }
+    if (secondMatch) { minutes += Number(secondMatch[1]) / 60; matched = true; }
+    return matched ? minutes : Infinity;
+  };
+
+  const getTaskRemainingMinutes = (item, now = Date.now()) => {
+    const deadlineAt = getTaskDeadlineTimestamp(item);
+    if (Number.isFinite(deadlineAt)) return (deadlineAt - now) / 60000;
+    return parseTaskRemainingMinutes(item?.leftTime || item?.timeLeft || item?.info || '');
+  };
+
+  const compareTodoItemsByDeadline = (a, b, direction = 1) => {
+    const remainingA = getTaskRemainingMinutes(a);
+    const remainingB = getTaskRemainingMinutes(b);
+    if (remainingA === remainingB) return 0;
+    if (!Number.isFinite(remainingA)) return 1;
+    if (!Number.isFinite(remainingB)) return -1;
+    return (remainingA - remainingB) * direction;
+  };
+
+  const getTaskReminderKey = (item) => {
+    const identity = [item?.workId, item?.examId, item?.planId, item?.taskId, item?.activeId]
+      .filter(value => value !== null && value !== undefined && value !== '')
+      .join(':');
+    const classId = item?.clazzId || item?.classId || '';
+    const fallback = `${item?.course || item?.courseName || ''}|${item?.title || ''}`;
+    return [item?.type || '任务', item?.courseId || '', classId, identity || fallback].join('|');
   };
 
   const isTaskEnginePlanFinished = (plan) => plan.isFinish === true
@@ -1959,7 +2074,7 @@
 
         // 如果启用紧急模式，只显示紧急任务
         if (showUrgentOnly.value) {
-          return urgentTasks.value;
+          return [...urgentTasks.value].sort(compareTodoItemsByDeadline);
         }
 
         // 如果关闭课程任务显示，过滤掉 isActivity 项
@@ -1967,7 +2082,7 @@
           list = list.filter(item => !item.isActivity);
         }
 
-        return list;
+        return [...list].sort(compareTodoItemsByDeadline);
       });
 
       const headers = [
@@ -1982,22 +2097,8 @@
       // 检测24小时内截止的紧急任务
       const urgentTasks = vue.computed(() => {
         return allTodoItems.value.filter(item => {
-          // 获取剩余时间字符串（作业用 leftTime，考试用 timeLeft）
-          const timeStr = item.leftTime || item.timeLeft || item.info || '';
-
-          // 尝试解析截止时间
-          if (timeStr.includes('小时')) {
-            const hours = parseInt(timeStr);
-            return !isNaN(hours) && hours <= 24;
-          }
-          if (timeStr.includes('天')) {
-            const days = parseInt(timeStr);
-            return !isNaN(days) && days < 1;
-          }
-          if (timeStr.includes('分钟') || timeStr.includes('分')) {
-            return true; // 还剩分钟肯定是紧急的
-          }
-          // 进行中的课程任务也算紧急
+          const remainingMinutes = getTaskRemainingMinutes(item);
+          if (Number.isFinite(remainingMinutes)) return remainingMinutes >= 0 && remainingMinutes <= 24 * 60;
           if (item.isActivity && item.status === '进行中') {
             return true;
           }
@@ -2124,8 +2225,8 @@
           activityReadWarning.value = '课程列表或任务引擎读取失败，待办清单可能不完整。请刷新重试。';
         }
 
-        // 排序：作业和考试在前，课程任务在后
-        allTodoItems.value = [...pendingTasks, ...pendingExams, ...ongoingActivities];
+        allTodoItems.value = [...pendingTasks, ...pendingExams, ...ongoingActivities]
+          .sort(compareTodoItemsByDeadline);
         loading.value = false;
       });
 
@@ -3440,8 +3541,10 @@
             ongoing: activity.ongoing, uncommitted: activity.uncommitted
           }))
           .map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
-        todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities];
+        todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities]
+          .sort(compareTodoItemsByDeadline);
         urgentTasks.value = todoItems.value.filter(isTodoItemUrgent);
+        evaluateDeadlineReminders();
       };
 
       const hydrateShortTermCache = () => {
@@ -3565,6 +3668,7 @@
         settings.value = { ...settings.value, [key]: value };
         saveSettings(settings.value);
         settingsVersion.value++;
+        if (key === 'deadlineReminderEnabled' || key === 'deadlineBrowserNotificationEnabled') evaluateDeadlineReminders();
       };
       const updateProgressDelay = (value) => {
         progressDelay.value = setProgressDelay(value);
@@ -3786,8 +3890,276 @@
       });
       const filteredUrgentTasks = vue.computed(() => {
         ignoredVersion.value;
-        return urgentTasks.value.filter(item => shouldDisplayItem({ ...item, _sectionType: 'todo' }));
+        return urgentTasks.value
+          .filter(item => shouldDisplayItem({ ...item, _sectionType: 'todo' }))
+          .sort(compareTodoItemsByDeadline);
       });
+
+      const deadlineReminderItems = vue.ref([]);
+      const showDeadlineReminderDialog = vue.ref(false);
+      let deadlineReminderState = getDeadlineReminderState();
+      let deadlineReminderTimer = null;
+      const systemNotifiedReminderIds = new Set();
+
+      const isReminderItemIncomplete = (item) => {
+        const status = `${item?.status || ''}`;
+        return item?.finished !== true
+          && item?.expired !== true
+          && !/已完成|已提交|待批阅|已结束|已截止/.test(status);
+      };
+
+      const resolveReminderDeadline = (item, entry, now) => {
+        const absoluteDeadline = getTaskDeadlineTimestamp(item);
+        if (Number.isFinite(absoluteDeadline)) {
+          if (entry.deadlineSource === 'absolute'
+            && Number.isFinite(entry.deadlineAt)
+            && Math.abs(entry.deadlineAt - absoluteDeadline) > 60 * 1000) {
+            entry.stages = {};
+            entry.acknowledgedStages = {};
+          }
+          entry.deadlineAt = absoluteDeadline;
+          entry.deadlineSource = 'absolute';
+          entry.relativeText = '';
+          return absoluteDeadline;
+        }
+
+        const relativeText = `${item?.leftTime || item?.timeLeft || item?.info || ''}`.trim();
+        const remainingMinutes = parseTaskRemainingMinutes(relativeText);
+        if (!Number.isFinite(remainingMinutes) || remainingMinutes < 0) return NaN;
+
+        const relativeInputMatches = entry.deadlineSource === 'relative'
+          && entry.relativeText === relativeText
+          && Number.isFinite(entry.deadlineAt);
+        if (relativeInputMatches) return entry.deadlineAt;
+
+        const nextDeadline = now + remainingMinutes * 60000;
+        if (Number.isFinite(entry.deadlineAt)
+          && entry.relativeText !== relativeText
+          && Math.abs(entry.deadlineAt - nextDeadline) > 2 * 60 * 1000) {
+          entry.stages = {};
+          entry.acknowledgedStages = {};
+        }
+        entry.deadlineAt = nextDeadline;
+        entry.deadlineSource = 'relative';
+        entry.relativeText = relativeText;
+        return nextDeadline;
+      };
+
+      const formatReminderRemaining = (milliseconds) => {
+        const totalMinutes = Math.max(1, Math.ceil(milliseconds / 60000));
+        const days = Math.floor(totalMinutes / (24 * 60));
+        const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
+        const minutes = totalMinutes % 60;
+        if (days) return `${days}天${hours ? `${hours}小时` : ''}`;
+        if (hours) return `${hours}小时${minutes ? `${minutes}分钟` : ''}`;
+        return `${minutes}分钟`;
+      };
+
+      const acknowledgeDeadlineReminderBatch = () => {
+        deadlineReminderState = getDeadlineReminderState();
+        deadlineReminderItems.value.forEach(alert => {
+          const entry = deadlineReminderState.tasks[alert.taskKey];
+          if (!entry) return;
+          entry.acknowledgedStages = entry.acknowledgedStages && typeof entry.acknowledgedStages === 'object'
+            ? entry.acknowledgedStages
+            : {};
+          Object.keys(entry.stages || {}).forEach(stage => { entry.acknowledgedStages[stage] = true; });
+          entry.updatedAt = Date.now();
+        });
+        saveDeadlineReminderState(deadlineReminderState);
+        deadlineReminderItems.value = [];
+        showDeadlineReminderDialog.value = false;
+      };
+
+      const dismissDeadlineReminderTask = (taskKey) => {
+        deadlineReminderState = getDeadlineReminderState();
+        const entry = deadlineReminderState.tasks[taskKey] || { stages: {} };
+        entry.muted = true;
+        entry.updatedAt = Date.now();
+        deadlineReminderState.tasks[taskKey] = entry;
+        saveDeadlineReminderState(deadlineReminderState);
+        deadlineReminderItems.value = deadlineReminderItems.value.filter(item => item.taskKey !== taskKey);
+        if (!deadlineReminderItems.value.length) showDeadlineReminderDialog.value = false;
+      };
+
+      const acknowledgeDeadlineReminderTask = (taskKey) => {
+        deadlineReminderState = getDeadlineReminderState();
+        const entry = deadlineReminderState.tasks[taskKey];
+        if (entry) {
+          entry.acknowledgedStages = entry.acknowledgedStages && typeof entry.acknowledgedStages === 'object'
+            ? entry.acknowledgedStages
+            : {};
+          Object.keys(entry.stages || {}).forEach(stage => { entry.acknowledgedStages[stage] = true; });
+          entry.updatedAt = Date.now();
+          saveDeadlineReminderState(deadlineReminderState);
+        }
+        deadlineReminderItems.value = deadlineReminderItems.value.filter(item => item.taskKey !== taskKey);
+        if (!deadlineReminderItems.value.length) showDeadlineReminderDialog.value = false;
+      };
+
+      const openDeadlineReminderTask = (alert) => {
+        const link = getTodoLink(alert.item);
+        if (link && link !== '#') {
+          window.open(link, '_blank', 'noopener');
+          acknowledgeDeadlineReminderTask(alert.taskKey);
+        }
+      };
+
+      const requestDeadlineBrowserNotifications = async () => {
+        const notificationApi = window.Notification;
+        if (!notificationApi) {
+          updateSetting('deadlineBrowserNotificationEnabled', false);
+          notifySettingsSaved('当前浏览器不支持系统通知，页面内提醒仍可使用');
+          return;
+        }
+        if (notificationApi.permission === 'denied') {
+          updateSetting('deadlineBrowserNotificationEnabled', false);
+          notifySettingsSaved('浏览器已禁止通知，请在站点权限中允许后重试');
+          return;
+        }
+        try {
+          const permission = notificationApi.permission === 'granted'
+            ? 'granted'
+            : await notificationApi.requestPermission();
+          const enabled = permission === 'granted';
+          updateSetting('deadlineBrowserNotificationEnabled', enabled);
+          notifySettingsSaved(enabled ? '系统通知已开启' : '未获得系统通知权限，页面内提醒仍可使用');
+        } catch (error) {
+          updateSetting('deadlineBrowserNotificationEnabled', false);
+          notifySettingsSaved('无法开启系统通知，页面内提醒仍可使用');
+          console.warn('[临近提醒] 浏览器通知授权失败:', error);
+        }
+      };
+
+      const sendDeadlineBrowserNotification = (items) => {
+        const notificationApi = window.Notification;
+        if (!settings.value.deadlineBrowserNotificationEnabled
+          || !notificationApi
+          || notificationApi.permission !== 'granted'
+          || !items.length) return [];
+        const first = items[0];
+        const body = `${first.item.course || first.item.courseName || '课程'} · ${first.item.title || '待办任务'}（${formatReminderRemaining(first.deadlineAt - Date.now())}后截止）${items.length > 1 ? `，另有 ${items.length - 1} 项` : ''}`;
+        try {
+          const notification = new notificationApi('临近任务提醒', { body, tag: 'chaoxing-deadline-reminder' });
+          notification.onclick = () => {
+            window.focus();
+            openDeadlineReminderTask(first);
+            notification.close();
+          };
+          return items.map(item => item.id);
+        } catch (error) {
+          console.warn('[临近提醒] 系统通知发送失败:', error);
+          return [];
+        }
+      };
+
+      const evaluateDeadlineReminders = () => {
+        if (!settings.value.deadlineReminderEnabled) {
+          deadlineReminderItems.value = [];
+          showDeadlineReminderDialog.value = false;
+          return;
+        }
+
+        const now = Date.now();
+        deadlineReminderState = getDeadlineReminderState();
+        const taskStates = deadlineReminderState.tasks;
+        const eligibleItems = new Map();
+        todoItems.value.forEach(item => {
+          if (!isReminderItemIncomplete(item)) return;
+          const reminderItem = { ...item, _sectionType: 'todo' };
+          if (isItemIgnored(reminderItem, 'todo') || isDynamicallyIgnored(reminderItem, 'todo', settings.value)) return;
+          const taskKey = getTaskReminderKey(item);
+          if (!eligibleItems.has(taskKey)) eligibleItems.set(taskKey, item);
+        });
+        const rawItems = new Map(todoItems.value.map(item => [getTaskReminderKey(item), item]));
+        const newAlerts = [];
+        let stateChanged = false;
+
+        Object.entries(taskStates).forEach(([taskKey, entry]) => {
+          if (Number.isFinite(entry.deadlineAt) && entry.deadlineAt < now - 7 * 24 * 60 * 60 * 1000) {
+            delete taskStates[taskKey];
+            stateChanged = true;
+          }
+        });
+
+        eligibleItems.forEach((item, taskKey) => {
+          const previousEntry = taskStates[taskKey];
+          const entry = previousEntry || { stages: {} };
+          const previousEntryJson = JSON.stringify(entry);
+          entry.stages = entry.stages && typeof entry.stages === 'object' ? entry.stages : {};
+          entry.acknowledgedStages = entry.acknowledgedStages && typeof entry.acknowledgedStages === 'object'
+            ? entry.acknowledgedStages
+            : {};
+          const deadlineAt = resolveReminderDeadline(item, entry, now);
+          if (!Number.isFinite(deadlineAt) || deadlineAt <= now || entry.muted) {
+            taskStates[taskKey] = entry;
+            if (!previousEntry || previousEntryJson !== JSON.stringify(entry)) stateChanged = true;
+            return;
+          }
+          taskStates[taskKey] = entry;
+          if (!previousEntry || previousEntryJson !== JSON.stringify(entry)) stateChanged = true;
+
+          const remainingMs = deadlineAt - now;
+          const reachedThresholds = DEADLINE_REMINDER_THRESHOLDS.filter(threshold => remainingMs <= threshold.milliseconds);
+          const currentThreshold = reachedThresholds[reachedThresholds.length - 1];
+          if (currentThreshold && !entry.stages[currentThreshold.key]) {
+            entry.stages[currentThreshold.key] = now;
+            entry.updatedAt = now;
+            stateChanged = true;
+          }
+
+          const pendingThresholds = DEADLINE_REMINDER_THRESHOLDS.filter(threshold =>
+            entry.stages[threshold.key] && !entry.acknowledgedStages[threshold.key]);
+          const pendingThreshold = pendingThresholds[pendingThresholds.length - 1];
+          if (pendingThreshold) {
+            newAlerts.push({
+              id: `${taskKey}:${Math.round(deadlineAt)}:${pendingThreshold.key}`,
+              taskKey,
+              threshold: pendingThreshold,
+              deadlineAt,
+              item
+            });
+          }
+        });
+
+        deadlineReminderItems.value = deadlineReminderItems.value
+          .filter(alert => {
+            const currentItem = rawItems.get(alert.taskKey);
+            const isVisible = eligibleItems.has(alert.taskKey);
+            const currentDeadline = taskStates[alert.taskKey]?.deadlineAt;
+            return isVisible
+              && (!currentItem || isReminderItemIncomplete(currentItem))
+              && alert.deadlineAt > now
+              && !taskStates[alert.taskKey]?.acknowledgedStages?.[alert.threshold.key]
+              && (!Number.isFinite(currentDeadline) || Math.abs(currentDeadline - alert.deadlineAt) <= 60 * 1000);
+          });
+
+        const existingAlertIds = new Set(deadlineReminderItems.value.map(alert => alert.id));
+        newAlerts.forEach(alert => {
+          if (!existingAlertIds.has(alert.id)) deadlineReminderItems.value.push(alert);
+        });
+        deadlineReminderItems.value.sort((a, b) => a.deadlineAt - b.deadlineAt);
+
+        if (stateChanged) saveDeadlineReminderState(deadlineReminderState);
+        if (newAlerts.length) {
+          showDeadlineReminderDialog.value = true;
+          const notificationsToSend = newAlerts
+            .filter(alert => !systemNotifiedReminderIds.has(alert.id))
+            .sort((a, b) => a.deadlineAt - b.deadlineAt);
+          sendDeadlineBrowserNotification(notificationsToSend)
+            .forEach(id => systemNotifiedReminderIds.add(id));
+        }
+        if (!deadlineReminderItems.value.length) showDeadlineReminderDialog.value = false;
+      };
+
+      const startDeadlineReminderMonitoring = () => {
+        if (deadlineReminderTimer) clearInterval(deadlineReminderTimer);
+        evaluateDeadlineReminders();
+        deadlineReminderTimer = setInterval(evaluateDeadlineReminders, DEADLINE_REMINDER_CHECK_INTERVAL);
+      };
+      const handleReminderPageVisibility = () => {
+        if (document.visibilityState === 'visible') evaluateDeadlineReminders();
+      };
 
       // 各板块已忽略数量
       const getSectionIgnoredCount = (sectionType) => {
@@ -3933,28 +4305,11 @@
 
       // 解析剩余时间为分钟数用于排序
       const parseTimeToMinutes = (timeStr) => {
-        if (!timeStr) return Infinity; // 无时间的排到最后
-        const str = String(timeStr);
-        // 匹配各种格式：剩余X天X小时、X小时X分钟、已过期等
-        if (str.includes('过期') || str.includes('已结束')) return -1;
-        const absoluteMatch = str.match(/\d{4}[-/.年]\d{1,2}[-/.月]\d{1,2}日?(?:\s+\d{1,2}:\d{2}(?::\d{2})?)?/);
-        if (absoluteMatch) {
-          const timestamp = parseTaskEngineDate(normalizeTaskEngineDateText(absoluteMatch[0]));
-          if (Number.isFinite(timestamp)) return (timestamp - Date.now()) / 60000;
-        }
-        let minutes = 0;
-        const dayMatch = str.match(/(\d+)\s*天/);
-        const hourMatch = str.match(/(\d+)\s*小时/);
-        const minMatch = str.match(/(\d+)\s*分/);
-        if (dayMatch) minutes += parseInt(dayMatch[1]) * 24 * 60;
-        if (hourMatch) minutes += parseInt(hourMatch[1]) * 60;
-        if (minMatch) minutes += parseInt(minMatch[1]);
-        return minutes || Infinity;
+        return getTaskRemainingMinutes({ leftTime: timeStr });
       };
 
       const isTodoItemUrgent = (item) => {
-        const timeStr = item.leftTime || item.timeLeft || item.info || '';
-        const remainingMinutes = parseTimeToMinutes(timeStr);
+        const remainingMinutes = getTaskRemainingMinutes(item);
         if (Number.isFinite(remainingMinutes)) return remainingMinutes >= 0 && remainingMinutes <= 24 * 60;
         return item.isActivity && item.status === '进行中';
       };
@@ -3974,7 +4329,7 @@
             case 'time-desc':
               return arr.sort((a, b) => compareCourseProgress(a, b, -1));
             case 'name':
-              return arr.sort((a, b) => (a.courseName || '').localeCompare(b.courseName || '', 'zh-CN'));
+              return arr.sort(compareCourseProgressByName);
             default:
               return arr;
           }
@@ -3982,31 +4337,11 @@
 
         switch (sortType) {
           case 'urgent':
-            // 默认排序：未完成优先，然后按剩余时间升序
-            return arr.sort((a, b) => {
-              // 已完成的放最后
-              if (a.finished && !b.finished) return 1;
-              if (!a.finished && b.finished) return -1;
-              // 未提交/进行中的优先
-              if (a.uncommitted && !b.uncommitted) return -1;
-              if (!a.uncommitted && b.uncommitted) return 1;
-              // 按剩余时间排序
-              const timeA = parseTimeToMinutes(a.leftTime || a.timeLeft || a.info);
-              const timeB = parseTimeToMinutes(b.leftTime || b.timeLeft || b.info);
-              return timeA - timeB;
-            });
+            return arr.sort(compareTodoItemsByDeadline);
           case 'time-asc':
-            return arr.sort((a, b) => {
-              const timeA = parseTimeToMinutes(a.leftTime || a.timeLeft || a.info);
-              const timeB = parseTimeToMinutes(b.leftTime || b.timeLeft || b.info);
-              return timeA - timeB;
-            });
+            return arr.sort(compareTodoItemsByDeadline);
           case 'time-desc':
-            return arr.sort((a, b) => {
-              const timeA = parseTimeToMinutes(a.leftTime || a.timeLeft || a.info);
-              const timeB = parseTimeToMinutes(b.leftTime || b.timeLeft || b.info);
-              return timeB - timeA;
-            });
+            return arr.sort((a, b) => compareTodoItemsByDeadline(a, b, -1));
           case 'status':
             return arr.sort((a, b) => {
               if (a.uncommitted && !b.uncommitted) return -1;
@@ -4065,13 +4400,15 @@
         } catch (e) { console.error("Fetch exams from table failed", e); }
 
         // 课程任务由 loadActivitiesData 统一读取；保留已先完成加载的活动，避免并发请求覆盖首页待办。
-        todoItems.value = [...pendingTasks, ...pendingExams, ...todoItems.value.filter(item => item.isActivity)];
+        todoItems.value = [...pendingTasks, ...pendingExams, ...todoItems.value.filter(item => item.isActivity)]
+          .sort(compareTodoItemsByDeadline);
 
         // 计算紧急任务
         todoItems.value = todoItems.value.map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
         urgentTasks.value = todoItems.value.filter(isTodoItemUrgent);
 
         loading.value.todo = false;
+        evaluateDeadlineReminders();
       };
 
       // 获取作业数据
@@ -4287,11 +4624,51 @@
           ])
         ]),
         vue.createVNode('div', { class: 'detail-body settings-detail-body', style: 'max-width:880px;' }, [
+          vue.createVNode('div', { class: 'settings-group-heading' }, [
+            vue.createVNode('h3', null, '展示与提醒'),
+            vue.createVNode('p', null, '管理待办分类和截止时间提醒。')
+          ]),
           vue.createVNode('section', { class: 'settings-section' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '展示分类'),
-            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '默认只保留需要处理的学习任务；其他教学互动可按需展示。'),
+            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '控制待办和栏目中显示哪些任务类型；隐藏类型仍会触发临近提醒。'),
             vue.createVNode('button', { class: 'external-link-btn', onClick: () => { showOtherTasksDialog.value = true; } }, '配置其他任务'),
             vue.createVNode('span', { style: 'margin-left:10px;color:#64748b;font-size:13px;' }, getOtherTasksSummary())
+          ]),
+          vue.createVNode('section', { class: 'settings-section', style: 'margin-top:18px;' }, [
+            vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '临近任务提醒'),
+            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '仅在超星页面打开且脚本运行时检查；提醒已加载、未忽略、未完成且可识别截止时间的待办。'),
+            vue.createVNode('label', { class: 'settings-toggle-row' }, [
+              vue.createVNode('input', { class: 'settings-toggle-input', type: 'checkbox', checked: settings.value.deadlineReminderEnabled, 'aria-label': '开启临近任务提醒', onChange: e => updateSetting('deadlineReminderEnabled', e.target.checked) }),
+              vue.createVNode('span', { class: 'settings-toggle-track', 'aria-hidden': 'true' }, [
+                vue.createVNode('span', { class: 'settings-toggle-knob' })
+              ]),
+              vue.createVNode('span', { class: 'settings-toggle-copy' }, [
+                vue.createVNode('strong', null, '页面内提醒'),
+                vue.createVNode('small', null, settings.value.deadlineReminderEnabled ? '已开启：12 小时、6 小时、3 小时和 30 分钟各提醒一次' : '已关闭：横幅和弹窗都不会显示')
+              ])
+            ]),
+            vue.createVNode('div', { class: 'reminder-settings-row' }, [
+              vue.createVNode('label', { class: 'settings-toggle-row' }, [
+                vue.createVNode('input', { class: 'settings-toggle-input', type: 'checkbox', checked: settings.value.deadlineBrowserNotificationEnabled, 'aria-label': '使用浏览器系统通知', onChange: e => e.target.checked ? requestDeadlineBrowserNotifications() : updateSetting('deadlineBrowserNotificationEnabled', false) }),
+                vue.createVNode('span', { class: 'settings-toggle-track', 'aria-hidden': 'true' }, [
+                  vue.createVNode('span', { class: 'settings-toggle-knob' })
+                ]),
+                vue.createVNode('span', { class: 'settings-toggle-copy' }, [
+                  vue.createVNode('strong', null, '浏览器系统通知'),
+                  vue.createVNode('small', null, window.Notification?.permission === 'granted' ? '浏览器已授权；通知可能显示在系统锁屏上' : '需先授权；未授权时页面内提醒仍可用')
+                ])
+              ]),
+              vue.createVNode('button', {
+                class: 'external-link-btn',
+                disabled: !window.Notification,
+                onClick: requestDeadlineBrowserNotifications
+              }, window.Notification?.permission === 'denied' ? '查看权限说明' : (window.Notification?.permission === 'granted' ? '检查通知授权' : '授权系统通知'))
+            ]),
+            vue.createVNode('div', { class: 'progress-delay-help' }, '“去完成”关闭该任务当前提醒；“我知道了”关闭当前批次，两者都不会取消后续阶段提醒。“不再提醒”会屏蔽该任务之后的提醒。隐藏类别仍会提醒，忽略的任务或课程不会提醒。若在其他标签页完成任务，请刷新本页同步完成状态。多个任务会合并显示并按截止时间排序。')
+          ]),
+          vue.createVNode('div', { class: 'settings-group-heading settings-group-heading-spaced' }, [
+            vue.createVNode('h3', null, '筛选与忽略'),
+            vue.createVNode('p', null, '忽略任务或课程后会停止提醒；仅隐藏列表分类不会屏蔽提醒。')
           ]),
           vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '忽略功能'),
@@ -4309,9 +4686,18 @@
           ]),
           vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '按课程忽略'),
-            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '勾选课程后，该课程的作业、视频/任务点、AI 实践、分组讨论、测验、考试及其他任务都会自动隐藏。'),
+            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '勾选课程后，该课程的任务会从各栏目中隐藏并停止临近提醒。'),
             vue.createVNode('button', { class: 'external-link-btn', onClick: openCourseIgnoreDialog }, '选择要忽略的课程'),
             vue.createVNode('span', { style: 'margin-left:10px;color:#64748b;font-size:13px;' }, `已忽略 ${getIgnoredItemsBySection('course').length} 门课程`)
+          ]),
+          vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
+            vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '动态忽略已完成或已过期内容'),
+            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '规则会持续过滤之后加载的匹配内容；停用规则不会恢复逐条手动忽略的项目。'),
+            vue.createVNode('button', { class: 'external-link-btn', onClick: openBulkIgnoreDialog }, '配置动态忽略规则')
+          ]),
+          vue.createVNode('div', { class: 'settings-group-heading settings-group-heading-spaced' }, [
+            vue.createVNode('h3', null, '查询与性能'),
+            vue.createVNode('p', null, '调整课程进度请求节奏和本地缓存。')
           ]),
           vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '课程进度查询'),
@@ -4345,11 +4731,6 @@
                 vue.createVNode('small', null, settings.value.shortTermCacheEnabled ? '已开启，缓存内容会标记并后台更新' : '已关闭，每次直接读取最新数据')
               ])
             ])
-          ]),
-          vue.createVNode('section', { class: 'settings-section', style: 'margin-top:24px;' }, [
-            vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '动态忽略已完成或已过期内容'),
-            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '规则会自动作用于之后加载或未来出现的匹配内容；取消勾选只会停用规则，不会恢复你手动忽略的内容。'),
-            vue.createVNode('button', { class: 'external-link-btn', onClick: openBulkIgnoreDialog }, '配置动态忽略规则')
           ])
         ]),
         showCourseIgnoreDialog.value ? vue.createVNode('div', { class: 'confirm-overlay', onClick: () => { showCourseIgnoreDialog.value = false; } }, [
@@ -4455,6 +4836,9 @@
         cleanupDashboardCache();
         hydrateShortTermCache();
         setInterval(cleanupDashboardCache, DASHBOARD_CACHE_TTL);
+        window.addEventListener('focus', evaluateDeadlineReminders);
+        document.addEventListener('visibilitychange', handleReminderPageVisibility);
+        startDeadlineReminderMonitoring();
         loadTodoData();
         loadHomeworkData();
         loadExamData();
@@ -4462,6 +4846,11 @@
         // 仅设置课程列表、课程进度悬浮详情等非首屏资源保持按需请求。
         loadActivitiesData();
         loadAllCourseProgress();
+      });
+      vue.onUnmounted(() => {
+        if (deadlineReminderTimer) clearInterval(deadlineReminderTimer);
+        window.removeEventListener('focus', evaluateDeadlineReminders);
+        document.removeEventListener('visibilitychange', handleReminderPageVisibility);
       });
 
       return (_ctx, _cache) => {
@@ -4940,6 +5329,13 @@
             max-height: none;
             overflow: visible;
           }
+          .settings-group-heading { margin: 4px 0 12px; padding-bottom: 10px; border-bottom: 1px solid #e8edf4; }
+          .settings-group-heading-spaced { margin-top: 34px; }
+          .settings-group-heading h3 { margin: 0; color: #1f2937; font-size: 17px; font-weight: 650; }
+          .settings-group-heading p { margin: 5px 0 0; color: #64748b; font-size: 13px; line-height: 1.5; }
+          .reminder-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+          .reminder-settings-row .settings-toggle-row { flex: 1 1 340px; }
+          .external-link-btn:disabled { opacity: .55; cursor: not-allowed; }
           .detail-list-item {
             display: flex;
             justify-content: space-between;
@@ -5597,6 +5993,47 @@
             width: 380px;
             max-width: calc(100vw - 32px);
           }
+          .deadline-reminder-banner {
+            position: fixed; z-index: 11000; top: 12px; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 12px; width: min(920px, calc(100vw - 24px));
+            padding: 10px 12px; border: 1px solid #f4c76e; border-radius: 12px;
+            background: #fff8e8; color: #7c4a03; box-shadow: 0 8px 28px rgba(124, 74, 3, .18);
+          }
+          .deadline-reminder-banner-icon { flex: 0 0 auto; font-size: 17px; }
+          .deadline-reminder-banner-viewport { min-width: 0; flex: 1; overflow: hidden; white-space: nowrap; }
+          .deadline-reminder-banner-text { display: inline-block; font-size: 13px; font-weight: 600; }
+          .deadline-reminder-banner-text.is-scrolling { padding-left: 100%; animation: deadline-reminder-scroll 22s linear infinite; }
+          .deadline-reminder-banner:hover .deadline-reminder-banner-text.is-scrolling { animation-play-state: paused; }
+          @keyframes deadline-reminder-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+          .deadline-reminder-banner-button { flex: 0 0 auto; padding: 6px 10px; border: 0; border-radius: 7px; background: #f59e0b; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; }
+          .deadline-reminder-overlay {
+            position: fixed; z-index: 13000; inset: 0; display: flex; align-items: center; justify-content: center;
+            padding: 20px; background: rgba(15, 23, 42, .58); backdrop-filter: blur(2px);
+          }
+          .deadline-reminder-dialog {
+            display: flex; flex-direction: column; width: min(760px, 100%); max-height: min(82vh, 720px);
+            overflow: hidden; border: 1px solid #f5d28b; border-radius: 16px; background: #fff;
+            box-shadow: 0 24px 80px rgba(15, 23, 42, .28);
+          }
+          .deadline-reminder-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px 16px; border-bottom: 1px solid #f1f5f9; }
+          .deadline-reminder-dialog-header h2 { margin: 0; color: #1f2937; font-size: 20px; }
+          .deadline-reminder-dialog-header p { margin: 6px 0 0; color: #64748b; font-size: 13px; line-height: 1.5; }
+          .deadline-reminder-header-icon { color: #d97706; font-size: 28px; }
+          .deadline-reminder-list { display: grid; gap: 10px; min-height: 0; padding: 14px 20px; overflow-y: auto; }
+          .deadline-reminder-item { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 14px; border: 1px solid #f2e4c7; border-radius: 11px; background: #fffcf5; }
+          .deadline-reminder-item-copy { min-width: 0; }
+          .deadline-reminder-item-title { overflow-wrap: anywhere; color: #1f2937; font-size: 14px; font-weight: 700; }
+          .deadline-reminder-item-course { margin-top: 4px; color: #64748b; font-size: 12px; }
+          .deadline-reminder-item-time { margin-top: 5px; color: #b45309; font-size: 12px; font-weight: 650; }
+          .deadline-reminder-item-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; }
+          .deadline-reminder-go-button, .deadline-reminder-mute-button, .deadline-reminder-ack-button { padding: 8px 12px; border: 0; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+          .deadline-reminder-go-button { background: #f59e0b; color: #fff; }
+          .deadline-reminder-mute-button { background: #f1f5f9; color: #475569; }
+          .deadline-reminder-dialog-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 20px 18px; border-top: 1px solid #f1f5f9; }
+          .deadline-reminder-dialog-footer span { color: #64748b; font-size: 12px; line-height: 1.5; }
+          .deadline-reminder-ack-button { min-width: 112px; background: #334155; color: #fff; }
+          .deadline-reminder-go-button:hover, .deadline-reminder-ack-button:hover { filter: brightness(1.08); }
+          .deadline-reminder-mute-button:hover { background: #e2e8f0; }
           .course-ignore-dialog { width: 560px; }
           .other-tasks-dialog { width: 480px; }
           .bulk-ignore-dialog { width: 900px; }
@@ -5726,6 +6163,21 @@
             border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
+          }
+          @media (max-width: 640px) {
+            .deadline-reminder-banner { top: 6px; gap: 7px; padding: 8px; }
+            .deadline-reminder-banner-text { font-size: 12px; }
+            .deadline-reminder-overlay { align-items: flex-end; padding: 8px; }
+            .deadline-reminder-dialog { max-height: 88vh; border-radius: 14px 14px 10px 10px; }
+            .deadline-reminder-dialog-header { padding: 17px 16px 12px; }
+            .deadline-reminder-dialog-header h2 { font-size: 17px; }
+            .deadline-reminder-list { padding: 10px 12px; }
+            .deadline-reminder-item { align-items: flex-start; flex-direction: column; gap: 10px; padding: 11px; }
+            .deadline-reminder-item-actions { width: 100%; }
+            .deadline-reminder-item-actions button { flex: 1; }
+            .deadline-reminder-dialog-footer { align-items: stretch; flex-direction: column; padding: 12px; }
+            .deadline-reminder-ack-button { width: 100%; }
+            .reminder-settings-row { align-items: flex-start; flex-direction: column; }
           }
           .confirm-ok-btn:hover { background: #c41d7f; }
 
@@ -6283,20 +6735,83 @@
           ]);
         };
 
+        const renderDeadlineReminderLayers = () => {
+          const items = deadlineReminderItems.value;
+          if (!items.length) return [];
+          const bannerText = items.map(alert => {
+            const course = alert.item.course || alert.item.courseName || '课程';
+            return `${course} · ${alert.item.title || '待办任务'}（还剩${formatReminderRemaining(alert.deadlineAt - Date.now())}）`;
+          }).join('　　｜　　');
+          const banner = vue.createVNode('div', { class: 'deadline-reminder-banner', role: 'status' }, [
+            vue.createVNode('span', { class: 'deadline-reminder-banner-icon', 'aria-hidden': 'true' }, '🔔'),
+            vue.createVNode('div', { class: 'deadline-reminder-banner-viewport' }, [
+              vue.createVNode('span', {
+                class: `deadline-reminder-banner-text ${bannerText.length > 58 ? 'is-scrolling' : ''}`
+              }, bannerText)
+            ]),
+            vue.createVNode('button', {
+              class: 'deadline-reminder-banner-button',
+              onClick: () => { showDeadlineReminderDialog.value = true; }
+            }, `查看 ${items.length} 项`)
+          ]);
+          const dialog = showDeadlineReminderDialog.value ? vue.createVNode('div', {
+            class: 'deadline-reminder-overlay',
+            role: 'presentation'
+          }, [
+            vue.createVNode('section', {
+              class: 'deadline-reminder-dialog',
+              role: 'alertdialog',
+              'aria-modal': 'true',
+              'aria-labelledby': 'deadline-reminder-title'
+            }, [
+              vue.createVNode('div', { class: 'deadline-reminder-dialog-header' }, [
+                vue.createVNode('div', null, [
+                  vue.createVNode('h2', { id: 'deadline-reminder-title' }, `有 ${items.length} 项待办临近截止`),
+                  vue.createVNode('p', null, '按截止时间由近到远排列；“我知道了”不会取消后续阶段提醒。')
+                ]),
+                vue.createVNode('span', { class: 'deadline-reminder-header-icon', 'aria-hidden': 'true' }, '⏰')
+              ]),
+              vue.createVNode('div', { class: 'deadline-reminder-list' }, items.map(alert =>
+                vue.createVNode('article', { class: 'deadline-reminder-item' }, [
+                  vue.createVNode('div', { class: 'deadline-reminder-item-copy' }, [
+                    vue.createVNode('div', { class: 'deadline-reminder-item-title' }, alert.item.title || '待办任务'),
+                    vue.createVNode('div', { class: 'deadline-reminder-item-course' }, alert.item.course || alert.item.courseName || '未知课程'),
+                    vue.createVNode('div', { class: 'deadline-reminder-item-time' }, `${alert.threshold.label}提醒 · 还剩${formatReminderRemaining(alert.deadlineAt - Date.now())}截止`)
+                  ]),
+                  vue.createVNode('div', { class: 'deadline-reminder-item-actions' }, [
+                    vue.createVNode('button', { class: 'deadline-reminder-go-button', onClick: () => openDeadlineReminderTask(alert) }, '去完成'),
+                    vue.createVNode('button', { class: 'deadline-reminder-mute-button', onClick: () => dismissDeadlineReminderTask(alert.taskKey) }, '不再提醒')
+                  ])
+                ])
+              )),
+              vue.createVNode('div', { class: 'deadline-reminder-dialog-footer' }, [
+                  vue.createVNode('span', null, '每个阶段每项任务提醒一次；页面读取到完成状态后会停止后续提醒。'),
+                vue.createVNode('button', { class: 'deadline-reminder-ack-button', onClick: acknowledgeDeadlineReminderBatch }, '我知道了')
+              ])
+            ])
+          ]) : null;
+          return [banner, dialog];
+        };
+
         if (currentView.value === 'settings') {
           return vue.createVNode("div", { class: "dashboard-wrapper" }, [
-            vue.createVNode("div", { class: "main-content" }, [renderSettingsView()])
+            vue.createVNode("div", { class: "main-content" }, [renderSettingsView()]),
+            ...renderDeadlineReminderLayers()
           ]);
         }
         if (currentView.value === 'dashboard-loading') {
-          return renderDashboardSkeleton();
+          return vue.createVNode('div', { class: 'dashboard-wrapper' }, [
+            renderDashboardSkeleton(),
+            ...renderDeadlineReminderLayers()
+          ]);
         }
         if (currentView.value !== 'dashboard') {
           return vue.createVNode("div", { class: "dashboard-wrapper" }, [
             vue.createVNode("div", { class: "main-content" }, [
               renderDetailView(currentView.value)
             ]),
-            renderConfirmDialog()
+            renderConfirmDialog(),
+            ...renderDeadlineReminderLayers()
           ]);
         }
         // 渲染仪表盘视图
@@ -6838,6 +7353,7 @@
           ]),
           // 全局确认弹窗
           renderConfirmDialog(),
+          ...renderDeadlineReminderLayers(),
           !settings.value.courseIgnoreHintSeen ? vue.createVNode("div", {
             class: "course-ignore-onboarding",
             role: "dialog",
