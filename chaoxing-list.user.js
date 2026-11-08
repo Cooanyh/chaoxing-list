@@ -998,7 +998,7 @@
 
   const getTaskDeadlineTimestamp = (item) => {
     // info 是展示字段，课程任务可能在这里写“进度 1/2”，不能当作截止日期解析。
-    const candidates = [item?.endTime, item?.deadlineAt, item?.deadline, item?.timeRange, item?.timeLeft, item?.leftTime];
+    const candidates = [item?.endTimeTimestamp, item?.deadlineAt, item?.deadline, item?.endTime, item?.timeRange, item?.timeLeft, item?.leftTime];
     for (const candidate of candidates) {
       const timestamp = parseTaskDeadlineText(candidate);
       if (Number.isFinite(timestamp)) return timestamp;
@@ -1424,6 +1424,7 @@
           status: isOngoing ? '进行中' : (isEnded ? '已结束' : '未开始'),
           time: item.startTime ? new Date(item.startTime).toLocaleString() : '',
           endTime: item.endTime ? new Date(item.endTime).toLocaleString() : '',
+          endTimeTimestamp: item.endTime ?? '',
           courseName: course.courseName,
           courseId: course.courseId,
           clazzId: course.clazzId,
@@ -3554,6 +3555,7 @@
             leftTime: activity.endTime || activity.leftTime || '',
             timeLeft: activity.endTime || activity.timeLeft || '',
             endTime: activity.endTime || '',
+            endTimeTimestamp: activity.endTimeTimestamp ?? '',
             status: '进行中',
             courseId: activity.courseId, clazzId: activity.clazzId,
             activeId: activity.activeId, taskId: activity.taskId, planId: activity.planId,
@@ -3572,11 +3574,11 @@
       const hydrateShortTermCache = () => {
         if (!settings.value.shortTermCacheEnabled) return;
         const cache = cleanupDashboardCache();
-        if (Array.isArray(cache.activities?.data)) {
-          activitiesItems.value = cache.activities.data;
+        if (Array.isArray(cache['activities-v2']?.data)) {
+          activitiesItems.value = cache['activities-v2'].data;
           activitiesLoaded.value = true;
           activitiesFromCache.value = true;
-          syncActivitiesToTodo(cache.activities.data);
+          syncActivitiesToTodo(cache['activities-v2'].data);
         }
         if (Array.isArray(cache.progress?.data)) {
           courseProgressItems.value = cache.progress.data;
@@ -4557,7 +4559,7 @@
           activitiesFetched.value = true;
           if (!hasReadIssues) {
             activitiesFromCache.value = false;
-            if (settings.value.shortTermCacheEnabled) saveDashboardCache('activities', allActivities);
+            if (settings.value.shortTermCacheEnabled) saveDashboardCache('activities-v2', allActivities);
           }
         } catch (error) {
           console.error('[仪表盘] 加载课程任务失败:', error);
