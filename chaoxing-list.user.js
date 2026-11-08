@@ -2801,7 +2801,6 @@
       const homeworkItems = vue.ref([]);
       const examItems = vue.ref([]);
       const activitiesItems = vue.ref([]);
-      const urgentTasks = vue.ref([]);
 
       // 课程进度数据
       const courseProgressItems = vue.ref([]);
@@ -3567,7 +3566,6 @@
           .map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
         todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities]
           .sort(compareTodoItemsByDeadline);
-        urgentTasks.value = todoItems.value.filter(isTodoItemUrgent);
         evaluateDeadlineReminders();
       };
 
@@ -3912,13 +3910,6 @@
         ignoredVersion.value;
         return courseProgressItems.value.filter(item => shouldDisplayItem({ ...item, _sectionType: 'progress' }));
       });
-      const filteredUrgentTasks = vue.computed(() => {
-        ignoredVersion.value;
-        return urgentTasks.value
-          .filter(item => shouldDisplayItem({ ...item, _sectionType: 'todo' }))
-          .sort(compareTodoItemsByDeadline);
-      });
-
       const deadlineReminderItems = vue.ref([]);
       const deadlineReminderBannerItems = vue.ref([]);
       const showDeadlineReminderDialog = vue.ref(false);
@@ -4500,7 +4491,6 @@
 
         // 计算紧急任务
         todoItems.value = todoItems.value.map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
-        urgentTasks.value = todoItems.value.filter(isTodoItemUrgent);
 
         loading.value.todo = false;
         evaluateDeadlineReminders();
@@ -7034,6 +7024,8 @@
             ...renderDeadlineReminderLayers()
           ]);
         }
+        const dashboardTodoItems = sortItems(filteredTodoItems.value, 'todo', 'urgent');
+        const dashboardUrgentTasks = dashboardTodoItems.filter(isTodoItemUrgent);
         // 渲染仪表盘视图
         return vue.createVNode("div", { class: "dashboard-wrapper" }, [
           vue.createVNode("div", { class: "main-content" }, [
@@ -7057,7 +7049,7 @@
                 ])
               ]) : null,
               // 紧急提醒条
-              filteredUrgentTasks.value.length > 0 ? vue.createVNode("div", {
+              dashboardUrgentTasks.length > 0 ? vue.createVNode("div", {
                 class: "urgent-strip",
                 title: '剩余时间为0至24小时（含）的待办会计入；时间无法解析时，仅状态为“进行中”的课程活动计入。超过24小时或已逾期的任务不计入。',
                 onClick: () => openFullScreen('todo')
@@ -7066,8 +7058,8 @@
                   vue.createVNode("span", { class: "urgent-icon" }, "🔔"),
                   vue.createVNode("span", {}, [
                     "你还有 ",
-                    vue.createVNode("span", { class: "urgent-count" }, filteredUrgentTasks.value.length),
-                    ` 个高优先级任务：${filteredUrgentTasks.value.slice(0, 2).map(t => t.title).join('、')}${filteredUrgentTasks.value.length > 2 ? '等...' : ''}`
+                    vue.createVNode("span", { class: "urgent-count" }, dashboardUrgentTasks.length),
+                    ` 个高优先级任务：${dashboardUrgentTasks.slice(0, 2).map(t => t.title).join('、')}${dashboardUrgentTasks.length > 2 ? '等...' : ''}`
                   ])
                 ]),
                 vue.createVNode("div", { class: "urgent-action" }, "去处理 >")
@@ -7093,7 +7085,7 @@
                     ? renderLoadingSkeleton('正在加载待办任务…')
                     : filteredTodoItems.value.length === 0
                       ? vue.createVNode("div", { class: "empty-state" }, "🎉 这里暂时还没有待办任务")
-                      : sortItems(filteredTodoItems.value, 'todo', 'urgent').map(item =>
+                      : dashboardTodoItems.map(item =>
                         vue.createVNode("div", {
                           class: "list-item",
                           onClick: () => window.open(getTodoLink(item), '_blank')
