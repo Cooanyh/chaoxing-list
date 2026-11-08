@@ -7067,7 +7067,7 @@
                   vue.createVNode("span", {}, [
                     "你还有 ",
                     vue.createVNode("span", { class: "urgent-count" }, filteredUrgentTasks.value.length),
-                    ` 个高优先级任务：${getDashboardTodoPreviewItems().map(t => t.title).join('、')}${filteredTodoItems.value.length > 2 ? '等...' : ''}`
+                    ` 个高优先级任务：${filteredUrgentTasks.value.slice(0, 2).map(t => t.title).join('、')}${filteredUrgentTasks.value.length > 2 ? '等...' : ''}`
                   ])
                 ]),
                 vue.createVNode("div", { class: "urgent-action" }, "去处理 >")
