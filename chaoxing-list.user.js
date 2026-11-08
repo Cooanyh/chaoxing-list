@@ -969,8 +969,8 @@
 
   const parseTaskDeadlineText = (value) => {
     if (typeof value === 'number') {
-      if (!Number.isFinite(value)) return NaN;
-      return value > 0 && value < 1e12 ? value * 1000 : value;
+      if (!Number.isFinite(value) || value <= 0) return NaN;
+      return value < 1e12 ? value * 1000 : value;
     }
     const text = `${value || ''}`.trim();
     if (!text) return NaN;
