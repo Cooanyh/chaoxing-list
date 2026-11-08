@@ -7025,6 +7025,7 @@
           ]);
         }
         const dashboardTodoItems = sortItems(filteredTodoItems.value, 'todo', 'urgent');
+        const dashboardTodoPreviewItems = dashboardTodoItems.slice(0, 2);
         const dashboardUrgentTasks = dashboardTodoItems.filter(isTodoItemUrgent);
         // 渲染仪表盘视图
         return vue.createVNode("div", { class: "dashboard-wrapper" }, [
@@ -7059,7 +7060,7 @@
                   vue.createVNode("span", {}, [
                     "你还有 ",
                     vue.createVNode("span", { class: "urgent-count" }, dashboardUrgentTasks.length),
-                    ` 个高优先级任务：${dashboardUrgentTasks.slice(0, 2).map(t => t.title).join('、')}${dashboardUrgentTasks.length > 2 ? '等...' : ''}`
+                    ` 个高优先级任务：${dashboardTodoPreviewItems.map(t => t.title).join('、')}${dashboardTodoItems.length > 2 ? '等...' : ''}`
                   ])
                 ]),
                 vue.createVNode("div", { class: "urgent-action" }, "去处理 >")
