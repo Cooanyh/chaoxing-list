@@ -1,6 +1,6 @@
 # 学习通作业 / 考试 / 待办列表
 
-![版本](https://img.shields.io/badge/版本-2.4.10-blue?style=flat-square) ![许可证](https://img.shields.io/badge/协议-AGPL--3.0-green?style=flat-square) [![修改者](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh) ![原作者](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![版本](https://img.shields.io/badge/版本-2.5.0-blue?style=flat-square) ![许可证](https://img.shields.io/badge/协议-AGPL--3.0-green?style=flat-square) [![修改者](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh) ![原作者](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 > 面向超星学习通网页版的用户脚本，用于汇总待办、作业、考试、课程任务和课程进度。
 
@@ -11,7 +11,7 @@
 - **学习仪表盘**：集中查看待办、全部作业、全部考试、课程任务和课程进度。
 - **课程任务识别**：汇总课堂活动与任务引擎计划，并提供分类筛选、按课程忽略和手动重试。
 - **读取状态提示**：检测到课程列表、任务接口或响应格式异常时显示提醒，避免将不完整结果当作空列表。
-- **任务管理**：支持截止时间排序、即将到期提醒和短时缓存。
+- **任务管理**：待办可跨类别按截止时间排序；临近截止时会在页面内提醒，可选浏览器系统通知；支持短时缓存。
 
 ## 安装
 
@@ -37,7 +37,7 @@
 
 ## 更新记录
 
-当前版本为 v2.4.10，改进了任务引擎识别和读取异常提示。完整版本历史见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本为 v2.5.0，新增分阶段临近任务提醒，并优化课程进度和待办排序。完整版本历史见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 问题反馈
 
