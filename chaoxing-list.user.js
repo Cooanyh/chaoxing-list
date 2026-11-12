@@ -16,15 +16,14 @@
 // @match        *://mooc1-api.chaoxing.com/work/stu-work*
 // @match        *://mooc1-api.chaoxing.com/exam-ans/exam/phone/examcode*
 // @match        *://mooc1.chaoxing.com/exam-ans/exam/test/examcode/examlist*
-// @require      https://registry.npmmirror.com/vue/3.4.27/files/dist/vue.global.prod.js
+// @require      https://cdn.jsdelivr.net/npm/vue@3.4.27/dist/vue.global.prod.js
 // @require      data:application/javascript,%3Bwindow.Vue%3DVue%3B
-// @require      https://registry.npmmirror.com/vuetify/3.6.6/files/dist/vuetify.min.js
+// @require      https://cdn.jsdelivr.net/npm/vuetify@3.6.6/dist/vuetify.min.js
 // @require      data:application/javascript,%3B
-// @resource     VuetifyStyle                                                   https://registry.npmmirror.com/vuetify/3.6.6/files/dist/vuetify.min.css
-// @resource     material-design-icons-iconfont/dist/material-design-icons.css  https://fonts.googlefonts.cn/css?family=Material+Icons
 // @grant        GM_addStyle
-// @grant        GM_getResourceText
 // @grant        GM_xmlhttpRequest
+// @connect      cdn.jsdelivr.net
+// @connect      fonts.googlefonts.cn
 // @connect      mooc1-api.chaoxing.com
 // @connect      mobilelearn.chaoxing.com
 // @connect      stat2-ans.chaoxing.com
@@ -569,6 +568,58 @@
     else if (document.querySelector("ul.funclistul")) {
       createMenuItemLegacy('dashboard', '📊 学习仪表盘', 'zne_bj_icon', URL_DASHBOARD);
     }
+  };
+
+  const getDashboardMenuItem = () => document.querySelector(
+    '#first1000000, #first_chaoxing_assignment_dashboard, #li_chaoxing-assignment-dashboard a, a[href*="chaoxing-dashboard"]'
+  );
+
+  const startDashboardMenuBootstrap = () => {
+    let stopped = false;
+    let autoOpenScheduled = false;
+    let observerTimer = null;
+
+    const stop = () => {
+      if (stopped) return;
+      stopped = true;
+      observer.disconnect();
+      clearInterval(pollTimer);
+      clearTimeout(stopTimer);
+      if (observerTimer !== null) clearTimeout(observerTimer);
+      window.removeEventListener('pagehide', stop);
+    };
+
+    const ensureMenu = () => {
+      if (stopped) return;
+      initMenus();
+      if (autoOpenScheduled) return;
+      const menuItem = getDashboardMenuItem();
+      if (!menuItem) return;
+
+      autoOpenScheduled = true;
+      setTimeout(() => {
+        const currentMenuItem = getDashboardMenuItem();
+        if (currentMenuItem?.isConnected) {
+          currentMenuItem.click();
+          console.log('[脚本] 自动切换到学习仪表盘');
+        }
+      }, 500);
+    };
+
+    const scheduleEnsureMenu = () => {
+      if (stopped || observerTimer !== null) return;
+      observerTimer = setTimeout(() => {
+        observerTimer = null;
+        ensureMenu();
+      }, 100);
+    };
+
+    const observer = new MutationObserver(scheduleEnsureMenu);
+    observer.observe(document.documentElement || document, { childList: true, subtree: true });
+    const pollTimer = setInterval(ensureMenu, 1000);
+    const stopTimer = setTimeout(stop, 60000);
+    window.addEventListener('pagehide', stop, { once: true });
+    ensureMenu();
   };
 
   // 新标签页打开的菜单项创建函数
@@ -1655,11 +1706,65 @@
   const API_VISIT_COURSE = "https://mooc1.chaoxing.com/visit/stucoursemiddle?ismooc2=1";
   const API_EXAM_LIST = "https://mooc1.chaoxing.com/exam-ans/exam/test/examcode/examlist?edition=1&nohead=0&fid=";
   const API_OPEN_EXAM = "https://mooc1-api.chaoxing.com/exam-ans/exam/test/examcode/examnotes";
-  const cssLoader = (e) => {
-    const t = GM_getResourceText(e);
-    return GM_addStyle(t), t;
+  const DASHBOARD_STYLESHEETS = [
+    {
+      name: 'Vuetify',
+      url: 'https://cdn.jsdelivr.net/npm/vuetify@3.6.6/dist/vuetify.min.css'
+    },
+    {
+      name: 'Material Icons',
+      url: 'https://fonts.googlefonts.cn/css?family=Material+Icons'
+    }
+  ];
+  let dashboardStylesPromise = null;
+
+  const loadDashboardStylesheet = ({ name, url }) => new Promise((resolve) => {
+    if (typeof GM_xmlhttpRequest !== 'function') {
+      console.warn(`[脚本] GM_xmlhttpRequest 不可用，跳过 ${name} 样式`);
+      resolve(false);
+      return;
+    }
+
+    try {
+      GM_xmlhttpRequest({
+        method: 'GET',
+        url,
+        timeout: 15000,
+        onload: (response) => {
+          if (response.status >= 200 && response.status < 300 && response.responseText) {
+            try {
+              GM_addStyle(response.responseText);
+              resolve(true);
+            } catch (error) {
+              console.warn(`[脚本] 注入 ${name} 样式失败:`, error);
+              resolve(false);
+            }
+            return;
+          }
+          console.warn(`[脚本] 获取 ${name} 样式失败，HTTP ${response.status}`);
+          resolve(false);
+        },
+        onerror: (error) => {
+          console.warn(`[脚本] 获取 ${name} 样式失败:`, error);
+          resolve(false);
+        },
+        ontimeout: () => {
+          console.warn(`[脚本] 获取 ${name} 样式超时`);
+          resolve(false);
+        }
+      });
+    } catch (error) {
+      console.warn(`[脚本] 请求 ${name} 样式失败:`, error);
+      resolve(false);
+    }
+  });
+
+  const ensureDashboardStyles = () => {
+    if (!dashboardStylesPromise) {
+      dashboardStylesPromise = Promise.all(DASHBOARD_STYLESHEETS.map(loadDashboardStylesheet));
+    }
+    return dashboardStylesPromise;
   };
-  cssLoader("VuetifyStyle");
 
   // --- Vue Components ---
   const _sfc_main$2 = /* @__PURE__ */ vue.defineComponent({
@@ -1722,8 +1827,6 @@
       };
     }
   });
-
-  cssLoader("material-design-icons-iconfont/dist/material-design-icons.css");
 
   // --- Vuetify Helper Functions (恢复原版代码) ---
   // 这些是原脚本为了适配图标组件而手写的一堆辅助函数，之前被误删
@@ -7594,6 +7697,7 @@
 
   const appendApp = () => {
     ensureResponsiveViewport();
+    ensureDashboardStyles();
     const vuetify$1 = vuetify.createVuetify({
       icons: {
         defaultSet: "md",
@@ -7636,29 +7740,11 @@
   }
   if (urlDetect === "home") {
     fixCssConflict();
-    initMenus();
-    // 延迟后自动点击仪表盘菜单
-    setTimeout(() => {
-      const dashboardMenuItem = document.querySelector('#first1000000') ||
-        document.querySelector('#first_chaoxing_assignment_dashboard');
-      if (dashboardMenuItem) {
-        dashboardMenuItem.click();
-        console.log('[脚本] 自动切换到学习仪表盘');
-      }
-    }, 500);
+    startDashboardMenuBootstrap();
   }
   if (urlDetect === "legacyHome") {
     fixCssConflict();
-    initMenus();
-    // 延迟后自动点击仪表盘菜单
-    setTimeout(() => {
-      const dashboardMenuItem = document.querySelector('#first_chaoxing_assignment_dashboard') ||
-        document.querySelector('a[href*="chaoxing-dashboard"]');
-      if (dashboardMenuItem) {
-        dashboardMenuItem.click();
-        console.log('[脚本] 自动切换到学习仪表盘');
-      }
-    }, 500);
+    startDashboardMenuBootstrap();
   }
 
 })(Vuetify, Vue);
