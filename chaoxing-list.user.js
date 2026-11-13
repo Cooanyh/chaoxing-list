@@ -6324,19 +6324,8 @@
             color: #999;
           }
 
-          /* 中小屏按可用宽度切为单列，避免宿主的桌面布局视口造成右侧卡片被裁切。 */
-          @media (max-width: 1100px), (max-device-width: 768px) {
-            .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
-            .progress-card { grid-column: span 1; }
-            .dashboard-grid > .card, .dashboard-grid .card-body { min-width: 0; max-width: 100%; }
-            .dashboard-grid .list-item, .dashboard-grid .detail-list-item { align-items: flex-start; flex-wrap: wrap; gap: 7px; padding: 12px 6px; }
-            .dashboard-grid .item-main, .dashboard-grid .detail-list-item .item-main { flex: 1 1 100%; min-width: 0; margin-right: 0; }
-            .dashboard-grid .task-title { white-space: normal; overflow-wrap: anywhere; }
-            .dashboard-grid .item-time-status { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
-          }
-
           /* 移动端适配 */
-          @media (max-width: 768px) {
+          @media (max-width: 640px) {
             .dashboard-wrapper { padding: 10px; }
             .welcome-row {
               flex-wrap: wrap;
@@ -6376,8 +6365,8 @@
             .course-ignore-onboarding { right: 16px; bottom: 16px; }
           }
 
-          /* 依据仪表盘实际内容宽度适配，覆盖手机浏览器的桌面布局视口。 */
-          @container chaoxing-main (max-width: 1100px) {
+          /* 仅在仪表盘内容区确实较窄时切换紧凑布局，避免桌面侧栏触发手机版样式。 */
+          @container chaoxing-main (max-width: 660px) {
             .dashboard-header { min-width: 0; padding: 15px; }
             .welcome-row {
               flex-wrap: wrap;
