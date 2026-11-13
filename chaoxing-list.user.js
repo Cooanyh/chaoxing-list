@@ -1718,7 +1718,56 @@
       url: 'https://fonts.googlefonts.cn/css?family=Material+Icons'
     }
   ];
+  // 先同步注入必要的组件基础样式；完整 Vuetify 样式在后台加载后会覆盖这些规则。
+  const DASHBOARD_STYLE_FALLBACK_CSS = `
+    :where(.chaoxing-list-root) .v-application { min-height: 100vh; color: #212121; background: #fff; font-family: Arial, "Microsoft YaHei", sans-serif; line-height: 1.5; }
+    :where(.chaoxing-list-root) .v-application__wrap { display: flex; flex-direction: column; min-height: 100vh; }
+    :where(.chaoxing-list-root) .v-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px; }
+    :where(.chaoxing-list-root) .v-card { display: block; position: relative; overflow: hidden; border-radius: 4px; color: #212121; background: #fff; }
+    :where(.chaoxing-list-root) .v-card-title { display: flex; align-items: center; padding: 16px; font-size: 1.25rem; font-weight: 500; line-height: 1.5; }
+    :where(.chaoxing-list-root) .v-card-subtitle { padding: 0 16px; color: #666; font-size: .875rem; }
+    :where(.chaoxing-list-root) .v-card-text { padding: 16px; }
+    :where(.chaoxing-list-root) .v-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 64px; min-height: 36px; padding: 0 16px; border: 0; border-radius: 4px; color: #fff; background: #1976d2; font: inherit; font-size: .875rem; font-weight: 500; text-decoration: none; cursor: pointer; }
+    :where(.chaoxing-list-root) .v-btn__content { display: inline-flex; align-items: center; justify-content: center; }
+    :where(.chaoxing-list-root) .v-chip { display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 16px; color: #333; background: #eee; font-size: .8125rem; }
+    :where(.chaoxing-list-root) .v-alert { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-radius: 4px; color: #333; background: #f5f5f5; }
+    :where(.chaoxing-list-root) .v-row { display: flex; flex-wrap: wrap; margin: -8px; }
+    :where(.chaoxing-list-root) .v-col { flex: 1 0 0; max-width: 100%; padding: 8px; }
+    :where(.chaoxing-list-root) .v-col-8 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+    :where(.chaoxing-list-root) .v-col-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+    :where(.chaoxing-list-root) .v-table { width: 100%; overflow: hidden; background: #fff; }
+    :where(.chaoxing-list-root) .v-table__wrapper { overflow-x: auto; }
+    :where(.chaoxing-list-root) .v-table__wrapper > table { width: 100%; border-collapse: collapse; }
+    :where(.chaoxing-list-root) .v-table th,
+    :where(.chaoxing-list-root) .v-table td { padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left; }
+    :where(.chaoxing-list-root) .v-data-table-header__content { display: flex; align-items: center; gap: 6px; }
+    :where(.chaoxing-list-root) .v-data-table-footer { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding: 8px 16px; }
+    :where(.chaoxing-list-root) .v-input { display: flex; flex-direction: column; min-width: 0; margin-bottom: 12px; }
+    :where(.chaoxing-list-root) .v-input__control { display: flex; }
+    :where(.chaoxing-list-root) .v-field { display: flex; align-items: center; min-height: 48px; padding: 0 12px; border: 1px solid #888; border-radius: 4px; }
+    :where(.chaoxing-list-root) .v-field__field,
+    :where(.chaoxing-list-root) .v-field__input { display: flex; flex: 1 1 auto; align-items: center; min-width: 0; }
+    :where(.chaoxing-list-root) .v-field__input input { width: 100%; min-width: 0; padding: 8px 0; border: 0; outline: 0; color: inherit; background: transparent; font: inherit; }
+    :where(.chaoxing-list-root) .v-switch .v-selection-control { display: inline-flex; align-items: center; gap: 10px; }
+    :where(.chaoxing-list-root) .v-switch .v-selection-control__wrapper { display: inline-flex; align-items: center; }
+    :where(.chaoxing-list-root) .v-switch .v-switch__track { width: 36px; height: 20px; border-radius: 10px; background: #aaa; }
+    :where(.chaoxing-list-root) .v-switch .v-switch__thumb { width: 16px; height: 16px; margin: 2px; border-radius: 50%; background: #fff; }
+    :where(.chaoxing-list-root) .v-progress-linear { position: relative; width: 100%; height: 4px; overflow: hidden; background: #ddd; }
+    :where(.chaoxing-list-root) .v-progress-linear__determinate,
+    :where(.chaoxing-list-root) .v-progress-linear__indeterminate { position: absolute; inset: 0 auto 0 0; width: 40%; background: #1976d2; }
+    :where(.chaoxing-list-root) .v-icon { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 1em; height: 1em; font-size: 24px; line-height: 1; vertical-align: middle; }
+    :where(.chaoxing-list-root) .material-icons { display: inline-block; font-family: "Material Icons", "Segoe UI Symbol", sans-serif; font-weight: normal; font-style: normal; line-height: 1; white-space: nowrap; letter-spacing: normal; text-transform: none; }
+  `;
   let dashboardStylesPromise = null;
+  const materialIconsFontAvailable = vue.ref(false);
+
+  const installDashboardStyleFallback = () => {
+    if (document.getElementById('chaoxing-vuetify-fallback-style')) return;
+    const fallbackStyle = document.createElement('style');
+    fallbackStyle.id = 'chaoxing-vuetify-fallback-style';
+    fallbackStyle.textContent = DASHBOARD_STYLE_FALLBACK_CSS;
+    (document.head || document.documentElement).appendChild(fallbackStyle);
+  };
 
   const loadDashboardStylesheet = ({ name, url }) => new Promise((resolve) => {
     if (typeof GM_xmlhttpRequest !== 'function') {
@@ -1736,6 +1785,15 @@
           if (response.status >= 200 && response.status < 300 && response.responseText) {
             try {
               GM_addStyle(response.responseText);
+              if (name === 'Material Icons' && document.fonts?.load) {
+                document.fonts.load('24px "Material Icons"', 'check')
+                  .then((loadedFonts) => {
+                    materialIconsFontAvailable.value = loadedFonts.some((font) => font.status === 'loaded');
+                  })
+                  .catch(() => {
+                    materialIconsFontAvailable.value = false;
+                  });
+              }
               resolve(true);
             } catch (error) {
               console.warn(`[脚本] 注入 ${name} 样式失败:`, error);
@@ -1762,6 +1820,7 @@
   });
 
   const ensureDashboardStyles = () => {
+    installDashboardStyleFallback();
     if (!dashboardStylesPromise) {
       dashboardStylesPromise = Promise.all(DASHBOARD_STYLESHEETS.map(loadDashboardStylesheet));
     }
@@ -2068,13 +2127,28 @@
       };
     }
   });
+  const MATERIAL_ICON_FALLBACKS = {
+    keyboard_arrow_up: '⌃', check: '✓', cancel: '×', close: '×', check_circle: '✓',
+    info: 'ⓘ', priority_high: '!', warning: '⚠', chevron_left: '‹', chevron_right: '›',
+    check_box: '☑', check_box_outline_blank: '□', indeterminate_check_box: '⊟',
+    fiber_manual_record: '•', arrow_upward: '↑', arrow_downward: '↓', keyboard_arrow_down: '⌄',
+    menu: '☰', arrow_drop_down: '▾', radio_button_checked: '⦿', radio_button_unchecked: '◯',
+    edit: '✎', star_border: '☆', star: '★', star_half: '◐', cached: '↻', first_page: '|‹',
+    last_page: '›|', unfold_more: '↕', attach_file: '📎', add: '+', remove: '−', event: '▦',
+    arrow_right: '›', colorize: '✎', search: '⌕', settings: '⚙', refresh: '↻',
+    more_vert: '⋮', visibility: '◉', visibility_off: '⊘', arrow_back: '←', arrow_forward: '→',
+    help: '?', notifications: '♢', delete: '×', filter_list: '☷', open_in_new: '↗'
+  };
   const VLigatureIcon = defineComponent({
     name: "VLigatureIcon",
     props: makeIconProps(),
     setup(props) {
       return () => {
+        const icon = materialIconsFontAvailable.value
+          ? props.icon
+          : MATERIAL_ICON_FALLBACKS[props.icon] || '•';
         return vue.createVNode(props.tag, null, {
-          default: () => [props.icon]
+          default: () => [icon]
         });
       };
     }
