@@ -1,6 +1,6 @@
 # 学习通作业 / 考试 / 待办列表
 
-![版本](https://img.shields.io/badge/版本-2.5.0-blue?style=flat-square) ![许可证](https://img.shields.io/badge/协议-AGPL--3.0-green?style=flat-square) [![修改者](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh) ![原作者](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
+![版本](https://img.shields.io/badge/版本-2.5.1-blue?style=flat-square) ![许可证](https://img.shields.io/badge/协议-AGPL--3.0-green?style=flat-square) [![修改者](https://img.shields.io/badge/修改者-Coren-orange?style=flat-square)](https://github.com/Cooanyh) ![原作者](https://img.shields.io/badge/原作者-甜檸Cirtron-ff69b4?style=flat-square)
 
 > 面向超星学习通网页版的用户脚本，用于汇总待办、作业、考试、课程任务和课程进度。
 
@@ -37,7 +37,7 @@
 
 ## 更新记录
 
-当前版本为 v2.5.0，新增分阶段临近任务提醒，并优化课程进度和待办排序。完整版本历史见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本为 v2.5.1，优化首次启用稳定性、临近任务提醒和窄屏仪表盘适配。完整版本历史见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 问题反馈
 

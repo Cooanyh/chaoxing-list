@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         学习通作业/考试/任务列表（优化版）
 // @namespace    https://github.com/Cooanyh
-// @version      2.5.0
+// @version      2.5.1
 // @author       甜檸Cirtron (lcandy2); Modified by Coren
 // @description  【优化版】支持作业、考试与课程任务快速查看；提供统一设置、截止提醒、任务分类筛选、按课程忽略及任务引擎模块汇总。
 // @license      AGPL-3.0-or-later
@@ -16,15 +16,14 @@
 // @match        *://mooc1-api.chaoxing.com/work/stu-work*
 // @match        *://mooc1-api.chaoxing.com/exam-ans/exam/phone/examcode*
 // @match        *://mooc1.chaoxing.com/exam-ans/exam/test/examcode/examlist*
-// @require      https://registry.npmmirror.com/vue/3.4.27/files/dist/vue.global.prod.js
+// @require      https://cdn.jsdelivr.net/npm/vue@3.4.27/dist/vue.global.prod.js
 // @require      data:application/javascript,%3Bwindow.Vue%3DVue%3B
-// @require      https://registry.npmmirror.com/vuetify/3.6.6/files/dist/vuetify.min.js
+// @require      https://cdn.jsdelivr.net/npm/vuetify@3.6.6/dist/vuetify.min.js
 // @require      data:application/javascript,%3B
-// @resource     VuetifyStyle                                                   https://registry.npmmirror.com/vuetify/3.6.6/files/dist/vuetify.min.css
-// @resource     material-design-icons-iconfont/dist/material-design-icons.css  https://fonts.googlefonts.cn/css?family=Material+Icons
 // @grant        GM_addStyle
-// @grant        GM_getResourceText
 // @grant        GM_xmlhttpRequest
+// @connect      cdn.jsdelivr.net
+// @connect      fonts.googlefonts.cn
 // @connect      mooc1-api.chaoxing.com
 // @connect      mobilelearn.chaoxing.com
 // @connect      stat2-ans.chaoxing.com
@@ -569,6 +568,58 @@
     else if (document.querySelector("ul.funclistul")) {
       createMenuItemLegacy('dashboard', '📊 学习仪表盘', 'zne_bj_icon', URL_DASHBOARD);
     }
+  };
+
+  const getDashboardMenuItem = () => document.querySelector(
+    '#first1000000, #first_chaoxing_assignment_dashboard, #li_chaoxing-assignment-dashboard a, a[href*="chaoxing-dashboard"]'
+  );
+
+  const startDashboardMenuBootstrap = () => {
+    let stopped = false;
+    let autoOpenScheduled = false;
+    let observerTimer = null;
+
+    const stop = () => {
+      if (stopped) return;
+      stopped = true;
+      observer.disconnect();
+      clearInterval(pollTimer);
+      clearTimeout(stopTimer);
+      if (observerTimer !== null) clearTimeout(observerTimer);
+      window.removeEventListener('pagehide', stop);
+    };
+
+    const ensureMenu = () => {
+      if (stopped) return;
+      initMenus();
+      if (autoOpenScheduled) return;
+      const menuItem = getDashboardMenuItem();
+      if (!menuItem) return;
+
+      autoOpenScheduled = true;
+      setTimeout(() => {
+        const currentMenuItem = getDashboardMenuItem();
+        if (currentMenuItem?.isConnected) {
+          currentMenuItem.click();
+          console.log('[脚本] 自动切换到学习仪表盘');
+        }
+      }, 500);
+    };
+
+    const scheduleEnsureMenu = () => {
+      if (stopped || observerTimer !== null) return;
+      observerTimer = setTimeout(() => {
+        observerTimer = null;
+        ensureMenu();
+      }, 100);
+    };
+
+    const observer = new MutationObserver(scheduleEnsureMenu);
+    observer.observe(document.documentElement || document, { childList: true, subtree: true });
+    const pollTimer = setInterval(ensureMenu, 1000);
+    const stopTimer = setTimeout(stop, 60000);
+    window.addEventListener('pagehide', stop, { once: true });
+    ensureMenu();
   };
 
   // 新标签页打开的菜单项创建函数
@@ -1509,12 +1560,14 @@
       let title = "";
       let status = "";
       let uncommitted = false;
+      let statusKnown = false;
       let course = "";
       let leftTime = "";
       if (optionElement) {
         title = ((_a = optionElement.querySelector("p")) == null ? void 0 : _a.textContent) || "";
         const statusElement = optionElement.querySelector("span:nth-of-type(1)");
         status = (statusElement == null ? void 0 : statusElement.textContent) || "";
+        statusKnown = !!statusElement;
         uncommitted = (statusElement == null ? void 0 : statusElement.className.includes("status")) || false;
         course = ((_b = optionElement.querySelector("span:nth-of-type(2)")) == null ? void 0 : _b.textContent) || "";
         leftTime = ((_c = optionElement.querySelector(".fr")) == null ? void 0 : _c.textContent) || "";
@@ -1530,7 +1583,7 @@
         courseId = searchParams.get("courseId") || "";
         clazzId = searchParams.get("clazzId") || "";
       }
-      return { type: "作业", title, status, uncommitted, course, leftTime, workId, courseId, clazzId, raw };
+      return { type: "作业", title, status, statusKnown, uncommitted, course, leftTime, workId, courseId, clazzId, raw };
     });
     return tasks;
   }
@@ -1655,11 +1708,124 @@
   const API_VISIT_COURSE = "https://mooc1.chaoxing.com/visit/stucoursemiddle?ismooc2=1";
   const API_EXAM_LIST = "https://mooc1.chaoxing.com/exam-ans/exam/test/examcode/examlist?edition=1&nohead=0&fid=";
   const API_OPEN_EXAM = "https://mooc1-api.chaoxing.com/exam-ans/exam/test/examcode/examnotes";
-  const cssLoader = (e) => {
-    const t = GM_getResourceText(e);
-    return GM_addStyle(t), t;
+  const DASHBOARD_STYLESHEETS = [
+    {
+      name: 'Vuetify',
+      url: 'https://cdn.jsdelivr.net/npm/vuetify@3.6.6/dist/vuetify.min.css'
+    },
+    {
+      name: 'Material Icons',
+      url: 'https://fonts.googlefonts.cn/css?family=Material+Icons'
+    }
+  ];
+  // 先同步注入必要的组件基础样式；完整 Vuetify 样式在后台加载后会覆盖这些规则。
+  const DASHBOARD_STYLE_FALLBACK_CSS = `
+    :where(.chaoxing-list-root) .v-application { min-height: 100vh; color: #212121; background: #fff; font-family: Arial, "Microsoft YaHei", sans-serif; line-height: 1.5; }
+    :where(.chaoxing-list-root) .v-application__wrap { display: flex; flex-direction: column; min-height: 100vh; }
+    :where(.chaoxing-list-root) .v-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px; }
+    :where(.chaoxing-list-root) .v-card { display: block; position: relative; overflow: hidden; border-radius: 4px; color: #212121; background: #fff; }
+    :where(.chaoxing-list-root) .v-card-title { display: flex; align-items: center; padding: 16px; font-size: 1.25rem; font-weight: 500; line-height: 1.5; }
+    :where(.chaoxing-list-root) .v-card-subtitle { padding: 0 16px; color: #666; font-size: .875rem; }
+    :where(.chaoxing-list-root) .v-card-text { padding: 16px; }
+    :where(.chaoxing-list-root) .v-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 64px; min-height: 36px; padding: 0 16px; border: 0; border-radius: 4px; color: #fff; background: #1976d2; font: inherit; font-size: .875rem; font-weight: 500; text-decoration: none; cursor: pointer; }
+    :where(.chaoxing-list-root) .v-btn__content { display: inline-flex; align-items: center; justify-content: center; }
+    :where(.chaoxing-list-root) .v-chip { display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 16px; color: #333; background: #eee; font-size: .8125rem; }
+    :where(.chaoxing-list-root) .v-alert { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-radius: 4px; color: #333; background: #f5f5f5; }
+    :where(.chaoxing-list-root) .v-row { display: flex; flex-wrap: wrap; margin: -8px; }
+    :where(.chaoxing-list-root) .v-col { flex: 1 0 0; max-width: 100%; padding: 8px; }
+    :where(.chaoxing-list-root) .v-col-8 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+    :where(.chaoxing-list-root) .v-col-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+    :where(.chaoxing-list-root) .v-table { width: 100%; overflow: hidden; background: #fff; }
+    :where(.chaoxing-list-root) .v-table__wrapper { overflow-x: auto; }
+    :where(.chaoxing-list-root) .v-table__wrapper > table { width: 100%; border-collapse: collapse; }
+    :where(.chaoxing-list-root) .v-table th,
+    :where(.chaoxing-list-root) .v-table td { padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left; }
+    :where(.chaoxing-list-root) .v-data-table-header__content { display: flex; align-items: center; gap: 6px; }
+    :where(.chaoxing-list-root) .v-data-table-footer { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding: 8px 16px; }
+    :where(.chaoxing-list-root) .v-input { display: flex; flex-direction: column; min-width: 0; margin-bottom: 12px; }
+    :where(.chaoxing-list-root) .v-input__control { display: flex; }
+    :where(.chaoxing-list-root) .v-field { display: flex; align-items: center; min-height: 48px; padding: 0 12px; border: 1px solid #888; border-radius: 4px; }
+    :where(.chaoxing-list-root) .v-field__field,
+    :where(.chaoxing-list-root) .v-field__input { display: flex; flex: 1 1 auto; align-items: center; min-width: 0; }
+    :where(.chaoxing-list-root) .v-field__input input { width: 100%; min-width: 0; padding: 8px 0; border: 0; outline: 0; color: inherit; background: transparent; font: inherit; }
+    :where(.chaoxing-list-root) .v-switch .v-selection-control { display: inline-flex; align-items: center; gap: 10px; }
+    :where(.chaoxing-list-root) .v-switch .v-selection-control__wrapper { display: inline-flex; align-items: center; }
+    :where(.chaoxing-list-root) .v-switch .v-switch__track { width: 36px; height: 20px; border-radius: 10px; background: #aaa; }
+    :where(.chaoxing-list-root) .v-switch .v-switch__thumb { width: 16px; height: 16px; margin: 2px; border-radius: 50%; background: #fff; }
+    :where(.chaoxing-list-root) .v-progress-linear { position: relative; width: 100%; height: 4px; overflow: hidden; background: #ddd; }
+    :where(.chaoxing-list-root) .v-progress-linear__determinate,
+    :where(.chaoxing-list-root) .v-progress-linear__indeterminate { position: absolute; inset: 0 auto 0 0; width: 40%; background: #1976d2; }
+    :where(.chaoxing-list-root) .v-icon { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 1em; height: 1em; font-size: 24px; line-height: 1; vertical-align: middle; }
+    :where(.chaoxing-list-root) .material-icons { display: inline-block; font-family: "Material Icons", "Segoe UI Symbol", sans-serif; font-weight: normal; font-style: normal; line-height: 1; white-space: nowrap; letter-spacing: normal; text-transform: none; }
+  `;
+  let dashboardStylesPromise = null;
+  const materialIconsFontAvailable = vue.ref(false);
+
+  const installDashboardStyleFallback = () => {
+    if (document.getElementById('chaoxing-vuetify-fallback-style')) return;
+    const fallbackStyle = document.createElement('style');
+    fallbackStyle.id = 'chaoxing-vuetify-fallback-style';
+    fallbackStyle.textContent = DASHBOARD_STYLE_FALLBACK_CSS;
+    (document.head || document.documentElement).appendChild(fallbackStyle);
   };
-  cssLoader("VuetifyStyle");
+
+  const loadDashboardStylesheet = ({ name, url }) => new Promise((resolve) => {
+    if (typeof GM_xmlhttpRequest !== 'function') {
+      console.warn(`[脚本] GM_xmlhttpRequest 不可用，跳过 ${name} 样式`);
+      resolve(false);
+      return;
+    }
+
+    try {
+      GM_xmlhttpRequest({
+        method: 'GET',
+        url,
+        timeout: 15000,
+        onload: (response) => {
+          if (response.status >= 200 && response.status < 300 && response.responseText) {
+            try {
+              GM_addStyle(response.responseText);
+              if (name === 'Material Icons' && document.fonts?.load) {
+                document.fonts.load('24px "Material Icons"', 'check')
+                  .then((loadedFonts) => {
+                    materialIconsFontAvailable.value = loadedFonts.some((font) => font.status === 'loaded');
+                  })
+                  .catch(() => {
+                    materialIconsFontAvailable.value = false;
+                  });
+              }
+              resolve(true);
+            } catch (error) {
+              console.warn(`[脚本] 注入 ${name} 样式失败:`, error);
+              resolve(false);
+            }
+            return;
+          }
+          console.warn(`[脚本] 获取 ${name} 样式失败，HTTP ${response.status}`);
+          resolve(false);
+        },
+        onerror: (error) => {
+          console.warn(`[脚本] 获取 ${name} 样式失败:`, error);
+          resolve(false);
+        },
+        ontimeout: () => {
+          console.warn(`[脚本] 获取 ${name} 样式超时`);
+          resolve(false);
+        }
+      });
+    } catch (error) {
+      console.warn(`[脚本] 请求 ${name} 样式失败:`, error);
+      resolve(false);
+    }
+  });
+
+  const ensureDashboardStyles = () => {
+    installDashboardStyleFallback();
+    if (!dashboardStylesPromise) {
+      dashboardStylesPromise = Promise.all(DASHBOARD_STYLESHEETS.map(loadDashboardStylesheet));
+    }
+    return dashboardStylesPromise;
+  };
 
   // --- Vue Components ---
   const _sfc_main$2 = /* @__PURE__ */ vue.defineComponent({
@@ -1722,8 +1888,6 @@
       };
     }
   });
-
-  cssLoader("material-design-icons-iconfont/dist/material-design-icons.css");
 
   // --- Vuetify Helper Functions (恢复原版代码) ---
   // 这些是原脚本为了适配图标组件而手写的一堆辅助函数，之前被误删
@@ -1963,13 +2127,28 @@
       };
     }
   });
+  const MATERIAL_ICON_FALLBACKS = {
+    keyboard_arrow_up: '⌃', check: '✓', cancel: '×', close: '×', check_circle: '✓',
+    info: 'ⓘ', priority_high: '!', warning: '⚠', chevron_left: '‹', chevron_right: '›',
+    check_box: '☑', check_box_outline_blank: '□', indeterminate_check_box: '⊟',
+    fiber_manual_record: '•', arrow_upward: '↑', arrow_downward: '↓', keyboard_arrow_down: '⌄',
+    menu: '☰', arrow_drop_down: '▾', radio_button_checked: '⦿', radio_button_unchecked: '◯',
+    edit: '✎', star_border: '☆', star: '★', star_half: '◐', cached: '↻', first_page: '|‹',
+    last_page: '›|', unfold_more: '↕', attach_file: '📎', add: '+', remove: '−', event: '▦',
+    arrow_right: '›', colorize: '✎', search: '⌕', settings: '⚙', refresh: '↻',
+    more_vert: '⋮', visibility: '◉', visibility_off: '⊘', arrow_back: '←', arrow_forward: '→',
+    help: '?', notifications: '♢', delete: '×', filter_list: '☷', open_in_new: '↗'
+  };
   const VLigatureIcon = defineComponent({
     name: "VLigatureIcon",
     props: makeIconProps(),
     setup(props) {
       return () => {
+        const icon = materialIconsFontAvailable.value
+          ? props.icon
+          : MATERIAL_ICON_FALLBACKS[props.icon] || '•';
         return vue.createVNode(props.tag, null, {
-          default: () => [props.icon]
+          default: () => [icon]
         });
       };
     }
@@ -3566,7 +3745,7 @@
           .map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
         todoItems.value = [...todoItems.value.filter(item => !item.isActivity), ...ongoingActivities]
           .sort(compareTodoItemsByDeadline);
-        evaluateDeadlineReminders();
+        scheduleDeadlineReminderEvaluation();
       };
 
       const hydrateShortTermCache = () => {
@@ -3913,19 +4092,156 @@
       const deadlineReminderItems = vue.ref([]);
       const deadlineReminderBannerItems = vue.ref([]);
       const showDeadlineReminderDialog = vue.ref(false);
+      const deadlineReminderDiagnostics = vue.ref([]);
+      const showDeadlineReminderDiagnostics = vue.ref(false);
       let deadlineReminderState = getDeadlineReminderState();
       let deadlineReminderTimer = null;
+      let deadlineReminderEvaluationTimer = null;
+      let deadlineReminderEvaluationInProgress = false;
+      let deadlineReminderEvaluationQueued = false;
       const systemNotifiedReminderIds = new Set();
+      const reminderDiagnosticSignatures = new Map();
+      const DEADLINE_REMINDER_DIAGNOSTIC_LIMIT = 30;
+      const DEADLINE_REMINDER_EVALUATION_DEBOUNCE_MS = 50;
+      const REMINDER_SOURCE_LABELS = { todo: '待办', homework: '作业', exam: '考试' };
+
+      const getReminderStatusTexts = (item) => [
+        item?.status,
+        item?.answerStatus,
+        item?.examStatus,
+        item?.completionStatus,
+        item?.taskStatus
+      ].filter(value => value !== null && value !== undefined && value !== '')
+        .map(value => String(value).trim())
+        .filter(Boolean);
+
+      const isReminderSourceCompleted = (item) => {
+        const statusTexts = getReminderStatusTexts(item);
+        const status = statusTexts.join(' ');
+        const homeworkHasExplicitStatus = item?.type === '作业'
+          && item?.statusKnown === true
+          && item?.uncommitted === false
+          && statusTexts.length > 0
+          && !/未完成|未提交|待提交|进行中/.test(status);
+        return item?.finished === true
+          || item?.expired === true
+          || homeworkHasExplicitStatus
+          || /已完成|已提交|待批阅|已结束|已截止|已过期|已批阅/.test(status);
+      };
 
       const isReminderItemIncomplete = (item) => {
-        const status = `${item?.status || ''}`;
-        return item?.finished !== true
-          && item?.expired !== true
-          && !/已完成|已提交|待批阅|已结束|已截止/.test(status);
+        return item?._reminderExplicitlyCompleted !== true && !isReminderSourceCompleted(item)
+          && !(item?._reminderStatusTexts || []).some(status => /已完成|已提交|待批阅|已结束|已截止|已过期/.test(status));
+      };
+
+      const getReminderSections = (item, sources = []) => {
+        const sections = new Set(['todo']);
+        if (item?.type === '作业') sections.add('homework');
+        if (item?.type === '考试') sections.add('exam');
+        if (item?.isActivity) sections.add(getTaskEnginePlanSection(item));
+        sources.forEach(source => {
+          if (source === 'homework' || source === 'exam') sections.add(source);
+        });
+        return [...sections];
+      };
+
+      const getReminderItems = () => {
+        const itemsByTaskKey = new Map();
+        const sourceLists = [
+          ['todo', todoItems.value],
+          ['homework', homeworkItems.value],
+          ['exam', examItems.value]
+        ];
+
+        sourceLists.forEach(([source, items]) => {
+          items.forEach(sourceItem => {
+            if (!sourceItem || typeof sourceItem !== 'object') return;
+            const item = { ...sourceItem };
+            if (!item.type) item.type = source === 'homework' ? '作业' : (source === 'exam' ? '考试' : '任务');
+            if (!item.course && item.courseName) item.course = item.courseName;
+            const taskKey = getTaskReminderKey(item);
+            const existing = itemsByTaskKey.get(taskKey);
+            const sourceStatusTexts = getReminderStatusTexts(item);
+            const sourceDeadlineAt = getTaskDeadlineTimestamp(item);
+            const relativeText = `${item.leftTime || item.timeLeft || item.info || ''}`.trim();
+            const sourceRemainingMinutes = parseTaskRemainingMinutes(relativeText);
+            const merged = existing ? { ...existing } : {};
+            Object.entries(item).forEach(([key, value]) => {
+              if (value !== null && value !== undefined && value !== '') merged[key] = value;
+            });
+            const sources = [...new Set([...(existing?._reminderSources || []), source])];
+            const statuses = [...new Set([...(existing?._reminderStatusTexts || []), ...sourceStatusTexts])];
+
+            merged._reminderSources = sources;
+            merged._reminderSections = getReminderSections(merged, sources);
+            merged._reminderStatusTexts = statuses;
+            merged._reminderExplicitlyCompleted = existing?._reminderExplicitlyCompleted === true
+              || isReminderSourceCompleted(item);
+
+            if (Number.isFinite(sourceDeadlineAt)) {
+              merged._reminderDeadlineAt = sourceDeadlineAt;
+              merged._reminderDeadlineSource = source;
+              merged._reminderRelativeText = '';
+            } else if (!Number.isFinite(existing?._reminderDeadlineAt) && Number.isFinite(sourceRemainingMinutes)) {
+              merged._reminderRelativeText = relativeText;
+              merged._reminderDeadlineSource = source;
+            }
+
+            itemsByTaskKey.set(taskKey, merged);
+          });
+        });
+
+        return itemsByTaskKey;
+      };
+
+      const getReminderDeadlineDescription = (item, deadlineAt = NaN) => {
+        if (Number.isFinite(deadlineAt)) return new Date(deadlineAt).toLocaleString();
+        return `${item?._reminderRelativeText || item?.timeRange || item?.endTime || item?.timeLeft || item?.leftTime || item?.info || '未提供截止时间'}`.slice(0, 120);
+      };
+
+      const recordReminderSkip = (item, taskKey, reason, deadlineAt = NaN) => {
+        const deadlineText = getReminderDeadlineDescription(item, deadlineAt);
+        const sources = item?._reminderSources || [];
+        const signature = `${reason}|${sources.join(',')}`;
+        if (reminderDiagnosticSignatures.get(taskKey) === signature) return;
+        reminderDiagnosticSignatures.set(taskKey, signature);
+        const entry = {
+          taskKey,
+          title: item?.title || '未命名任务',
+          type: item?.type || '任务',
+          reason,
+          deadlineText,
+          sources: sources.map(source => REMINDER_SOURCE_LABELS[source] || source).join('、') || '待办',
+          checkedAt: new Date().toLocaleTimeString()
+        };
+        deadlineReminderDiagnostics.value = [
+          entry,
+          ...deadlineReminderDiagnostics.value.filter(previous => previous.taskKey !== taskKey)
+        ].slice(0, DEADLINE_REMINDER_DIAGNOSTIC_LIMIT);
+        console.info('[临近提醒][跳过原因]', {
+          title: entry.title,
+          type: entry.type,
+          reason: entry.reason,
+          deadline: entry.deadlineText,
+          sources: entry.sources
+        });
+      };
+
+      const clearReminderSkip = (taskKey) => {
+        reminderDiagnosticSignatures.delete(taskKey);
+        deadlineReminderDiagnostics.value = deadlineReminderDiagnostics.value
+          .filter(entry => entry.taskKey !== taskKey);
+      };
+
+      const clearReminderDiagnostics = () => {
+        reminderDiagnosticSignatures.clear();
+        deadlineReminderDiagnostics.value = [];
       };
 
       const resolveReminderDeadline = (item, entry, now) => {
-        const absoluteDeadline = getTaskDeadlineTimestamp(item);
+        const absoluteDeadline = Number.isFinite(item?._reminderDeadlineAt)
+          ? item._reminderDeadlineAt
+          : getTaskDeadlineTimestamp(item);
         if (Number.isFinite(absoluteDeadline)) {
           if (entry.deadlineSource === 'absolute'
             && Number.isFinite(entry.deadlineAt)
@@ -3940,7 +4256,7 @@
           return absoluteDeadline;
         }
 
-        const relativeText = `${item?.leftTime || item?.timeLeft || item?.info || ''}`.trim();
+        const relativeText = `${item?._reminderRelativeText || item?.leftTime || item?.timeLeft || item?.info || ''}`.trim();
         const remainingMinutes = parseTaskRemainingMinutes(relativeText);
         if (!Number.isFinite(remainingMinutes) || remainingMinutes < 0) return NaN;
 
@@ -4095,11 +4411,15 @@
         }
       };
 
-      const evaluateDeadlineReminders = () => {
+      const runDeadlineReminderEvaluation = () => {
+        const reminderItemsByTaskKey = getReminderItems();
         if (!settings.value.deadlineReminderEnabled) {
           deadlineReminderItems.value = [];
           deadlineReminderBannerItems.value = [];
           showDeadlineReminderDialog.value = false;
+          reminderItemsByTaskKey.forEach((item, taskKey) => {
+            recordReminderSkip(item, taskKey, '全局临近提醒已关闭');
+          });
           return;
         }
 
@@ -4107,14 +4427,27 @@
         deadlineReminderState = getDeadlineReminderState();
         const taskStates = deadlineReminderState.tasks;
         const eligibleItems = new Map();
-        todoItems.value.forEach(item => {
-          if (!isReminderItemIncomplete(item)) return;
-          const reminderItem = { ...item, _sectionType: 'todo' };
-          if (isItemIgnored(reminderItem, 'todo') || isDynamicallyIgnored(reminderItem, 'todo', settings.value)) return;
-          const taskKey = getTaskReminderKey(item);
-          if (!eligibleItems.has(taskKey)) eligibleItems.set(taskKey, item);
+        reminderItemsByTaskKey.forEach((item, taskKey) => {
+          if (!isReminderItemIncomplete(item)) {
+            const status = (item._reminderStatusTexts || getReminderStatusTexts(item)).join('、');
+            recordReminderSkip(item, taskKey, status ? `任务状态已完成或关闭：${status}` : '任务已完成或关闭');
+            return;
+          }
+
+          const sections = item._reminderSections || ['todo'];
+          const ignored = sections.some(section => {
+            const sectionItem = { ...item, _sectionType: section };
+            return isItemIgnored(sectionItem, section)
+              || isDynamicallyIgnored(sectionItem, section, settings.value);
+          });
+          if (ignored) {
+            recordReminderSkip(item, taskKey, '任务或所属课程已忽略');
+            return;
+          }
+
+          eligibleItems.set(taskKey, item);
         });
-        const rawItems = new Map(todoItems.value.map(item => [getTaskReminderKey(item), item]));
+        const rawItems = reminderItemsByTaskKey;
         const newAlerts = [];
         const newBannerAlerts = [];
         let stateChanged = false;
@@ -4137,8 +4470,21 @@
           entry.bannerDismissedStages = entry.bannerDismissedStages && typeof entry.bannerDismissedStages === 'object'
             ? entry.bannerDismissedStages
             : {};
+          if (entry.muted) {
+            recordReminderSkip(item, taskKey, '已关闭此任务提醒');
+            taskStates[taskKey] = entry;
+            return;
+          }
+
           const deadlineAt = resolveReminderDeadline(item, entry, now);
-          if (!Number.isFinite(deadlineAt) || deadlineAt <= now || entry.muted) {
+          if (!Number.isFinite(deadlineAt)) {
+            recordReminderSkip(item, taskKey, '截止时间解析失败');
+            taskStates[taskKey] = entry;
+            if (!previousEntry || previousEntryJson !== JSON.stringify(entry)) stateChanged = true;
+            return;
+          }
+          if (deadlineAt <= now) {
+            recordReminderSkip(item, taskKey, '截止时间已过');
             taskStates[taskKey] = entry;
             if (!previousEntry || previousEntryJson !== JSON.stringify(entry)) stateChanged = true;
             return;
@@ -4159,6 +4505,7 @@
             entry.stages[threshold.key] && !entry.acknowledgedStages[threshold.key]);
           const pendingThreshold = pendingThresholds[pendingThresholds.length - 1];
           if (pendingThreshold) {
+            clearReminderSkip(taskKey);
             newAlerts.push({
               id: `${taskKey}:${Math.round(deadlineAt)}:${pendingThreshold.key}`,
               taskKey,
@@ -4166,6 +4513,10 @@
               deadlineAt,
               item
             });
+          } else if (currentThreshold && entry.acknowledgedStages[currentThreshold.key]) {
+            recordReminderSkip(item, taskKey, `已确认当前提醒阶段（${currentThreshold.label}）`, deadlineAt);
+          } else {
+            recordReminderSkip(item, taskKey, '尚未进入 12 小时提醒范围', deadlineAt);
           }
 
           const pendingBannerThresholds = DEADLINE_REMINDER_THRESHOLDS.filter(threshold =>
@@ -4203,7 +4554,7 @@
 
         if (stateChanged) saveDeadlineReminderState(deadlineReminderState);
         if (newAlerts.length) {
-          showDeadlineReminderDialog.value = true;
+          if (!showDeadlineReminderDialog.value) showDeadlineReminderDialog.value = true;
           const notificationsToSend = newAlerts
             .filter(alert => !systemNotifiedReminderIds.has(alert.id))
             .sort((a, b) => a.deadlineAt - b.deadlineAt);
@@ -4213,13 +4564,41 @@
         if (!deadlineReminderItems.value.length) showDeadlineReminderDialog.value = false;
       };
 
+      const evaluateDeadlineReminders = () => {
+        if (deadlineReminderEvaluationInProgress) {
+          deadlineReminderEvaluationQueued = true;
+          return;
+        }
+
+        deadlineReminderEvaluationInProgress = true;
+        try {
+          runDeadlineReminderEvaluation();
+        } catch (error) {
+          console.error('[临近提醒] 检查失败:', error);
+        } finally {
+          deadlineReminderEvaluationInProgress = false;
+          if (deadlineReminderEvaluationQueued) {
+            deadlineReminderEvaluationQueued = false;
+            scheduleDeadlineReminderEvaluation();
+          }
+        }
+      };
+
+      const scheduleDeadlineReminderEvaluation = () => {
+        if (deadlineReminderEvaluationTimer !== null) return;
+        deadlineReminderEvaluationTimer = setTimeout(() => {
+          deadlineReminderEvaluationTimer = null;
+          evaluateDeadlineReminders();
+        }, DEADLINE_REMINDER_EVALUATION_DEBOUNCE_MS);
+      };
+
       const startDeadlineReminderMonitoring = () => {
         if (deadlineReminderTimer) clearInterval(deadlineReminderTimer);
         evaluateDeadlineReminders();
         deadlineReminderTimer = setInterval(evaluateDeadlineReminders, DEADLINE_REMINDER_CHECK_INTERVAL);
       };
       const handleReminderPageVisibility = () => {
-        if (document.visibilityState === 'visible') evaluateDeadlineReminders();
+        if (document.visibilityState === 'visible') scheduleDeadlineReminderEvaluation();
       };
 
       // 各板块已忽略数量
@@ -4455,6 +4834,11 @@
         let pendingExams = [];
         const seenExamIds = new Set();
 
+        // 先发布已从当前页面读到的作业，避免等待考试接口期间漏掉临近截止提醒。
+        todoItems.value = [...pendingTasks, ...todoItems.value.filter(item => item.isActivity || item.type === '考试')]
+          .sort(compareTodoItemsByDeadline);
+        scheduleDeadlineReminderEvaluation();
+
         try {
           const res1 = await fetch('https://mooc1-api.chaoxing.com/exam-ans/exam/phone/examcode');
           const text1 = await res1.text();
@@ -4493,7 +4877,7 @@
         todoItems.value = todoItems.value.map(item => ({ ...item, isUrgent: isTodoItemUrgent(item) }));
 
         loading.value.todo = false;
-        evaluateDeadlineReminders();
+        scheduleDeadlineReminderEvaluation();
       };
 
       // 获取作业数据
@@ -4505,6 +4889,7 @@
           const parser = new DOMParser();
           const doc = parser.parseFromString(text, 'text/html');
           homeworkItems.value = extractTasks(doc);
+          scheduleDeadlineReminderEvaluation();
         } catch (e) { console.error('[仪表盘] 获取作业失败:', e); }
         loading.value.homework = false;
       };
@@ -4518,6 +4903,7 @@
           const parser = new DOMParser();
           const doc = parser.parseFromString(text, 'text/html');
           examItems.value = extractExams(doc);
+          scheduleDeadlineReminderEvaluation();
         } catch (e) { console.error('[仪表盘] 获取考试失败:', e); }
         loading.value.exam = false;
       };
@@ -4721,7 +5107,7 @@
           ]),
           vue.createVNode('section', { class: 'settings-section', style: 'margin-top:18px;' }, [
             vue.createVNode('h3', { style: 'margin:0 0 8px;' }, '临近任务提醒'),
-            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '仅在超星页面打开且脚本运行时检查；提醒已加载、未忽略、未完成且可识别截止时间的待办。'),
+            vue.createVNode('p', { style: 'margin:0 0 12px;color:#64748b;' }, '合并已加载的待办、作业和考试；仅提醒未忽略、未完成且能识别截止时间的任务。列表加载后立即检查，并每 30 秒补充检查。'),
             vue.createVNode('label', { class: 'settings-toggle-row' }, [
               vue.createVNode('input', { class: 'settings-toggle-input', type: 'checkbox', checked: settings.value.deadlineReminderEnabled, 'aria-label': '开启临近任务提醒', onChange: e => updateSetting('deadlineReminderEnabled', e.target.checked) }),
               vue.createVNode('span', { class: 'settings-toggle-track', 'aria-hidden': 'true' }, [
@@ -4749,7 +5135,29 @@
                 onClick: requestDeadlineBrowserNotifications
               }, window.Notification?.permission === 'denied' ? '查看权限说明' : (window.Notification?.permission === 'granted' ? '检查通知授权' : '授权系统通知'))
             ]),
-            vue.createVNode('div', { class: 'progress-delay-help' }, '“去完成”关闭该任务当前提醒；“我知道了”关闭当前批次，两者都不会取消后续阶段提醒。“不再提醒”会屏蔽该任务之后的提醒。隐藏类别仍会提醒，忽略的任务或课程不会提醒。若在其他标签页完成任务，请刷新本页同步完成状态。多个任务会合并显示并按截止时间排序。')
+            vue.createVNode('div', { class: 'progress-delay-help' }, '“去完成”关闭该任务当前提醒；“我知道了”关闭当前批次，两者都不会取消后续阶段提醒。“不再提醒”会屏蔽该任务之后的提醒。隐藏类别仍会提醒，忽略的任务或课程不会提醒。若在其他标签页完成任务，请刷新本页同步完成状态。多个任务会合并显示并按截止时间排序。'),
+            vue.createVNode('button', {
+              class: 'external-link-btn reminder-diagnostics-toggle',
+              onClick: () => { showDeadlineReminderDiagnostics.value = !showDeadlineReminderDiagnostics.value; }
+            }, `${showDeadlineReminderDiagnostics.value ? '隐藏' : '查看'}最近跳过原因（${deadlineReminderDiagnostics.value.length}）`),
+            showDeadlineReminderDiagnostics.value
+              ? vue.createVNode('div', { class: 'reminder-diagnostic-list' }, deadlineReminderDiagnostics.value.length
+                ? [
+                    ...deadlineReminderDiagnostics.value.map(diagnostic => vue.createVNode('article', { class: 'reminder-diagnostic-item' }, [
+                      vue.createVNode('div', { class: 'reminder-diagnostic-heading' }, [
+                        vue.createVNode('strong', null, `${diagnostic.title} · ${diagnostic.type}`),
+                        vue.createVNode('span', null, diagnostic.checkedAt)
+                      ]),
+                      vue.createVNode('div', { class: 'reminder-diagnostic-reason' }, diagnostic.reason),
+                      vue.createVNode('div', { class: 'reminder-diagnostic-meta' }, `来源：${diagnostic.sources}；截止信息：${diagnostic.deadlineText}`)
+                    ])),
+                    vue.createVNode('button', {
+                      class: 'external-link-btn reminder-diagnostics-clear',
+                      onClick: clearReminderDiagnostics
+                    }, '清空记录')
+                  ]
+                : [vue.createVNode('div', { class: 'empty-state' }, '暂未记录跳过原因')])
+              : null
           ]),
           vue.createVNode('div', { class: 'settings-group-heading settings-group-heading-spaced' }, [
             vue.createVNode('h3', null, '筛选与忽略'),
@@ -4921,7 +5329,7 @@
         cleanupDashboardCache();
         hydrateShortTermCache();
         setInterval(cleanupDashboardCache, DASHBOARD_CACHE_TTL);
-        window.addEventListener('focus', evaluateDeadlineReminders);
+        window.addEventListener('focus', scheduleDeadlineReminderEvaluation);
         document.addEventListener('visibilitychange', handleReminderPageVisibility);
         startDeadlineReminderMonitoring();
         loadTodoData();
@@ -4934,7 +5342,8 @@
       });
       vue.onUnmounted(() => {
         if (deadlineReminderTimer) clearInterval(deadlineReminderTimer);
-        window.removeEventListener('focus', evaluateDeadlineReminders);
+        if (deadlineReminderEvaluationTimer !== null) clearTimeout(deadlineReminderEvaluationTimer);
+        window.removeEventListener('focus', scheduleDeadlineReminderEvaluation);
         document.removeEventListener('visibilitychange', handleReminderPageVisibility);
       });
 
@@ -5458,6 +5867,15 @@
           .settings-section > p { color: #64748b; font-size: 13px; line-height: 1.6; }
           .reminder-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
           .reminder-settings-row .settings-toggle-row { flex: 1 1 340px; }
+          .reminder-diagnostics-toggle { margin-top: 12px; }
+          .reminder-diagnostic-list { display: grid; gap: 8px; margin-top: 10px; }
+          .reminder-diagnostic-item { min-width: 0; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+          .reminder-diagnostic-heading { display: flex; justify-content: space-between; gap: 10px; color: #334155; font-size: 12px; }
+          .reminder-diagnostic-heading strong { overflow-wrap: anywhere; }
+          .reminder-diagnostic-heading span, .reminder-diagnostic-meta { color: #64748b; font-size: 11px; }
+          .reminder-diagnostic-reason { margin-top: 5px; color: #9a3412; font-size: 12px; font-weight: 650; }
+          .reminder-diagnostic-meta { margin-top: 4px; overflow-wrap: anywhere; line-height: 1.5; }
+          .reminder-diagnostics-clear { justify-self: start; }
           .settings-detail-body .progress-delay-help { padding: 10px 12px; border-radius: 8px; background: #f1f5f9; color: #52637b; line-height: 1.6; }
           .external-link-btn:disabled { opacity: .55; cursor: not-allowed; }
           .detail-list-item {
@@ -5980,19 +6398,8 @@
             color: #999;
           }
 
-          /* 中小屏按可用宽度切为单列，避免宿主的桌面布局视口造成右侧卡片被裁切。 */
-          @media (max-width: 1100px), (max-device-width: 768px) {
-            .dashboard-grid { grid-template-columns: minmax(0, 1fr); }
-            .progress-card { grid-column: span 1; }
-            .dashboard-grid > .card, .dashboard-grid .card-body { min-width: 0; max-width: 100%; }
-            .dashboard-grid .list-item, .dashboard-grid .detail-list-item { align-items: flex-start; flex-wrap: wrap; gap: 7px; padding: 12px 6px; }
-            .dashboard-grid .item-main, .dashboard-grid .detail-list-item .item-main { flex: 1 1 100%; min-width: 0; margin-right: 0; }
-            .dashboard-grid .task-title { white-space: normal; overflow-wrap: anywhere; }
-            .dashboard-grid .item-time-status { width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
-          }
-
           /* 移动端适配 */
-          @media (max-width: 768px) {
+          @media (max-width: 640px) {
             .dashboard-wrapper { padding: 10px; }
             .welcome-row {
               flex-wrap: wrap;
@@ -6032,8 +6439,8 @@
             .course-ignore-onboarding { right: 16px; bottom: 16px; }
           }
 
-          /* 依据仪表盘实际内容宽度适配，覆盖手机浏览器的桌面布局视口。 */
-          @container chaoxing-main (max-width: 1100px) {
+          /* 仅在仪表盘内容区确实较窄时切换紧凑布局，避免桌面侧栏触发手机版样式。 */
+          @container chaoxing-main (max-width: 660px) {
             .dashboard-header { min-width: 0; padding: 15px; }
             .welcome-row {
               flex-wrap: wrap;
@@ -7594,6 +8001,7 @@
 
   const appendApp = () => {
     ensureResponsiveViewport();
+    ensureDashboardStyles();
     const vuetify$1 = vuetify.createVuetify({
       icons: {
         defaultSet: "md",
@@ -7636,29 +8044,11 @@
   }
   if (urlDetect === "home") {
     fixCssConflict();
-    initMenus();
-    // 延迟后自动点击仪表盘菜单
-    setTimeout(() => {
-      const dashboardMenuItem = document.querySelector('#first1000000') ||
-        document.querySelector('#first_chaoxing_assignment_dashboard');
-      if (dashboardMenuItem) {
-        dashboardMenuItem.click();
-        console.log('[脚本] 自动切换到学习仪表盘');
-      }
-    }, 500);
+    startDashboardMenuBootstrap();
   }
   if (urlDetect === "legacyHome") {
     fixCssConflict();
-    initMenus();
-    // 延迟后自动点击仪表盘菜单
-    setTimeout(() => {
-      const dashboardMenuItem = document.querySelector('#first_chaoxing_assignment_dashboard') ||
-        document.querySelector('a[href*="chaoxing-dashboard"]');
-      if (dashboardMenuItem) {
-        dashboardMenuItem.click();
-        console.log('[脚本] 自动切换到学习仪表盘');
-      }
-    }, 500);
+    startDashboardMenuBootstrap();
   }
 
 })(Vuetify, Vue);
